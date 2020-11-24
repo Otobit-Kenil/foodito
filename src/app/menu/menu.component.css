@@ -1,0 +1,83 @@
+.bar {
+    margin-bottom: 2px;
+    background: url("../../assets/Light Card.svg");
+}
+
+.searchbar {
+    float: left;
+    border: 1px solid #707070;
+    height: 49px;
+    width: 220px;
+    border-radius: 50px;
+    padding: 11px;
+    box-shadow: -10px -10px white;
+}
+
+.filterbar {
+    float: right;
+    border: 1px solid #707070;
+    height: 49px;
+    width: 118px;
+    border-radius: 50px;
+    padding: 11px;
+    box-shadow: -10px -10px white;
+}
+
+.filter {
+    display: -webkit-box;
+}
+
+.search {
+    display: -webkit-box;
+}
+
+.specail h4 {
+    font-size: 13px;
+    color: #1B2845;
+    padding-top: 40px;
+    padding-left: 20px;
+}
+
+.product {
+    border: 1px solid #707070;
+    height: 117px;
+    width: 370px;
+    background-image: url("../../assets/Button.svg");
+    margin-left: 15px;
+    border-radius: 10px;
+}
+
+.productimg {
+    height: 93px;
+    width: 109px;
+}
+
+.pro-detail {
+    text-align: center;
+    margin-top: -70px;
+}
+
+.pro-detail h4 {
+    font-size: 13px;
+    color: #1B2845;
+    padding-top: 1px;
+}
+
+.pro-detail h3 {
+    color: #1B2845;
+    padding-top: 1px;
+    font-size: 17px;
+}
+
+.add {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.ADD {
+    position: relative;
+    text-align: center;
+}

@@ -124,5 +124,8 @@
       }
     }
   },
-  "defaultProject": "foodito"
+  "defaultProject": "foodito",
+  "cli": {
+    "analytics": "4ed8ab48-caed-4b5a-a5c0-e061e6d9fc30"
+  }
 }

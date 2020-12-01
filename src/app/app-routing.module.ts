@@ -5,6 +5,7 @@ import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
   { path: 'menu', component: MenuComponent },
+  { path: 'menu/:userid', component: MenuComponent },
   { path: 'cart', component: CartComponent }
 ];
 

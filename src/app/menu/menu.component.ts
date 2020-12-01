@@ -8,10 +8,14 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  tableno: any;
+  constructor( private route: ActivatedRoute) { }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+    this.route.params.subscribe((res) => {
+      this.tableno = res['userid'];
+      console.log(this.tableno)
+    })
   }
 
 }

@@ -2,9 +2,9 @@
     border: 1px #707070;
     height: auto;
     width: auto;
-    background-image: url("../../assets/Group 99.svg");
     border-radius: 10px;
     margin: 5px;
+    padding-bottom: 35px;
 }
 
 .productimg {
@@ -30,5 +30,58 @@
     padding-top: 1px;
     font-size: 17px;
     /* font-weight: bold */
-    ;
+    
 }
+.delete {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.delete a{
+    font-size: 9px;
+    color: #F5F5F5;
+}
+.DELETE {
+    position: relative;
+    text-align: center;
+    margin-left: 275px;
+    margin-top: -54px;
+    border: 1px solid #707070;
+    height: 18px;
+    width: 62px;
+    border-radius: 10px;
+    background-color: #1B2845;
+}
+
+.productlist{
+
+    width: 344px;
+  height: 400px;
+  border: 1px black;
+  overflow-y: scroll; 
+
+  
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+
+}
+
+.productlist::-webkit-scrollbar {
+    display: none;
+}
+
+.Request{
+  
+    
+}
+.Request h4{
+font-size: 13px;
+color: #1B2845;
+}
+.Request p{
+    font-size: 10px;
+    color: #1B2845;
+} 

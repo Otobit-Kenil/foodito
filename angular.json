@@ -17,6 +17,16 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "angularfire2",
+            "firebase",
+            "firebase/app",
+            "@firebase/auth",
+        "@firebase/database",
+        "@angular/fire",
+        "fsevents",
+
+        "@firebase/firestore"],
             "outputPath": "dist/foodito",
             "index": "src/index.html",
             "main": "src/main.ts",

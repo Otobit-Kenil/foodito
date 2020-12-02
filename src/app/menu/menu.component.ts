@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-menu',
@@ -9,7 +10,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 })
 export class MenuComponent implements OnInit {
   tableno: any;
-  constructor( private route: ActivatedRoute) { }
+  constructor( private route: ActivatedRoute ) { }
 
   ngOnInit() {
     this.route.params.subscribe((res) => {

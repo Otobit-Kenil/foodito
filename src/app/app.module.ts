@@ -10,17 +10,19 @@ import {AngularFirestoreModule } from 'angularfire2/firestore';
 import {AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
+import { OrderComponent } from './order/order.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     HeaderComponent,
-    CartComponent
+    CartComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
-    AngularFireModule.initializeApp(environment.firebase, 'FoodOrderingSystem'),
+    AngularFireModule.initializeApp(environment.firebase, 'foodito'),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AppRoutingModule

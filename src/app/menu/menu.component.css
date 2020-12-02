@@ -31,6 +31,7 @@
 
 .cate {
     background-image: url("../../assets/Group 99.svg");
+    background-repeat: no-repeat;
 }
 
 .cate_icon {
@@ -54,11 +55,11 @@
     width: auto;
     background-image: url("../../assets/Button.svg");
     border-radius: 10px;
-    margin: 5px;
+
     
 }
 
-.productimg {
+.productimg img{
     height: 93px;
     width: 109px;
 }
@@ -145,5 +146,12 @@
   scroll-behavior: smooth;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+  position: relative;
+  left: -2px;
 
+}
+
+.set{
+    position: relative;
+    left: -10px;
 }

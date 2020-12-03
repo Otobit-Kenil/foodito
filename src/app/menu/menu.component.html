@@ -24,28 +24,28 @@
         <div class="specail">
             <h4> <b>Our Speciality</b></h4>
             <div class="Sproduct">
-                
+
                 <div class="product set">
                     <div>
-                    <div class="productimg">
-                        <img src="../../assets/Group 25.svg" alt="">
-                    </div>
-                    <div class="pro-detail">
-                        <h3><b>Food</b></h3>
-                        <h4>Info</h4>
-                        <h3><b>238</b> Rs</h3>
-                    </div>
-                    <div class="Specail_add">
-
-                        <div class="add">
-                            <a><b>Add</b></a>
+                        <div class="productimg">
+                            <img src="../../assets/Group 25.svg" alt="">
                         </div>
+                        <div class="pro-detail">
+                            <h3><b>Food</b></h3>
+                            <h4>Info</h4>
+                            <h3><b>238</b> Rs</h3>
+                        </div>
+                        <div class="Specail_add">
 
+                            <div class="add">
+                                <a><b>Add</b></a>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-                
+
                 <div class="product set">
                     <div class="productimg">
                         <img src="../../assets/Group 25.svg" alt="">
@@ -84,14 +84,14 @@
 
         <div class="productlist">
 
-            <div class="product">
+            <div class="product" *ngFor="let m of menu">
                 <div class="productimg">
-                    <img src="../../assets/Group 25.svg" alt="">
+                    <img src="{{m.imageUrl}}" alt="">
                 </div>
                 <div class="pro-detail">
-                    <h3><b>Salad</b></h3>
-                    <h4>Info</h4>
-                    <h3><b>238</b> Rs</h3>
+                    <h3><b>{{m.foodName}}</b></h3>
+                    <h4>{{m.description}}</h4>
+                    <h3><b>{{m.price}}</b> ₹</h3>
                 </div>
                 <div class="ADD">
 
@@ -104,7 +104,7 @@
             </div>
 
 
-            <div class="product">
+            <!-- <div class="product">
                 <div class="productimg">
                     <img src="../../assets/Group 25.svg" alt="">
                 </div>
@@ -184,7 +184,7 @@
                         <a><b>Add</b></a>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

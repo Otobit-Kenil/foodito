@@ -23,6 +23,7 @@ import { OrderComponent } from './order/order.component';
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase, 'foodito'),
+    AngularFirestoreModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     AppRoutingModule

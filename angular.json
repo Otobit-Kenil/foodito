@@ -20,7 +20,7 @@
             "allowedCommonJsDependencies": [
               "angularfire2",
             "firebase",
-            "firebase/app",
+            "@firebase/app",
             "@firebase/auth",
         "@firebase/database",
         "@angular/fire",

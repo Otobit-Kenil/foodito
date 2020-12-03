@@ -8,9 +8,19 @@ import { environment } from 'src/environments/environment';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent implements OnInit {  
   tableno: any;
-  constructor( private route: ActivatedRoute ) { }
+ menu:any;
+
+  constructor(private route: ActivatedRoute, db: AngularFirestore) {
+
+   const data = db.collection('FoodsCollection').valueChanges().subscribe((res) => {
+     this.menu =res;
+   });
+    
+    console.log(this.menu);
+
+    }
 
   ngOnInit() {
     this.route.params.subscribe((res) => {
@@ -20,3 +30,23 @@ export class MenuComponent implements OnInit {
   }
 
 }
+
+
+
+
+
+
+
+// db.collection('FoodsCollection').valueChanges().subscribe((data: any[]) =>
+
+    //   console.log());
+
+// this.menu = data.subscribe();
+
+    // db.collection('FoodsCollection').valueChanges().subscribe((data) => {
+    //   let d = data
+    //   food.push(d);
+
+    // });
+    // console.log(food);
+  

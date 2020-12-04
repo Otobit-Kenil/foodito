@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'menu/:userid', component: MenuComponent },
   { path: 'cart', component: CartComponent },
   { path: 'order', component: OrderComponent },
-  // { path: 'cart/order', component: OrderComponent }
+  { path: 'cart/order', component: OrderComponent }
 
 ];
 

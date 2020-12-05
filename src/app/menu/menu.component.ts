@@ -3,13 +3,21 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { snapshotChanges } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { environment } from 'src/environments/environment';
+import {FormControl} from '@angular/forms';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 
 @Component({
-  selector: 'app-menu',
+  selector: 'app-menu', 
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
+
+
   tableno: any;
   menu: any = [];
   detail: any = [];
@@ -20,6 +28,7 @@ export class MenuComponent implements OnInit {
     const data = db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.menu = res;
       console.log(this.menu);
+      console.log("particular pID",this.menu.filter())
     });
 
 
@@ -35,25 +44,7 @@ export class MenuComponent implements OnInit {
 
   
 
-    db.collection('FoodsCollection').valueChanges().subscribe((res) => {
-      for (var i = 0; i < this.menu.length; i++) {
-        if (this.menu[i]['isVeg'] == true) {
-          this.veg.push(this.menu[i]);
-        }
-      }
-      console.log("veg", this.veg);
-    });
-
-
-
-    db.collection('FoodsCollection').valueChanges().subscribe((res) => {
-      for (var i = 0; i < this.menu.length; i++) {
-        if (this.menu[i]['isVeg'] == false) {
-          this.nVeg.push(this.menu[i]);
-        }
-      }
-      console.log("Non - veg", this.nVeg);
-    });
+   
 
 
   }
@@ -65,6 +56,9 @@ export class MenuComponent implements OnInit {
     })
   }
 
+  Add_Item(){
+      console.log()
+  }
 }
 
 
@@ -96,3 +90,28 @@ export class MenuComponent implements OnInit {
     //      querySnapshot.forEach(function(doc) {
     //          available.push(doc.data().name);
     //      });
+
+
+
+
+
+     // db.collection('FoodsCollection').valueChanges().subscribe((res) => {
+    //   for (var i = 0; i < this.menu.length; i++) {
+    //     if (this.menu[i]['isVeg'] == true) {
+    //       this.veg.push(this.menu[i]);
+    //     }
+    //   }
+    //   console.log("veg", this.veg);
+    // });
+
+
+
+    // db.collection('FoodsCollection').valueChanges().subscribe((res) => {
+    //   for (var i = 0; i < this.menu.length; i++) {
+    //     if (this.menu[i]['isVeg'] == false) {
+    //       this.nVeg.push(this.menu[i]);
+          
+    //     }
+    //   }
+    //   console.log("Non - veg", this.nVeg);
+    // });

@@ -3,19 +3,29 @@
 
         <div class="bar">
             <div class="searchbar">
-                <div class="search">
-                    <img src="../../assets/Icon feather-search.svg" alt=""> &nbsp;
-                    <p>Search</p>
+                <div class="search_icon">
+                    <img src="../../assets/Icon feather-search.svg" alt="searchbar">
                 </div>
+                <form class="example-form">
+                    <input type="text" class="search-input" placeholder="Search" aria-label="Number" matInput [formControl]="myControl">
+                    <mat-autocomplete>
+                        <mat-option *ngFor="let option of options" [value]="option">
+                            {{option}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </form>
+
+                <div class="filterbar">
+                    <div class="filter">
+                        <input type="checkbox">
+                        <input type="checkbox">
+                    </div>
+                </div>
+
             </div>
 
 
-            <div class="filterbar">
-                <div class="filter">
-                    <img src="../../assets/Icon feather-filter.svg" alt=""> &nbsp;
-                    <p>Filter</p>
-                </div>
-            </div>
+
 
         </div>
 
@@ -31,14 +41,16 @@
                             <img src="{{m.imageUrl}}" alt="">
                         </div>
                         <div class="pro-detail">
+
                             <h3><b>{{m.foodName}}</b></h3>
                             <h4>{{m.description}}</h4>
                             <h3><b>{{m.price}}</b> ₹</h3>
+
                         </div>
                         <div class="Specail_add">
 
                             <div class="add">
-                                <a><b>Add</b></a>
+                                <h3 (click)="Add_Item($m.foodId)">Add</h3>
                             </div>
 
                         </div>
@@ -77,7 +89,7 @@
                 <div class="ADD">
 
                     <div class="add">
-                        <a><b>Add</b></a>
+                        <h3 (click)="Add_Item()">Add</h3>
                     </div>
 
                 </div>

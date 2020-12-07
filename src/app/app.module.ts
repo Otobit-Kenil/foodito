@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
 import { OrderComponent } from './order/order.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import { FoodComponent } from './food/food.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MenuComponent,
     HeaderComponent,
     CartComponent,
-    OrderComponent
+    OrderComponent,
+    FoodComponent
   ],
   imports: [
     BrowserModule,

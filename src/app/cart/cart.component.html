@@ -7,72 +7,14 @@
                 <img src="../../assets/Group 25.svg" alt="">
             </div>
             <div class="pro-detail">
-                <h3><b>Salad</b></h3>
+                <h3>Salad</h3>
                 <h4>Info</h4>
-                <h3><b>238</b> Rs</h3>
+                <h3>238 Rs</h3>
             </div>
 
-            <div class="DELETE">
-                <div class="delete">
-                    <a><b>Delete</b></a>
-                </div>
-            </div>
         </div>
 
 
-        <div class="product">
-            <div class="productimg">
-                <img src="../../assets/Group 25.svg" alt="">
-            </div>
-            <div class="pro-detail">
-                <h3><b>Salad</b></h3>
-                <h4>Info</h4>
-                <h3><b>238</b> Rs</h3>
-            </div>
-
-            <div class="DELETE">
-                <div class="delete">
-                    <a><b>Delete</b></a>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="product">
-            <div class="productimg">
-                <img src="../../assets/Group 25.svg" alt="">
-            </div>
-            <div class="pro-detail">
-                <h3><b>Salad</b></h3>
-                <h4>Info</h4>
-                <h3><b>238</b> Rs</h3>
-            </div>
-
-            <div class="DELETE">
-                <div class="delete">
-                    <a><b>Delete</b></a>
-                </div>
-            </div>
-        </div>
-
-        <div class="product">
-            <div class="productimg">
-                <img src="../../assets/Group 25.svg" alt="">
-            </div>
-            <div class="pro-detail">
-                <h3><b>Salad</b></h3>
-                <h4>Info</h4>
-                <h3><b>238</b> Rs</h3>
-            </div>
-
-            <div class="DELETE">
-                <div class="delete">
-                    <a><b>Delete</b></a>
-                </div>
-            </div>
-        </div>
-
-        
         <div class="row">
             <div class="Request">
                 <div class="service_req">
@@ -81,12 +23,9 @@
                     </h4>
                 </div>
                 <p>
-                    Myers adds that asking the kitchen to leave specific ingredients
-                    off Myers adds that asking the kitchen to leave specific ingredients
-                    off Myers adds that asking the kitchen to leave specific ingredients
-                    off </p>
+                    Myers adds that asking the kitchen to leave specific ingredients off Myers adds that asking the kitchen to leave specific ingredients off Myers adds that asking the kitchen to leave specific ingredients off </p>
             </div>
-            <div class="Ingredients">
+            <!-- <div class="Ingredients">
                 <div class="ingri">
                     <h4>
                         Add Ingredients
@@ -98,15 +37,28 @@
                         <p>Search</p>
                     </div>
                 </div>
-            </div>
-           
+            </div> -->
+
         </div>
         <div class="ORDER">
             <div class="order">
-             <span routerLink="order"> Order</span>
+                <span routerLink="order"> Order</span>
             </div>
         </div>
 
+        <div class="qty">
+            <button onclick="decrement('value')">-</button>
+            <input id=demoInput type=number min=1 max=100 value="1" />
+            <button onclick="increment('value')">+</button>
+        </div>
+        <script>
+            function increment() {
+                document.getElementById('demoInput').stepUp();
+            }
 
+            function decrement() {
+                document.getElementById('demoInput').stepDown();
+            }
+        </script>
 
     </div>

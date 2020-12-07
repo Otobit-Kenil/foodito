@@ -3,6 +3,10 @@
 }
 
 .back-bg {
-    background: url('../../assets/Group 33.svg');
+    padding: 10px;
+    background: #F7F7F7;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px #DDDDDD, 6px 6px 12px #DDDDDD;
+    margin-bottom: 20px;
     padding: 10px;
 }

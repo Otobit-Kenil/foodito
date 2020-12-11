@@ -19,10 +19,10 @@
 
                 <div class="filterbar">
                     <div class="custom01" style="margin-right: 15px;">
-                        <input type="radio" id="radio03-01" name="demo01" /><label for="radio03-01"></label>
+                        <input type="radio" id="radio03-01" name="demo01" (click)="Veg()" /><label for="radio03-01"></label>
                     </div>
                     <div class="custom02">
-                        <input type="radio" id="radio03-02" name="demo01" /><label for="radio03-02"></label>
+                        <input type="radio" id="radio03-02" name="demo01" (click)="NonVeg()" /><label for="radio03-02"></label>
                     </div>
                 </div>
             </div>
@@ -41,14 +41,15 @@
                         </div>
                         <div class="pro-detail">
 
-                            <h3>{{m.foodName}}</h3>
+                            <h3 routerLink="/food">{{m.foodName}}</h3>
+
                             <h4>{{m.description}}</h4>
                             <h3>{{m.price}} ₹</h3>
 
                         </div>
                         <div class="Specail_add">
                             <div class="add">
-                                <h3 (click)="Add_Item($m.foodId)">Add</h3>
+                                <h3 (click)="Add_Item(m)">Add</h3>
                             </div>
                         </div>
                     </div>
@@ -60,11 +61,11 @@
 
         <div class="cate">
             <div class="cate_icon">
-                <div class="cate_icon_title">
+                <div class="cate_icon_title" *ngFor="let c of cate">
                     <img src="../../assets/1 (1).svg" alt="">
-                    <h2>Grains</h2>
+                    <h2>{{c.categoryName}}</h2>
                 </div>
-                <div class="cate_icon_title">
+                <!-- <div class="cate_icon_title">
                     <img src="../../assets/1 (2).svg" alt="">
                     <h2>Ice Cream</h2>
                 </div>
@@ -79,13 +80,11 @@
                 <div class="cate_icon_title">
                     <img src="../../assets/1 (4).svg" alt="">
                     <h2>Chicken</h2>
-                </div>
+                </div> -->
+
+
             </div>
-            <!-- <div class="cate_text">
-                <h4>Grain</h4>
-                <h4>ice cream</h4>
-                <h4>Meat</h4>
-            </div> -->
+
         </div>
 
         <div class="productlist">
@@ -102,7 +101,7 @@
                 <div class="ADD">
 
                     <div class="add">
-                        <h3 (click)="Add_Item()">Add</h3>
+                        <h3 (click)="Add_Item(m)">Add</h3>
                     </div>
 
                 </div>

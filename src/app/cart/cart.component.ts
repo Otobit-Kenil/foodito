@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+cart:any = [];
+  constructor() {}
+    
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+    this.cart = JSON.parse(localStorage.getItem('test') || '[]');
+    console.log(this.cart)
+   }
   }
 
-}
+

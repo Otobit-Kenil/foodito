@@ -2,14 +2,14 @@
     <div class="container">
 
 
-        <div class="product">
+        <div class="product" *ngFor="let c of cart">
             <div class="productimg">
-                <img src="../../assets/Group 25.svg" alt="">
+                <img src="{{c.displayImageUrl}}" alt="">
             </div>
             <div class="pro-detail">
-                <h3>Salad</h3>
-                <h4>Info</h4>
-                <h3>238 Rs</h3>
+                <h3>{{c.foodName}}</h3>
+                <h4>{{c.description}}</h4>
+                <h3>{{c.price}} ₹</h3>
             </div>
 
         </div>

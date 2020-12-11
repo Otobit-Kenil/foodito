@@ -14,12 +14,14 @@
     display: flex;
     justify-content: space-between;
     margin-top: 22px;
+    position: absolute;
+    right: 30px;
 }
 
 .search-input {
     height: auto;
     font-size: 13px;
-    width: 80%;
+    width: 100%;
     padding: 5px;
     border: 1px solid #F5F5FF;
     padding-left: 30px;
@@ -35,6 +37,10 @@
     margin-top: 10px;
     margin-bottom: 10px;
     box-shadow: 0 1px 3px #DDDDDD, 6px 6px 6px #DDDDDD;
+    width: 344px;
+    height: 93px;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }
 
 .cate_icon {
@@ -102,6 +108,7 @@
     font-size: 17px;
     /* font-weight: bold */
     margin-bottom: 0px;
+    font-weight: bold;
 }
 
 .Specail_add {
@@ -120,6 +127,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.add h3 {
+    margin-bottom: 0px;
 }
 
 .ADD {

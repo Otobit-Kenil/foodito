@@ -6,16 +6,12 @@ import { environment } from 'src/environments/environment';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
-
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
-  myControl = new FormControl();
-
 
   cart: any = [];
   tableno: any;
@@ -24,7 +20,7 @@ export class MenuComponent implements OnInit {
   veg: any = [];
   nVeg: any = [];
   cate: any = [];
-  constructor(private route: ActivatedRoute, db: AngularFirestore) {
+  constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router) {
 
     const data = db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.menu = res;
@@ -33,11 +29,9 @@ export class MenuComponent implements OnInit {
       for (var i = 0; i < this.menu.length; i++) {
         if (this.menu[i]['isVeg'] == false) {
           this.nVeg.push(this.menu[i]);
-
         }
       }
       console.log("Non - veg", this.nVeg);
-
 
       for (var i = 0; i < this.menu.length; i++) {
         if (this.menu[i]['isVeg'] == true) {
@@ -45,7 +39,6 @@ export class MenuComponent implements OnInit {
         }
       }
       console.log("veg", this.veg);
-
 
       for (var i = 0; i < this.menu.length; i++) {
         if (this.menu[i]['isSpecial'] == true) {
@@ -56,22 +49,18 @@ export class MenuComponent implements OnInit {
       // console.log("particular pID",this.menu.filter())
     });
 
-
-    const cate = db.collection('Categories').valueChanges().subscribe((res) => {
+      const cate = db.collection('Categories').valueChanges().subscribe((res) => {
       this.cate = res;
       console.log(this.cate);
       // console.log("particular pID",this.menu.filter())
     });
-
-
-
-
   }
 
   ngOnInit() {
     this.route.params.subscribe((res) => {
       this.tableno = res['userid'];
       console.log(this.tableno)
+      localStorage.setItem("table", JSON.stringify(this.tableno));
     })
   }
 
@@ -90,75 +79,27 @@ export class MenuComponent implements OnInit {
       "price": m.price,
       "timing": m.timing,
       "qty": "1"
-      // "quantity":this.number,
-
-
-
     };
-
     this.cart = JSON.parse(localStorage.getItem('test') || '[]');
     console.log(this.cart);
-
-    
-        this.cart.push(cartItem);
-        localStorage.setItem("test", JSON.stringify(this.cart));
-        console.log("cart", this.cart);
+    this.cart.push(cartItem);
+    localStorage.setItem("test", JSON.stringify(this.cart));
+    console.log("cart", this.cart);
         // window.location.reload();
       }
-    
-  
 
   Veg() {
-
-
     this.menu = this.veg;
   }
 
   NonVeg() {
-
     this.menu = this.nVeg;
   }
-
-
-
-
+ 
+  item(m:any){
+    localStorage.removeItem("product");
+    localStorage.setItem("product", JSON.stringify(m));
+    JSON.parse(localStorage.getItem('product') || '[]');
+    this.router.navigateByUrl('/food');
+  }
 }
-
-
-
-
-
-
-
-// db.collection('FoodsCollection').valueChanges().subscribe((data: any[]) =>
-
-    //   console.log());
-
-// this.menu = data.subscribe();
-
-    // db.collection('FoodsCollection').valueChanges().subscribe((data) => {
-    //   let d = data
-    //   food.push(d);
-
-    // });
-    // console.log(food);
-
-
-
-    // db.collection('FoodsCollections').get().then(snapshot)
-
-    //  .where("isQuantitative", "==", "true")
-    //  .onSnapshot(function(querySnapshot) {
-    //      var available = [];
-    //      querySnapshot.forEach(function(doc) {
-    //          available.push(doc.data().name);
-    //      });
-
-
-
-
-
-
-
-
-

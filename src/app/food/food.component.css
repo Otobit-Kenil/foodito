@@ -32,6 +32,10 @@
     justify-content: space-between;
 }
 
+.food-photo img {
+    border-radius: 10px;
+}
+
 .info p {
     color: #1B2845;
     font-size: 11px;

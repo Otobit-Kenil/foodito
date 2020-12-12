@@ -1,22 +1,22 @@
 <div class="section">
     <div class="container">
-        <div class="food-detail">
+        <div class="food-detail" *ngFor="let f of food">
             <div class="food-name">
                 <div>
-                    <h2>Sandwich</h2>
-                    <h3>238 Rs</h3>
+                    <h2>{{f.foodName}}</h2>
+                    <h3>{{f.price}} ₹</h3>
                 </div>
                 <div class="food-ingri">
                     <img src="../../assets/food-ing.svg" alt="">
                 </div>
             </div>
             <div class="food-photo Sproduct">
-                <img src="../../assets/food1.png" alt="">
+                <img src="{{f.imageUrl}}" alt="">
                 <img src="../../assets/food2.png" alt="">
                 <img src="../../assets/food3.png" alt="">
             </div>
             <div class="info">
-                <p>Myers adds that asking the kitchen to leave specific ingredients off your plate.</p>
+                <p>{{f.description}}</p>
 
                 <p>
                     Myers adds that asking the kitchen to leave specific ingredients off your plate is usually okay (especially when it comes to garnishes). It’s substitutions that potentially cause problems. It’s substitutions that potentially cause problems. It’s substitutions
@@ -71,7 +71,7 @@
 
                 <div class="ADD">
                     <div class="add">
-                        <span routerLink="/"> Add</span>
+                        <span (click)="Add_Item(f)"> Add</span>
                     </div>
                 </div>
             </div>

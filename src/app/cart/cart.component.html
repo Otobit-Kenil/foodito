@@ -9,11 +9,19 @@
             <div class="pro-detail">
                 <h3>{{c.foodName}}</h3>
                 <h4>{{c.description}}</h4>
-                <h3>{{c.price}} ₹</h3>
+                <h3>{{c.qty*c.price}} ₹</h3>
+                <!-- <h5>{{c.qty}}</h5> -->
+            </div>
+            <div>
+                <h5>{{c.qty}}</h5>
             </div>
 
         </div>
 
+
+        <div class="final-p">
+            <h4>total : {{totalAmt}}</h4>
+        </div>
 
         <div class="row">
             <div class="Request">
@@ -42,7 +50,7 @@
         </div>
         <div class="ORDER">
             <div class="order">
-                <span routerLink="order"> Order</span>
+                <span routerLink="order" (click)="PlaceOrder() "> Order</span>
             </div>
         </div>
 

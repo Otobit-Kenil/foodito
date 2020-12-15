@@ -10,6 +10,7 @@ export class FoodComponent implements OnInit {
   food: any = [];
   fooditem: any;
   cart: any = [];
+  qty:number = 5;
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -19,7 +20,7 @@ export class FoodComponent implements OnInit {
   }
 
   Add_Item(f: any) {
-
+ 
     const cartItem = {
 
       "category": f.category,
@@ -32,7 +33,7 @@ export class FoodComponent implements OnInit {
       "isVeg": f.isVeg,
       "price": f.price,
       "timing": f.timing,
-      "qty": 1
+      "qty": this.qty
     };
 
     this.cart = JSON.parse(localStorage.getItem('test') || '[]');

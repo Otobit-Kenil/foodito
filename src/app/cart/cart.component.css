@@ -124,3 +124,43 @@
     background-color: #1B2845;
     margin-top: 10px;
 }
+
+.qty {
+    display: flex;
+    justify-content: space-evenly;
+    position: relative;
+    margin-top: 10px;
+}
+
+.qty h4 {
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 4px;
+}
+
+.qty h5 {
+    color: #000000;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 4px;
+}
+
+.tableinfo {
+    display: flex;
+    justify-content: space-around;
+}
+
+.cust {
+    display: flex;
+    padding: 5px;
+}
+
+.cust_name {
+    color: #1B2845;
+    font-size: 10px;
+}
+
+.qtycust {
+    display: grid;
+}

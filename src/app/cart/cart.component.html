@@ -1,7 +1,7 @@
 <div class="section">
     <div class="container">
 
-
+        <div class="tableinfo"> Table No. - {{tableNo}}</div>
         <div class="product" *ngFor="let c of cart">
             <div class="productimg">
                 <img src="{{c.displayImageUrl}}" alt="">
@@ -12,15 +12,26 @@
                 <h3>{{c.qty*c.price}} ₹</h3>
                 <!-- <h5>{{c.qty}}</h5> -->
             </div>
-            <div>
-                <h5>{{c.qty}}</h5>
+            <div class="qtycust">
+                <div class="qty">
+                    <h4 (click)="Minus(c)">-</h4>
+                    <h5>{{c.qty}}</h5>
+                    <h4 (click)="Plus(c)">+</h4>
+                </div>
+                <div class="cust">
+                    <div class="cust_name">Customize </div>
+                    <div class="cust-Icon"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
+                    </div>
+                </div>
+
+
             </div>
 
         </div>
 
 
         <div class="final-p">
-            <h4>total : {{totalAmt}}</h4>
+            <h4>Total : {{totalAmt}}</h4>
         </div>
 
         <div class="row">

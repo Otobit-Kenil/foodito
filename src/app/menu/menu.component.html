@@ -1,3 +1,4 @@
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 <div class="section">
     <div class="container">
 
@@ -44,7 +45,7 @@
                             <h3 (click)="item(m)">{{m.foodName}}</h3>
 
                             <h4>{{m.description}}</h4>
-                            <h3>{{m.price}} ₹</h3>
+                            <h5>{{m.price}} ₹</h5>
 
                         </div>
                         <div class=" Specail_add ">
@@ -62,8 +63,10 @@
         <div class="cate ">
             <div class="cate_icon ">
                 <div class="cate_icon_title " *ngFor="let c of cate ">
-                    <img src="../../assets/1 (1).svg " alt=" ">
-                    <h2>{{c.categoryName}}</h2>
+                    <div class="cat_slide">
+                        <img src="{{c.imgUrl}}" (click)="category(c)" alt=" ">
+                        <h2>{{c.categoryName}}</h2>
+                    </div>
                 </div>
                 <!-- <div class="cate_icon_title ">
                     <img src="../../assets/1 (2).svg " alt=" ">
@@ -96,9 +99,17 @@
                 <div class="pro-detail ">
                     <h3 (click)="item(m)">{{m.foodName}}</h3>
                     <h4>{{m.description}}</h4>
-                    <h3><b>{{m.price}}</b> ₹</h3>
+                    <h5><b>{{m.price}}</b> ₹</h5>
                 </div>
-                <div class="ADD ">
+                <!-- <div class="ADD " id="qty2" style="visibility: hidden;">
+
+                    <div class="add ">
+                        <h3>Add</h3>
+                    </div>
+
+                </div> -->
+
+                <div class="ADD">
 
                     <div class="add ">
                         <h3 (click)="Add_Item(m) ">Add</h3>
@@ -106,90 +117,8 @@
 
                 </div>
 
+
             </div>
-
-
-            <!-- <div class="product ">
-                <div class="productimg ">
-                    <img src="../../assets/Group 25.svg " alt=" ">
-                </div>
-                <div class="pro-detail ">
-                    <h3><b>Sandwich</b></h3>
-                    <h4>Info1</h4>
-                    <h3><b>238</b> Rs</h3>
-                </div>
-                <div class="ADD ">
-                    <div class="add ">
-                        <a><b>Add</b></a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="product ">
-                <div class="productimg ">
-                    <img src="../../assets/Group 25.svg " alt=" ">
-                </div>
-                <div class="pro-detail ">
-                    <h3><b> Hot Sandwich</b></h3>
-                    <h4>Info2</h4>
-                    <h3><b>238</b> Rs</h3>
-                </div>
-                <div class="ADD ">
-                    <div class="add ">
-                        <a><b>Add</b></a>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="product ">
-                <div class="productimg ">
-                    <img src="../../assets/Group 25.svg " alt=" ">
-                </div>
-                <div class="pro-detail ">
-                    <h3><b>Tea</b></h3>
-                    <h4>Info3</h4>
-                    <h3><b>23</b> Rs</h3>
-                </div>
-                <div class="ADD ">
-                    <div class="add ">
-                        <a><b>Add</b></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product ">
-                <div class="productimg ">
-                    <img src="../../assets/Group 25.svg " alt=" ">
-                </div>
-                <div class="pro-detail ">
-                    <h3><b>Bread</b></h3>
-                    <h4>Info4</h4>
-                    <h3><b>28</b> Rs</h3>
-                </div>
-                <div class="ADD ">
-                    <div class="add ">
-                        <a><b>Add</b></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product ">
-                <div class="productimg ">
-                    <img src="../../assets/Group 25.svg " alt=" ">
-                </div>
-                <div class="pro-detail ">
-                    <h3><b>Steak</b></h3>
-                    <h4>Info</h4>
-                    <h3><b>238</b> Rs</h3>
-                </div>
-                <div class="ADD ">
-                    <div class="add ">
-                        <a><b>Add</b></a>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>

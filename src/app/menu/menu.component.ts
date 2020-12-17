@@ -5,6 +5,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { environment } from 'src/environments/environment';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-menu',
@@ -14,20 +15,72 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 export class MenuComponent implements OnInit {
 
   cart: any = [];
+
   tableno: any;
+
+  initial: any = [];
   menu: any = [];
   detail: any = [];
   veg: any = [];
   nVeg: any = [];
   cate: any = [];
-  qty:number = 1;
+  qty: number = 1;
   uniq: any = [];
+  total: any = 0;
   constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router) {
 
     const data = db.collection('FoodsCollection').valueChanges().subscribe((res) => {
-      this.menu = res;
-      
+      this.initial = res
+   
+      var Hour = parseInt(moment().format('h'));
+      var format = moment().format('a');
+      console.log(Hour)
+      console.log(format)
 
+
+      if (Hour > 6 && Hour < 12) {
+        this.menu = [];
+        for (var i = 0; i < this.initial.length; i++) {
+          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Morning'] == true) {
+            this.menu.push(this.initial[i]);
+          }
+        }
+        console.log("mng", this.menu)
+      }
+      
+     
+      if (Hour == 12 && format =='pm' || Hour >= 1 && format == 'pm' || format == 'pm' &&  Hour < 6 ) {
+        this.menu = [];
+        for (var i = 0; i < this.initial.length; i++) {
+          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Afternoon'] == true) {
+            this.menu.push(this.initial[i]);
+          }
+        }
+        console.log("anoon", this.menu)
+      }
+
+      if (Hour >= 6 && format == 'pm' || format == 'pm' &&  Hour < 12 ) {
+        this.menu = [];
+        for (var i = 0; i < this.initial.length; i++) {
+          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Evening'] == true) {
+            this.menu.push(this.initial[i]);
+          }
+        }
+        console.log("eve", this.menu)
+      }
+
+      if (Hour == 12 && format =='am' || Hour >= 1 && format == 'am' || format == 'am' &&  Hour < 6 ) {
+        this.menu = [];
+        for (var i = 0; i < this.initial.length; i++) {
+          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Night'] == true) {
+            this.menu.push(this.initial[i]);
+          }
+        }
+        console.log("nig", this.menu)
+      }
+
+
+      this.nVeg = [];
       for (var i = 0; i < this.menu.length; i++) {
         if (this.menu[i]['isVeg'] == false) {
           this.nVeg.push(this.menu[i]);
@@ -35,6 +88,7 @@ export class MenuComponent implements OnInit {
       }
       // console.log("Non - veg", this.nVeg);
 
+      this.veg = [];
       for (var i = 0; i < this.menu.length; i++) {
         if (this.menu[i]['isVeg'] == true) {
           this.veg.push(this.menu[i]);
@@ -42,18 +96,19 @@ export class MenuComponent implements OnInit {
       }
       // console.log("veg", this.veg);
 
+      this.detail = [];
       for (var i = 0; i < this.menu.length; i++) {
         if (this.menu[i]['isSpecial'] == true) {
           this.detail.push(this.menu[i]);
         }
       }
-     
+      console.log("spe", this.detail);
       // console.log("particular pID",this.menu.filter())
     });
 
     const cate = db.collection('Categories').valueChanges().subscribe((res) => {
       this.cate = res;
-      
+
 
 
       for (var i = 0; i < this.cate.length; i++) {
@@ -75,7 +130,7 @@ export class MenuComponent implements OnInit {
   }
 
   Add_Item(m: any) {
-    
+
     const cartItem = {
 
       "category": m.category,
@@ -87,40 +142,62 @@ export class MenuComponent implements OnInit {
       "isSpecial": m.isSpecial,
       "isVeg": m.isVeg,
       "qty": this.qty,
-      "price": this.qty*m.price,
+      "price": parseInt(m.price),
+      "total": this.total,
       "timing": m.timing
-  
+
     };
     var flag = false;
-     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     for (var i = 0; i < this.cart.length; i++) {
       this.uniq = this.cart[i]
-      if (this.uniq.foodId  == m.foodId) {
+      if (this.uniq.foodId == m.foodId) {
         localStorage.removeItem('cart');
 
         console.log(this.uniq)
-        console.log("cart2",(this.cart));
-        this.cart[this.cart.indexOf(this.uniq)].qty += 1
-        console.log("cart3",(this.cart));
+        console.log("cart2", (this.cart));
+        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
+        this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        console.log(this.total)
+        console.log("cart3", (this.qty * m.price));
+        console.log("cart3", (this.cart));
         // this.uniq.qty = this.uniq.qty+1
-        localStorage.setItem("cart", JSON.stringify(this.cart));        
+        localStorage.setItem("cart", JSON.stringify(this.cart));
 
         flag = true
-        break   
-      
+        break
+
       }
-      else{
+      else {
         console.log("not same")
-  
+
       }
-    
+
     }
-    if(!flag){
-    this.cart.push(cartItem);
-    localStorage.setItem("cart", JSON.stringify(this.cart));
-    console.log("cart", this.cart);
+    if (!flag) {
+      this.cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+      console.log("cart", this.cart);
+    }
+
+   
   }
 
+  category(c:any){
+console.log(c.categoryName)
+   var id = c.categoryName
+   this.menu = [];
+        for (var i = 0; i < this.initial.length; i++) {
+           
+          for(var y=0; y< this.initial[i]['category'].length; y++){
+     
+
+          if (this.initial[i]['category'][y] == id) {
+            this.menu.push(this.initial[i]);
+          }
+        }
+        
+        }
   }
 
   Veg() {
@@ -137,4 +214,6 @@ export class MenuComponent implements OnInit {
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');
   }
+
+
 }

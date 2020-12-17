@@ -34,6 +34,8 @@
 
 .food-photo img {
     border-radius: 10px;
+    height: 100%;
+    width: 65%;
 }
 
 .info p {

@@ -10,7 +10,7 @@ export class FoodComponent implements OnInit {
   food: any = [];
   fooditem: any;
   cart: any = [];
-  qty:number = 5;
+  qty:number = 1;
   constructor(private router: Router) { }
 
   ngOnInit() {
@@ -36,9 +36,9 @@ export class FoodComponent implements OnInit {
       "qty": this.qty
     };
 
-    this.cart = JSON.parse(localStorage.getItem('test') || '[]');
+    this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     this.cart.push(cartItem);
-    localStorage.setItem("test", JSON.stringify(this.cart));
+    localStorage.setItem("cart", JSON.stringify(this.cart));
     console.log("cart", this.cart);
     this.router.navigateByUrl('/cart');
     // window.location.reload();

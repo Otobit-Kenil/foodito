@@ -39,8 +39,10 @@
 }
 
 .info p {
+    padding-top: 12px;
     color: #1B2845;
     font-size: 11px;
+    margin-bottom: 0;
 }
 
 .Ingredients h4 {

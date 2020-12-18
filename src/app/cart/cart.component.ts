@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Console } from 'console';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -16,8 +16,8 @@ export class CartComponent implements OnInit {
   price:any = [];
   sum = [];
   qty:any;
-msg:any;
-  constructor(db: AngularFirestore) {
+msg:string = '';
+  constructor(db: AngularFirestore, private router: Router ) {
     this.dbnew = db;
   }
 
@@ -25,10 +25,10 @@ msg:any;
   ngOnInit() {
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.cart);
-    // if(this.cart['foodId'] == [] ){
-    //   this.msg = "Your Cart is Empty"
-    //   console.log(this.msg)
-    // }
+    if(this.cart.length ==  0){
+      this.msg = 'Your Cart is Empty'
+      console.log(this.msg)
+    }
     this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
     console.log(this.tableNo);
     for(let i = 0;i<this.cart.length; i++){
@@ -87,6 +87,13 @@ msg:any;
     {
       
     }
+  }
+
+  item(c: any) {
+    localStorage.removeItem("product");
+    localStorage.setItem("product", JSON.stringify(c));
+    JSON.parse(localStorage.getItem('product') || '[]');
+    this.router.navigateByUrl('/food');
   }
 
 }

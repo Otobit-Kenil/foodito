@@ -6,10 +6,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  badgeCount: number = 0;
+cart:any [] = [];
+  constructor() {
+   
+   }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  ngOnInit() {
+    this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    this.badgeCount = this.cart.length;
+    console.log(this.badgeCount)
   }
 
 }

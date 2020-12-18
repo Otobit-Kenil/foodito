@@ -45,12 +45,12 @@
                             <h3 (click)="item(m)">{{m.foodName}}</h3>
 
                             <h4>{{m.description}}</h4>
-                            <h5>{{m.price}} ₹</h5>
+                            <h5> ₹ {{m.price}} </h5>
 
                         </div>
                         <div class=" Specail_add ">
                             <div class="add ">
-                                <h3 (click)="Add_Item(m) ">Add</h3>
+                                <button (click)="Add_Item(m) ">Add</button>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
             <div class="cate_icon ">
                 <div class="cate_icon_title " *ngFor="let c of cate ">
                     <div class="cat_slide">
-                        <img src="{{c.imgUrl}}" (click)="category(c)" alt=" ">
+                        <img class="cat_slide_img" src="{{c.imgUrl}}" (click)="category(c)" alt=" ">
                         <h2>{{c.categoryName}}</h2>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
                 <div class="pro-detail ">
                     <h3 (click)="item(m)">{{m.foodName}}</h3>
                     <h4>{{m.description}}</h4>
-                    <h5><b>{{m.price}}</b> ₹</h5>
+                    <h5><b>  ₹ {{m.price}}</b></h5>
                 </div>
                 <!-- <div class="ADD " id="qty2" style="visibility: hidden;">
 
@@ -112,7 +112,7 @@
                 <div class="ADD">
 
                     <div class="add ">
-                        <h3 (click)="Add_Item(m) ">Add</h3>
+                        <button (click)="Add_Item(m) ">Add</button>
                     </div>
 
                 </div>

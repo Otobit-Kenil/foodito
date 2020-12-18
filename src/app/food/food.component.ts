@@ -8,13 +8,20 @@ import { Router } from '@angular/router';
 })
 export class FoodComponent implements OnInit {
   food: any = [];
-  fooditem: any;
+  fooditem: any = [];
   cart: any = [];
   qty:number = 1;
+  ingridient:any = [];
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.fooditem = JSON.parse(localStorage.getItem('product') || '[]');
+ 
+    for(let i=0; i< this.fooditem.Ingredients.length; i++ ){
+    this.ingridient[i]  = this.fooditem.Ingredients[i];
+
+    }
+    console.log(this.ingridient)
     this.food.push(this.fooditem)
     console.log(this.food)
   }
@@ -33,7 +40,8 @@ export class FoodComponent implements OnInit {
       "isVeg": f.isVeg,
       "price": f.price,
       "timing": f.timing,
-      "qty": this.qty
+      "qty": this.qty,
+      "Ingredients": f.Ingredients
     };
 
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -42,5 +50,10 @@ export class FoodComponent implements OnInit {
     console.log("cart", this.cart);
     this.router.navigateByUrl('/cart');
     // window.location.reload();
+  }
+
+  ingridients(i:any){
+    console.log(i)
+
   }
 }

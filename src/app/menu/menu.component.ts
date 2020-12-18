@@ -144,7 +144,8 @@ export class MenuComponent implements OnInit {
       "qty": this.qty,
       "price": parseInt(m.price),
       "total": this.total,
-      "timing": m.timing
+      "timing": m.timing,
+      "Ingredients": m.Ingredients
 
     };
     var flag = false;

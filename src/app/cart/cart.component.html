@@ -2,6 +2,7 @@
     <div class="container">
 
         <div class="tableinfo"> Table No. - {{tableNo}}</div>
+        <div class="msg">{{msg}}</div>
         <div class="product" *ngFor="let c of cart">
             <div class="productimg">
                 <img src="{{c.displayImageUrl}}" alt="">
@@ -9,7 +10,7 @@
             <div class="pro-detail">
                 <h3>{{c.foodName}}</h3>
                 <h4>{{c.description}}</h4>
-                <h3>{{c.qty*c.price}} ₹</h3>
+                <h3> ₹ {{c.qty*c.price}} </h3>
                 <!-- <h5>{{c.qty}}</h5> -->
             </div>
             <div class="qtycust">
@@ -19,7 +20,7 @@
                     <h4 (click)="Plus(c)">+</h4>
                 </div>
                 <div class="cust">
-                    <div class="cust_name">Customize </div>
+                    <div class="cust_name" (click)="item(c)">Customize </div>
                     <div class="cust-Icon"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
                     </div>
                 </div>
@@ -31,7 +32,7 @@
 
 
         <div class="final-p">
-            <h4>Total : {{totalAmt}}</h4>
+            <h4>Total : ₹ {{totalAmt}}</h4>
         </div>
 
         <div class="row">

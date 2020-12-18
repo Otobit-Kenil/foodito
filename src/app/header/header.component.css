@@ -10,3 +10,10 @@
     margin-bottom: 20px;
     padding: 10px;
 }
+
+.badge {
+    position: relative;
+    right: 54%;
+    font-size: 15px;
+    color: #000000;
+}

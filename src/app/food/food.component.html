@@ -4,7 +4,7 @@
             <div class="food-name">
                 <div>
                     <h2>{{f.foodName}}</h2>
-                    <h3>{{f.price}} ₹</h3>
+                    <h3> ₹ {{f.price}}</h3>
                 </div>
                 <div class="food-ingri">
                     <img src="../../assets/food-ing.svg" alt="">
@@ -28,29 +28,29 @@
 
                 <div class="row">
                     <div class="col-sm-3" style="width: 50%;">
-                        <div class="custom01">
+                        <div class="custom01" *ngFor="let i of ingridient | slice:0:3">
                             <div>
-                                <input type="checkbox" id="radio03-01" name="demo01" /><label for="radio03-01">Ingredient 1</label>
+                                <input type="checkbox" id="{{i}}" value={{i}} name="demo01" (click)="ingridients(i)" /><label for="{{i}}">{{i}}</label>
                             </div>
-                            <div>
+                            <!-- <div>
                                 <input type="checkbox" id="radio03-02" name="demo01" /><label for="radio03-02">Ingredient 1</label>
                             </div>
                             <div>
                                 <input type="checkbox" id="radio03-03" name="demo01" /><label for="radio03-03">Ingredient 1</label>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="col-sm-3" style="width: 50%;">
-                        <div class="custom01">
+                        <div class="custom01" *ngFor="let i of ingridient | slice:3:6">
                             <div>
-                                <input type="checkbox" id="radio03-04" name="demo01" /><label for="radio03-04">Ingredient 1</label>
+                                <input type="checkbox" id="{{i}}" value={{i}} name="demo01" /><label for="{{i}}">{{i}}</label>
                             </div>
-                            <div>
+                            <!-- <div>
                                 <input type="checkbox" id="radio03-05" name="demo01" /><label for="radio03-05">Ingredient 1</label>
                             </div>
                             <div>
                                 <input type="checkbox" id="radio03-06" name="demo01" /><label for="radio03-06">Ingredient 1</label>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

@@ -12,16 +12,14 @@
             </div>
             <div class="food-photo Sproduct">
                 <img src="{{f.imageUrl}}" alt="">
-                <img src="../../assets/food2.png" alt="">
-                <img src="../../assets/food3.png" alt="">
+                <img src="{{f.imageUrl[1]}}" alt="">
+                <img src="{{f.imageUrl[2]}}" alt="">
             </div>
             <div class="info">
                 <p>{{f.description}}</p>
 
                 <p>
-                    Myers adds that asking the kitchen to leave specific ingredients off your plate is usually okay (especially when it comes to garnishes). It’s substitutions that potentially cause problems. It’s substitutions that potentially cause problems. It’s substitutions
-                    that potentially cause problems. It’s substitutions that potentially cause problems. It’s substitutions that potentially cause problems. It’s substitutions that potentially cause problems.
-                </p>
+                    {{f.moreInfo}} </p>
             </div>
             <div class="Ingredients">
                 <h4>Ingredients</h4>
@@ -43,7 +41,7 @@
                     <div class="col-sm-3" style="width: 50%;">
                         <div class="custom01" *ngFor="let i of ingridient | slice:3:6">
                             <div>
-                                <input type="checkbox" id="{{i}}" value={{i}} name="demo01" /><label for="{{i}}">{{i}}</label>
+                                <input type="checkbox" id="{{i}}" value={{i}} name="demo02" /><label for="{{i}}">{{i}}</label>
                             </div>
                             <!-- <div>
                                 <input type="checkbox" id="radio03-05" name="demo01" /><label for="radio03-05">Ingredient 1</label>

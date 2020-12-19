@@ -31,7 +31,7 @@ export class MenuComponent implements OnInit {
 
     const data = db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res
-   
+   console.log(this.initial)
       var Hour = parseInt(moment().format('h'));
       var format = moment().format('a');
       console.log(Hour)
@@ -137,7 +137,7 @@ export class MenuComponent implements OnInit {
       "description": m.description,
       "foodId": m.foodId,
       "foodName": m.foodName,
-      "displayImageUrl": m.imageUrl,
+      "imageUrl": m.imageUrl,
       "isQuantitative": m.isQuantitative,
       "isSpecial": m.isSpecial,
       "isVeg": m.isVeg,
@@ -145,7 +145,8 @@ export class MenuComponent implements OnInit {
       "price": parseInt(m.price),
       "total": this.total,
       "timing": m.timing,
-      "Ingredients": m.Ingredients
+      "Ingredients": m.Ingredients,
+      "moreInfo": m.moreInfo
 
     };
     var flag = false;
@@ -211,6 +212,7 @@ console.log(c.categoryName)
 
   item(m: any) {
     localStorage.removeItem("product");
+    console.log(m)
     localStorage.setItem("product", JSON.stringify(m));
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');

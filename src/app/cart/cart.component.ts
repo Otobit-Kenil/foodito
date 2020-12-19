@@ -58,7 +58,7 @@ msg:string = '';
       "foodId": c.foodId,
       "category": c.category,
       "foodName": c.foodName,
-      "displayImageUrl": c.imageUrl,
+      "imageUrl": c.imageUrl,
       "isQuantitative": c.isQuantitative,
       "isSpecial": c.isSpecial,
       "isVeg": c.isVeg,
@@ -91,6 +91,7 @@ msg:string = '';
 
   item(c: any) {
     localStorage.removeItem("product");
+    console.log(c)
     localStorage.setItem("product", JSON.stringify(c));
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');

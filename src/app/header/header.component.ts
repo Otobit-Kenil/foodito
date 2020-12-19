@@ -9,13 +9,14 @@ export class HeaderComponent implements OnInit {
   badgeCount: number = 0;
 cart:any [] = [];
   constructor() {
+    this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    this.badgeCount = this.cart.length;
+    console.log(this.badgeCount)
    
    }
 
   ngOnInit() {
-    this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    this.badgeCount = this.cart.length;
-    console.log(this.badgeCount)
+   
   }
 
 }

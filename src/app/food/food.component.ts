@@ -10,15 +10,17 @@ export class FoodComponent implements OnInit {
   food: any = [];
   fooditem: any = [];
   cart: any = [];
-  qty:number = 1;
-  ingridient:any = [];
+  qty: number = 1;
+  ingridient: any = [];
+  uniq: any = [];
+  total: any = 0;
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.fooditem = JSON.parse(localStorage.getItem('product') || '[]');
- 
-    for(let i=0; i< this.fooditem.Ingredients.length; i++ ){
-    this.ingridient[i]  = this.fooditem.Ingredients[i];
+
+    for (let i = 0; i < this.fooditem.Ingredients.length; i++) {
+      this.ingridient[i] = this.fooditem.Ingredients[i];
 
     }
     console.log(this.ingridient)
@@ -27,33 +29,84 @@ export class FoodComponent implements OnInit {
   }
 
   Add_Item(f: any) {
- 
-    const cartItem = {
 
+    const cartItem = {
       "category": f.category,
       "description": f.description,
-      "ID": f.foodId,
+      "foodId": f.foodId,
       "foodName": f.foodName,
-      "displayImageUrl": f.imageUrl,
+      "imageUrl": f.imageUrl,
       "isQuantitative": f.isQuantitative,
       "isSpecial": f.isSpecial,
       "isVeg": f.isVeg,
-      "price": f.price,
-      "timing": f.timing,
       "qty": this.qty,
+      "price": parseInt(f.price),
+      "total": this.total,
+      "timing": f.timing,
       "Ingredients": f.Ingredients
-    };
 
+    };
+    var flag = false;
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    this.cart.push(cartItem);
-    localStorage.setItem("cart", JSON.stringify(this.cart));
-    console.log("cart", this.cart);
-    this.router.navigateByUrl('/cart');
-    // window.location.reload();
+    for (var i = 0; i < this.cart.length; i++) {
+      this.uniq = this.cart[i]
+      if (this.uniq.foodId == f.foodId) {
+        localStorage.removeItem('cart');
+
+        console.log(this.uniq)
+        console.log("cart2", (this.cart));
+        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
+        this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        console.log(this.total)
+        console.log("cart3", (this.qty * f.price));
+        console.log("cart3", (this.cart));
+        // this.uniq.qty = this.uniq.qty+1
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+
+        flag = true
+        break
+
+      }
+      else {
+        console.log("not same")
+
+      }
+
+    }
+    if (!flag) {
+      this.cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+      console.log("cart", this.cart);
+    }
+
+    //   const cartItem = {
+
+    //     "category": f.category,
+    //     "description": f.description,
+    //     "ID": f.foodId,
+    //     "foodName": f.foodName,
+    //     "displayImageUrl": f.imageUrl,
+    //     "isQuantitative": f.isQuantitative,
+    //     "isSpecial": f.isSpecial,
+    //     "isVeg": f.isVeg,
+    //     "price": f.price,
+    //     "timing": f.timing,
+    //     "qty": this.qty,
+    //     "Ingredients": f.Ingredients
+    //   };
+
+    //   this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    //   this.cart.push(cartItem);
+    //   localStorage.setItem("cart", JSON.stringify(this.cart));
+    //   console.log("cart", this.cart);
+    //   this.router.navigateByUrl('/cart');
+    //   // window.location.reload();
+    // }
+
+    
   }
 
   ingridients(i:any){
     console.log(i)
-
   }
 }

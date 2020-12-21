@@ -16,6 +16,7 @@ export class CartComponent implements OnInit {
   price:any = [];
   sum = [];
   qty:any;
+  uniq: any = [];
 msg:string = '';
   constructor(db: AngularFirestore, private router: Router ) {
     this.dbnew = db;
@@ -52,41 +53,115 @@ msg:string = '';
 
   Plus(c:any){
 
+   
     const cartItem = {
 
+      "category": c.category,
       "description": c.description,
       "foodId": c.foodId,
-      "category": c.category,
       "foodName": c.foodName,
       "imageUrl": c.imageUrl,
       "isQuantitative": c.isQuantitative,
-      "isSpecial": c.isSpecial,
+      "isSpecial":c.isSpecial,
       "isVeg": c.isVeg,
       "qty": this.qty,
       "price": parseInt(c.price),
       "total": this.total,
-      "timing": c.timing
-      
+      "timing": c.timing,
+      "Ingredients": c.Ingredients,
+      "moreInfo": c.moreInfo
+
     };
-    
-    // localStorage.removeItem('cart');
-    c.qty += 1
+    var flag = false;
+    this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    for (var i = 0; i < this.cart.length; i++) {
+      this.uniq = this.cart[i]
+      if (this.uniq.foodId == c.foodId) {
+        localStorage.removeItem('cart');
 
-   
-    console.log(c.qty)
-    // for(let i = 0;i<this.cart.length; i++){
+        console.log(this.uniq)
+        console.log("cart2", (this.cart));
+        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
+        this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        console.log(this.total)
+        console.log("cart3", (this.qty * c.price));
+        console.log("cart3", (this.cart));
+        // this.uniq.qty = this.uniq.qty+1
+        localStorage.setItem("cart", JSON.stringify(this.cart));
 
-    //   this.price.push(this.cart[i].qty*this.cart[i].price)
-    //   this.totalAmt += this.price[i]
-    // }
+        flag = true
+        break
+
+      }
+      else {
+        console.log("not same")
+
+      }
+
+    }
+    if (!flag) {
+      this.cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+      console.log("cart", this.cart);
+    }
+
   }
 
   Minus(c:any){
-    c.qty -= 1
-    if(c.qty <= 0)
-    {
-      
+
+    const cartItem = {
+
+      "category": c.category,
+      "description": c.description,
+      "foodId": c.foodId,
+      "foodName": c.foodName,
+      "imageUrl": c.imageUrl,
+      "isQuantitative": c.isQuantitative,
+      "isSpecial":c.isSpecial,
+      "isVeg": c.isVeg,
+      "qty": this.qty,
+      "price": parseInt(c.price),
+      "total": this.total,
+      "timing": c.timing,
+      "Ingredients": c.Ingredients,
+      "moreInfo": c.moreInfo
+
+    };
+    var flag = false;
+    this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    for (var i = 0; i < this.cart.length; i++) {
+      this.uniq = this.cart[i]
+      if (this.uniq.foodId == c.foodId) {
+        localStorage.removeItem('cart');
+
+        console.log(this.uniq)
+        console.log("cart2", (this.cart));
+        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty -= 1
+        this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        console.log(this.total)
+        console.log("cart3", (this.qty * c.price));
+        console.log("cart3", (this.cart));
+        // this.uniq.qty = this.uniq.qty+1
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+        
+
+        flag = true
+        break
+
+      }
+      else {
+        console.log("not same")
+
+      }
+
     }
+    if (!flag) {
+      this.cart.push(cartItem);
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+      console.log("cart", this.cart);
+    }
+
+   
   }
 
   item(c: any) {

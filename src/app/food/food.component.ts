@@ -14,18 +14,31 @@ export class FoodComponent implements OnInit {
   ingridient: any = [];
   uniq: any = [];
   total: any = 0;
+  ingri: any;
+  temp_ingri:any[]=[];
+
   constructor(private router: Router) { }
 
   ngOnInit() {
     this.fooditem = JSON.parse(localStorage.getItem('product') || '[]');
-
-    for (let i = 0; i < this.fooditem.Ingredients.length; i++) {
-      this.ingridient[i] = this.fooditem.Ingredients[i];
-
+    this.temp_ingri = this.ingridient;
+    this.ingri = this.fooditem.Ingredients
+    for( var key in this.ingri ){
+      
+      if(`${this.ingri[key]}` == 'true'){
+         
+        this.ingridient.push(`${key}`);
+  
+      }
+    
     }
+    
+    
     console.log(this.ingridient)
     this.food.push(this.fooditem)
     console.log(this.food)
+
+    
   }
 
   Add_Item(f: any) {
@@ -79,7 +92,42 @@ export class FoodComponent implements OnInit {
       console.log("cart", this.cart);
     }
 
-    //   const cartItem = {
+    
+
+    
+  }
+   
+  ingridients(i:any){
+   var temp = i
+  
+   console.log("temp ",this.temp_ingri);
+   console.log(this.ingridient)
+    for (var y = 0; y < this.temp_ingri.length; y++) {
+      if (this.temp_ingri[y] == temp ) {
+        console.log(this.temp_ingri[y])
+        console.log("here")
+        // this.temp_ingri.splice(y,1)
+        // console.log(this.temp_ingri)
+     
+      // this.ingridient = this.ingridient.filter(item => item != temp);  
+
+      }
+      else{
+        // this.temp_ingri.push(temp)
+        // console.log(this.temp_ingri)
+        // break;
+      }
+    }
+
+      
+
+  }
+}
+
+
+
+
+//   const cartItem = {
 
     //     "category": f.category,
     //     "description": f.description,
@@ -102,11 +150,3 @@ export class FoodComponent implements OnInit {
     //   this.router.navigateByUrl('/cart');
     //   // window.location.reload();
     // }
-
-    
-  }
-
-  ingridients(i:any){
-    console.log(i)
-  }
-}

@@ -28,7 +28,7 @@
                     <div class="col-sm-3" style="width: 50%;">
                         <div class="custom01" *ngFor="let i of ingridient | slice:0:3">
                             <div>
-                                <input type="checkbox" id="{{i}}" value={{i}} name="demo01" (click)="ingridients(i)" /><label for="{{i}}">{{i}}</label>
+                                <input type="checkbox" id="{{i}}" value={{i}} name="demo01" (click)="ingridients(i)" checked/><label for="{{i}}">{{i}}</label>
                             </div>
                             <!-- <div>
                                 <input type="checkbox" id="radio03-02" name="demo01" /><label for="radio03-02">Ingredient 1</label>
@@ -41,7 +41,7 @@
                     <div class="col-sm-3" style="width: 50%;">
                         <div class="custom01" *ngFor="let i of ingridient | slice:3:6">
                             <div>
-                                <input type="checkbox" id="{{i}}" value={{i}} name="demo02" /><label for="{{i}}">{{i}}</label>
+                                <input type="checkbox" id="{{i}}" value={{i}} name="demo02" (click)="ingridients(i)" checked/><label for="{{i}}">{{i}}</label>
                             </div>
                             <!-- <div>
                                 <input type="checkbox" id="radio03-05" name="demo01" /><label for="radio03-05">Ingredient 1</label>

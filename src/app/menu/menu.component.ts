@@ -15,9 +15,7 @@ import * as moment from 'moment';
 export class MenuComponent implements OnInit {
 
   cart: any = [];
-
   tableno: any;
-
   initial: any = [];
   menu: any = [];
   detail: any = [];
@@ -29,7 +27,7 @@ export class MenuComponent implements OnInit {
   total: any = 0;
   constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router) {
 
-    const data = db.collection('FoodsCollection').valueChanges().subscribe((res) => {
+    db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res
    console.log(this.initial)
       var Hour = parseInt(moment().format('h'));
@@ -133,20 +131,13 @@ export class MenuComponent implements OnInit {
 
     const cartItem = {
 
-      "category": m.category,
-      "description": m.description,
-      "foodId": m.foodId,
+      "foodId":m.foodId,
       "foodName": m.foodName,
-      "imageUrl": m.imageUrl,
-      "isQuantitative": m.isQuantitative,
-      "isSpecial": m.isSpecial,
-      "isVeg": m.isVeg,
       "qty": this.qty,
+      "imageUrl": m.imageUrl,
       "price": parseInt(m.price),
-      "total": this.total,
-      "timing": m.timing,
       "Ingredients": m.Ingredients,
-      "moreInfo": m.moreInfo
+
 
     };
     var flag = false;

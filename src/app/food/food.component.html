@@ -30,12 +30,7 @@
                             <div>
                                 <input type="checkbox" id="{{i}}" value={{i}} name="demo01" (click)="ingridients(i)" checked/><label for="{{i}}">{{i}}</label>
                             </div>
-                            <!-- <div>
-                                <input type="checkbox" id="radio03-02" name="demo01" /><label for="radio03-02">Ingredient 1</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="radio03-03" name="demo01" /><label for="radio03-03">Ingredient 1</label>
-                            </div> -->
+
                         </div>
                     </div>
                     <div class="col-sm-3" style="width: 50%;">
@@ -43,15 +38,32 @@
                             <div>
                                 <input type="checkbox" id="{{i}}" value={{i}} name="demo02" (click)="ingridients(i)" checked/><label for="{{i}}">{{i}}</label>
                             </div>
-                            <!-- <div>
-                                <input type="checkbox" id="radio03-05" name="demo01" /><label for="radio03-05">Ingredient 1</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="radio03-06" name="demo01" /><label for="radio03-06">Ingredient 1</label>
-                            </div> -->
+
                         </div>
                     </div>
                 </div>
+
+
+                <!-- <div class="row">
+                    <div class="col-sm-3" style="width: 50%;">
+                        <div class="custom01" *ngFor="| slice:0:3">
+                            <div>
+                                <input type="checkbox" id="{{}}" value={{}} name="demo01" (click)="ingridients()" checked/><label for="{{}}">{{}}</label>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-3" style="width: 50%;">
+                        <div class="custom01" *ngFor="let   | slice:3:6">
+                            <div>
+                                <input type="checkbox" id="{{}}" value={{}} name="demo02" (click)="ingridients()" checked/><label for="{{}}">{{}}</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div> -->
+
+                <hr>
 
                 <div class="search">
                     <div class="search_icon">
@@ -66,6 +78,7 @@
                         </mat-autocomplete>
                     </form>
                 </div>
+
 
                 <div class="ADD">
                     <div class="add">

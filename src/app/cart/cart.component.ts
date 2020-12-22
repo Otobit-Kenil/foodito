@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-cart',
@@ -38,6 +40,7 @@ msg:string = '';
     }
     console.log(this.price)
     console.log(this.totalAmt)
+    console.log(this.cart)
 
    
    
@@ -46,7 +49,18 @@ msg:string = '';
 
 
   PlaceOrder() {
-    this.dbnew.collection('Orders').add({ table: this.tableNo, order: this.cart })
+    console.log(this.cart)
+  var time = moment().format('DD/MM/YY, h:mm a');
+  console.log(time)
+    
+   var y = this.cart.indexOf("imgUrl")
+   console.log(y)
+ 
+    
+
+  console.log(this.cart)
+  if(this.cart.length > 0 ){
+    this.dbnew.collection('Orders').add({ order: this.cart, table: this.tableNo,  Total: this.totalAmt, Time : time  })   }
     console.log("added")
 
   }
@@ -56,20 +70,12 @@ msg:string = '';
    
     const cartItem = {
 
-      "category": c.category,
-      "description": c.description,
       "foodId": c.foodId,
       "foodName": c.foodName,
-      "imageUrl": c.imageUrl,
-      "isQuantitative": c.isQuantitative,
-      "isSpecial":c.isSpecial,
-      "isVeg": c.isVeg,
       "qty": this.qty,
       "price": parseInt(c.price),
-      "total": this.total,
-      "timing": c.timing,
       "Ingredients": c.Ingredients,
-      "moreInfo": c.moreInfo
+
 
     };
     var flag = false;
@@ -82,12 +88,14 @@ msg:string = '';
         console.log(this.uniq)
         console.log("cart2", (this.cart));
         this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
+      
         this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
         console.log(this.total)
         console.log("cart3", (this.qty * c.price));
         console.log("cart3", (this.cart));
         // this.uniq.qty = this.uniq.qty+1
         localStorage.setItem("cart", JSON.stringify(this.cart));
+        window.location.reload();
 
         flag = true
         break
@@ -100,6 +108,7 @@ msg:string = '';
 
     }
     if (!flag) {
+
       this.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
@@ -111,20 +120,11 @@ msg:string = '';
 
     const cartItem = {
 
-      "category": c.category,
-      "description": c.description,
       "foodId": c.foodId,
       "foodName": c.foodName,
-      "imageUrl": c.imageUrl,
-      "isQuantitative": c.isQuantitative,
-      "isSpecial":c.isSpecial,
-      "isVeg": c.isVeg,
       "qty": this.qty,
       "price": parseInt(c.price),
-      "total": this.total,
-      "timing": c.timing,
       "Ingredients": c.Ingredients,
-      "moreInfo": c.moreInfo
 
     };
     var flag = false;
@@ -137,13 +137,17 @@ msg:string = '';
         console.log(this.uniq)
         console.log("cart2", (this.cart));
         this.qty = this.cart[this.cart.indexOf(this.uniq)].qty -= 1
+       
         this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
         console.log(this.total)
         console.log("cart3", (this.qty * c.price));
         console.log("cart3", (this.cart));
         // this.uniq.qty = this.uniq.qty+1
+        if(this.qty == 0){
+          this.cart.splice(i,1)
+        }
         localStorage.setItem("cart", JSON.stringify(this.cart));
-        
+        window.location.reload();
 
         flag = true
         break

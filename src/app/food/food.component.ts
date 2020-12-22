@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+
 
 @Component({
   selector: 'app-food',
@@ -15,48 +17,66 @@ export class FoodComponent implements OnInit {
   uniq: any = [];
   total: any = 0;
   ingri: any;
-  temp_ingri:any[]=[];
+  temp_ingri: any[] = [];
+  o_ingridient: any[] = [];
 
-  constructor(private router: Router) { }
+  optional: any[] = [];
+
+  constructor(private router: Router, db: AngularFirestore,) {
+    db.collection('Ingredients').valueChanges().subscribe((res) => {
+      this.optional = res
+      for (var i = 0; i < this.o_ingridient.length; i++) {
+        for (var j = 0; i < this.optional.length; i++) {
+
+          if (this.optional[j].ingredientId == this.o_ingridient[i]) {
+            console.log("hey")
+          }
+        }
+      }
+      console.log(this.optional);
+    });
+
+
+  }
 
   ngOnInit() {
+
+
+
     this.fooditem = JSON.parse(localStorage.getItem('product') || '[]');
     this.temp_ingri = this.ingridient;
     this.ingri = this.fooditem.Ingredients
-    for( var key in this.ingri ){
-      
-      if(`${this.ingri[key]}` == 'true'){
-         
+    this.o_ingridient = this.fooditem.optional
+
+    console.log(this.o_ingridient)
+    for (var key in this.ingri) {
+
+      if (`${this.ingri[key]}` == 'true') {
+
         this.ingridient.push(`${key}`);
-  
+
       }
-    
+
     }
-    
-    
+
+
+
+
     console.log(this.ingridient)
     this.food.push(this.fooditem)
     console.log(this.food)
 
-    
+
   }
 
   Add_Item(f: any) {
 
     const cartItem = {
-      "category": f.category,
-      "description": f.description,
       "foodId": f.foodId,
       "foodName": f.foodName,
-      "imageUrl": f.imageUrl,
-      "isQuantitative": f.isQuantitative,
-      "isSpecial": f.isSpecial,
-      "isVeg": f.isVeg,
       "qty": this.qty,
       "price": parseInt(f.price),
-      "total": this.total,
-      "timing": f.timing,
-      "Ingredients": f.Ingredients
+      "Ingredients": f.Ingredients,
 
     };
     var flag = false;
@@ -92,34 +112,34 @@ export class FoodComponent implements OnInit {
       console.log("cart", this.cart);
     }
 
-    
 
-    
+
+
   }
-   
-  ingridients(i:any){
-   var temp = i
-  
-   console.log("temp ",this.temp_ingri);
-   console.log(this.ingridient)
+
+  ingridients(i: any) {
+    var temp = i
+
+    console.log("temp ", this.temp_ingri);
+    console.log(this.ingridient)
     for (var y = 0; y < this.temp_ingri.length; y++) {
-      if (this.temp_ingri[y] == temp ) {
+      if (this.temp_ingri[y] == temp) {
         console.log(this.temp_ingri[y])
         console.log("here")
         // this.temp_ingri.splice(y,1)
         // console.log(this.temp_ingri)
-     
-      // this.ingridient = this.ingridient.filter(item => item != temp);  
+
+        // this.ingridient = this.ingridient.filter(item => item != temp);  
 
       }
-      else{
+      else {
         // this.temp_ingri.push(temp)
         // console.log(this.temp_ingri)
         // break;
       }
     }
 
-      
+
 
   }
 }

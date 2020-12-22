@@ -51,19 +51,21 @@
 
 /* .cat_slide_img.focus, */
 
-.cat_slide_img:active {
-    color: #fff;
+.cat_slide_img::after {
+    /* color: #fff; */
     background-color: red;
     border-color: red;
+    /* outline: 1px solid red; */
     box-shadow: none;
 }
 
-.cat_slide:focus {
+
+/* .cat_slide:focus {
     color: #fff;
     background-color: red;
     border-color: red;
     box-shadow: none;
-}
+} */
 
 .cate_icon {
     display: flex;
@@ -146,7 +148,7 @@
     height: 93px;
     width: 170px;
     border-radius: 10px;
-    background-image: linear-gradient(45deg, #FF7D55, #F4197E);
+    background: #D25959;
 }
 
 .add {

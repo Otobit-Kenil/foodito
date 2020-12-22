@@ -12,11 +12,12 @@ cart:any [] = [];
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     this.badgeCount = this.cart.length;
     console.log(this.badgeCount)
+    
    
    }
 
   ngOnInit() {
-   
+    // window.location.reload()
   }
 
 }

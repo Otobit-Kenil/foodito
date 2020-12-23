@@ -18,37 +18,40 @@ export class FoodComponent implements OnInit {
   total: any = 0;
   ingri: any;
   temp_ingri: any[] = [];
-  o_ingridient: any[] = [];
-
+  oingridient: any[] = [];
   optional: any[] = [];
+  optingridient: any[] = [];
+  sendingredient:any[]=[];
+
 
   constructor(private router: Router, db: AngularFirestore,) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
       this.optional = res
-      for (var i = 0; i < this.o_ingridient.length; i++) {
-        for (var j = 0; i < this.optional.length; i++) {
 
-          if (this.optional[j].ingredientId == this.o_ingridient[i]) {
-            console.log("hey")
+      for (var key in this.oingridient) {
+
+        if (`${this.oingridient[key]}` == 'true') {
+
+          for (var i = 0; i < this.optional.length; i++) {
+            if (this.optional[i]['ingredientId'] == `${key}`) {
+
+              this.optingridient.push(this.optional[i]);
+
+            }
           }
         }
       }
-      console.log(this.optional);
+      console.log("hey", this.optingridient)
     });
-
-
   }
 
   ngOnInit() {
 
-
-
     this.fooditem = JSON.parse(localStorage.getItem('product') || '[]');
     this.temp_ingri = this.ingridient;
     this.ingri = this.fooditem.Ingredients
-    this.o_ingridient = this.fooditem.optional
+    this.oingridient = this.fooditem.optional
 
-    console.log(this.o_ingridient)
     for (var key in this.ingri) {
 
       if (`${this.ingri[key]}` == 'true') {
@@ -56,17 +59,10 @@ export class FoodComponent implements OnInit {
         this.ingridient.push(`${key}`);
 
       }
-
     }
-
-
-
-
     console.log(this.ingridient)
     this.food.push(this.fooditem)
     console.log(this.food)
-
-
   }
 
   Add_Item(f: any) {
@@ -100,53 +96,37 @@ export class FoodComponent implements OnInit {
         break
 
       }
-      else {
-        console.log("not same")
-
-      }
-
     }
     if (!flag) {
       this.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
     }
-
-
-
-
   }
 
   ingridients(i: any) {
-    var temp = i
 
-    console.log("temp ", this.temp_ingri);
-    console.log(this.ingridient)
-    for (var y = 0; y < this.temp_ingri.length; y++) {
-      if (this.temp_ingri[y] == temp) {
-        console.log(this.temp_ingri[y])
-        console.log("here")
-        // this.temp_ingri.splice(y,1)
-        // console.log(this.temp_ingri)
+    this.sendingredient = this.temp_ingri; 
+ 
 
-        // this.ingridient = this.ingridient.filter(item => item != temp);  
+    for (var y = 0; y < this.sendingredient.length; y++) {
 
+      if (this.sendingredient[y] == i) {
+
+
+        this.sendingredient.splice(y, 1)
+          console.log(this.sendingredient)
+          // this.ingridient = this.ingridient.filter(item => item != temp);  
+        
       }
-      else {
-        // this.temp_ingri.push(temp)
-        // console.log(this.temp_ingri)
-        // break;
-      }
+      // else {
+      //   this.sendingredient.push(i)
+      //   console.log(this.temp_ingri)
+      //   break;
+      // }
     }
-
-
-
-  }
 }
-
-
-
-
+}
 //   const cartItem = {
 
     //     "category": f.category,

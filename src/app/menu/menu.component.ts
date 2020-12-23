@@ -29,13 +29,9 @@ export class MenuComponent implements OnInit {
 
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res
-   console.log(this.initial)
+   console.log(typeof(this.initial))
       var Hour = parseInt(moment().format('h'));
       var format = moment().format('a');
-      console.log(Hour)
-      console.log(format)
-
-
       if (Hour > 6 && Hour < 12) {
         this.menu = [];
         for (var i = 0; i < this.initial.length; i++) {
@@ -43,7 +39,6 @@ export class MenuComponent implements OnInit {
             this.menu.push(this.initial[i]);
           }
         }
-        console.log("mng", this.menu)
       }
       
      
@@ -54,7 +49,6 @@ export class MenuComponent implements OnInit {
             this.menu.push(this.initial[i]);
           }
         }
-        console.log("anoon", this.menu)
       }
 
       if (Hour >= 6 && format == 'pm' || format == 'pm' &&  Hour < 12 ) {
@@ -64,7 +58,6 @@ export class MenuComponent implements OnInit {
             this.menu.push(this.initial[i]);
           }
         }
-        console.log("eve", this.menu)
       }
 
       if (Hour == 12 && format =='am' || Hour >= 1 && format == 'am' || format == 'am' &&  Hour < 6 ) {
@@ -74,7 +67,6 @@ export class MenuComponent implements OnInit {
             this.menu.push(this.initial[i]);
           }
         }
-        console.log("nig", this.menu)
       }
 
 

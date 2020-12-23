@@ -44,26 +44,32 @@
                 </div>
 
 
-                <!-- <div class="row">
-                    <div class="col-sm-3" style="width: 50%;">
-                        <div class="custom01" *ngFor="| slice:0:3">
-                            <div>
-                                <input type="checkbox" id="{{}}" value={{}} name="demo01" (click)="ingridients()" checked/><label for="{{}}">{{}}</label>
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="col-sm-3" style="width: 50%;">
-                        <div class="custom01" *ngFor="let   | slice:3:6">
-                            <div>
-                                <input type="checkbox" id="{{}}" value={{}} name="demo02" (click)="ingridients()" checked/><label for="{{}}">{{}}</label>
-                            </div>
-
-                        </div>
-                    </div>
-                </div> -->
 
                 <hr>
+
+                <div class="Ingredients">
+                    <h4>Extra Ingredients</h4>
+
+                    <div class="row">
+                        <div class="col-sm-3" style="width: 50%;">
+                            <div class="custom01" *ngFor="let i of optingridient | slice:0:3">
+                                <div>
+                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo01" (click)="ingridients(i.ingredient)" /><label for="{{i.ingredient}}">{{i.ingredient}}-  ₹ {{i.price}}</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="width: 50%;">
+                            <div class="custom01" *ngFor="let i of optingridient | slice:3:6">
+                                <div>
+                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo02" (click)="ingridients(i.ingredient)" /><label for="{{i.ingredient}}">{{i.ingredient}}-  ₹ {{i.price}}  </label>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="search">
                     <div class="search_icon">

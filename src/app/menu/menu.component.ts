@@ -168,7 +168,10 @@ export class MenuComponent implements OnInit {
    
   }
 
+
+  toggle = true;
   category(c:any){
+  this.toggle = !this.toggle;
 console.log(c.categoryName)
    var id = c.categoryName
    this.menu = [];
@@ -200,6 +203,8 @@ console.log(c.categoryName)
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');
   }
+
+
 
 
 }

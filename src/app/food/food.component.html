@@ -6,9 +6,9 @@
                     <h2>{{f.foodName}}</h2>
                     <h3> ₹ {{f.price}}</h3>
                 </div>
-                <div class="food-ingri">
+                <!-- <div class="food-ingri">
                     <img src="../../assets/food-ing.svg" alt="">
-                </div>
+                </div> -->
             </div>
             <div class="food-photo Sproduct">
                 <img src="{{f.imageUrl}}" alt="">
@@ -55,7 +55,7 @@
                         <div class="col-sm-3" style="width: 50%;">
                             <div class="custom01" *ngFor="let i of optingridient | slice:0:3">
                                 <div>
-                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo01" (click)="ingridients(i.ingredient)" /><label for="{{i.ingredient}}">{{i.ingredient}}-  ₹ {{i.price}}</label>
+                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo01" (click)="ingridients(i.ingredient)" /><label for="{{i.ingredient}}">{{i.ingredient}}  <br>  ₹ {{i.price}}</label>
                                 </div>
 
                             </div>
@@ -63,7 +63,8 @@
                         <div class="col-sm-3" style="width: 50%;">
                             <div class="custom01" *ngFor="let i of optingridient | slice:3:6">
                                 <div>
-                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo02" (click)="ingridients(i.ingredient)" /><label for="{{i.ingredient}}">{{i.ingredient}}-  ₹ {{i.price}}  </label>
+                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo02" (click)="ingridients(i.ingredient)" />
+                                    <label for="{{i.ingredient}}">{{i.ingredient}} <br>  ₹ {{i.price}}  </label>
                                 </div>
 
                             </div>
@@ -71,26 +72,14 @@
                     </div>
                 </div>
 
-                <div class="search">
-                    <div class="search_icon">
-                        <img src="../../assets/Icon feather-search.svg" alt="searchbar">
-                    </div>
-                    <form class="example-form">
-                        <input type="text" class="search-input" placeholder="Search" aria-label="Number" matInput [formControl]="myControl">
-                        <mat-autocomplete>
-                            <!-- <mat-option *ngFor="let option of options" [value]="option">
-                                {{option}}
-                            </mat-option> -->
-                        </mat-autocomplete>
-                    </form>
-                </div>
+            </div>
 
 
-                <div class="ADD">
-                    <div class="add">
-                        <span (click)="Add_Item(f)"> Add</span>
-                    </div>
+            <div class="ADD">
+                <div class="add">
+                    <span (click)="Add_Item(f)"> Add</span>
                 </div>
             </div>
         </div>
+
     </div>

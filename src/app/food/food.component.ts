@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { FormGroup, FormControl } from '@angular/forms';
 
 
 @Component({
@@ -9,6 +10,8 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
   styleUrls: ['./food.component.css']
 })
 export class FoodComponent implements OnInit {
+
+  
   food: any = [];
   fooditem: any = [];
   cart: any = [];
@@ -119,11 +122,11 @@ export class FoodComponent implements OnInit {
           // this.ingridient = this.ingridient.filter(item => item != temp);  
         
       }
-      // else {
-      //   this.sendingredient.push(i)
-      //   console.log(this.temp_ingri)
-      //   break;
-      // }
+      else {
+        this.sendingredient.push(i)
+        console.log(this.temp_ingri)
+        break;
+      }
     }
 }
 }

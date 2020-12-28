@@ -66,7 +66,7 @@
 
                     <div class="cate_icon_title " *ngFor="let c of cate ">
 
-                        <img [ngClass]="{'green' : toggle, 'red': !toggle}" class="cat_slide_img" src="{{c.imgUrl}}" (click)="category(c)" alt=" ">
+                        <img id="myDIV" [ngClass]="{'green' : toggle, 'red': !toggle}" class="cat_slide_img" src="{{c.imgUrl}}" (click)="category(c)" alt=" ">
 
                         <h2>{{c.categoryName}}</h2>
 

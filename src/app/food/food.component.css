@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 110px;
+    height: 138px;
     border: 1px black;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -112,6 +112,64 @@
     transform: scale(1);
 }
 
+.extraingredients input[type="checkbox"] {
+    display: none;
+}
+
+.extraingredients label {
+    position: relative;
+    display: inline-block;
+    padding: 8px 0px 8px 40px;
+    cursor: pointer;
+}
+
+.extraingredients label::before,
+.extraingredients label::after {
+    position: absolute;
+    content: '';
+    top: 50%;
+    /* border-radius: 100%; */
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.extraingredients label::before {
+    left: 0;
+    width: 25px;
+    height: 25px;
+    margin-top: -8px;
+    background: #fff;
+    border: 1px solid #1B2845;
+    border-radius: 6px;
+}
+
+.extraingredients label:hover::before {
+    background: #fff;
+}
+
+.extraingredients label::after {
+    opacity: 0;
+    left: 2px;
+    top: 21px;
+    width: 23px;
+    height: 23px;
+    background: #1B2845;
+    border-radius: 6px;
+    -webkit-transform: scale(2);
+    transform: scale(2);
+}
+
+.extraingredients input[type="checkbox"]:checked+label::before {
+    background: #fff;
+    border: 3px solid #1B2845;
+}
+
+.extraingredients input[type="checkbox"]:checked+label::after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
 .search_icon {
     position: relative;
     right: -13px;
@@ -143,6 +201,7 @@
 
 .ADD {
     position: relative;
+    bottom: 28px;
     text-align: center;
     border: 1px solid #707070;
     height: 59px;

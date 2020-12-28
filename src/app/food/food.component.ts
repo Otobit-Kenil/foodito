@@ -49,9 +49,10 @@ export class FoodComponent implements OnInit {
   }
 
   ngOnInit() {
-
+   
     this.fooditem = JSON.parse(localStorage.getItem('product') || '[]');
     this.temp_ingri = this.ingridient;
+    this.sendingredient = this.temp_ingri; 
     this.ingri = this.fooditem.Ingredients
     this.oingridient = this.fooditem.optional
 
@@ -108,19 +109,20 @@ export class FoodComponent implements OnInit {
   }
 
   ingridients(i: any) {
+  var uniq = i
 
-    this.sendingredient = this.temp_ingri; 
- 
+ console.log(this.uniq)
 
+console.log(this.sendingredient)
     for (var y = 0; y < this.sendingredient.length; y++) {
 
-      if (this.sendingredient[y] == i) {
+      if (this.sendingredient[y] == uniq) {
 
 
         this.sendingredient.splice(y, 1)
           console.log(this.sendingredient)
           // this.ingridient = this.ingridient.filter(item => item != temp);  
-        
+        break;
       }
       else {
         this.sendingredient.push(i)

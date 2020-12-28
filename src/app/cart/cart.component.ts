@@ -2,14 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { ExternalLibraryService } from './razorService';
 
-
+declare let Razorpay: any;
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  response:any;
+  razorpayResponse:any;
+  showModal = false;
   cart: any = [];
   tableNo: any;
   dbnew: any;
@@ -19,8 +23,8 @@ export class CartComponent implements OnInit {
   sum = [];
   qty:any;
   uniq: any = [];
-msg:string = '';
-  constructor(db: AngularFirestore, private router: Router ) {
+  msg:string = '';
+  constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService ) {
     this.dbnew = db;
   }
 
@@ -42,12 +46,7 @@ msg:string = '';
     console.log(this.totalAmt)
     console.log(this.cart)
 
-   
-   
   }
-
-
-
   PlaceOrder() {
     console.log(this.cart)
   var time = moment().format('DD/MM/YY, h:mm a');
@@ -56,11 +55,12 @@ msg:string = '';
    var y = this.cart.indexOf("imgUrl")
    console.log(y)
  
-    
-
   console.log(this.cart)
   if(this.cart.length > 0 ){
     this.dbnew.collection('Orders').add({ order: this.cart, table: this.tableNo,  Total: this.totalAmt, Time : time  })   }
+    else{ 
+      alert("your cart is empty")
+    }
     console.log("added")
 
   }
@@ -75,7 +75,6 @@ msg:string = '';
       "qty": this.qty,
       "price": parseInt(c.price),
       "Ingredients": c.Ingredients,
-
 
     };
     var flag = false;
@@ -155,7 +154,6 @@ msg:string = '';
       }
       else {
         console.log("not same")
-
       }
 
     }
@@ -164,8 +162,6 @@ msg:string = '';
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
     }
-
-   
   }
 
   item(c: any) {
@@ -175,5 +171,4 @@ msg:string = '';
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');
   }
-
 }

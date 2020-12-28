@@ -44,15 +44,21 @@ export class MenuComponent implements OnInit {
      
       if (Hour == 12 && format =='pm' || Hour >= 1 && format == 'pm' || format == 'pm' &&  Hour < 6 ) {
         this.menu = [];
+
         for (var i = 0; i < this.initial.length; i++) {
-          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Afternoon'] == true) {
+
+          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Afternoon'] == true ) {
             this.menu.push(this.initial[i]);
+            
           }
         }
+        console.log(this.menu)
+        
       }
 
       if (Hour >= 6 && format == 'pm' || format == 'pm' &&  Hour < 12 ) {
         this.menu = [];
+        console.log(this.initial)
         for (var i = 0; i < this.initial.length; i++) {
           if (this.initial[i]['isAvailable'] == true && this.initial[i]['Evening'] == true) {
             this.menu.push(this.initial[i]);
@@ -69,22 +75,21 @@ export class MenuComponent implements OnInit {
         }
       }
 
-
+      this.veg = [];
       this.nVeg = [];
       for (var i = 0; i < this.menu.length; i++) {
         if (this.menu[i]['isVeg'] == false) {
           this.nVeg.push(this.menu[i]);
-        }
-      }
-      // console.log("Non - veg", this.nVeg);
 
-      this.veg = [];
-      for (var i = 0; i < this.menu.length; i++) {
-        if (this.menu[i]['isVeg'] == true) {
+        }
+        else {
           this.veg.push(this.menu[i]);
+ 
         }
       }
-      // console.log("veg", this.veg);
+     
+
+     
 
       this.detail = [];
       for (var i = 0; i < this.menu.length; i++) {
@@ -173,6 +178,8 @@ export class MenuComponent implements OnInit {
   category(c:any){
   this.toggle = !this.toggle;
 console.log(c.categoryName)
+
+
    var id = c.categoryName
    this.menu = [];
         for (var i = 0; i < this.initial.length; i++) {

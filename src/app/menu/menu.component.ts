@@ -26,7 +26,7 @@ export class MenuComponent implements OnInit {
   uniq: any = [];
   total: any = 0;
   constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router) {
-
+ 
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res
    console.log(typeof(this.initial))
@@ -104,7 +104,10 @@ export class MenuComponent implements OnInit {
     const cate = db.collection('Categories').valueChanges().subscribe((res) => {
       this.cate = res;
 
-
+      console.log(this.cate)
+      this.cate.map( (item: { isActive: boolean; }) => {
+        item.isActive = false;
+      })
 
       for (var i = 0; i < this.cate.length; i++) {
         if (this.cate[i]['isSpecial'] == this.menu) {
@@ -120,6 +123,7 @@ export class MenuComponent implements OnInit {
     this.route.params.subscribe((res) => {
       this.tableno = res['userid'];
       console.log(this.tableno)
+
       localStorage.setItem("table", JSON.stringify(this.tableno));
     })
   }
@@ -173,10 +177,17 @@ export class MenuComponent implements OnInit {
    
   }
 
-
   toggle = true;
   category(c:any){
-  this.toggle = !this.toggle;
+    
+   this.cate.forEach((element: { isActive: boolean; }) => {
+     element.isActive = false
+   });
+
+    c.isActive = true;
+
+    console.log(this.cate) 
+ 
 console.log(c.categoryName)
 
 
@@ -210,8 +221,4 @@ console.log(c.categoryName)
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');
   }
-
-
-
-
 }

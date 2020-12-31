@@ -28,7 +28,7 @@ export class CartComponent implements OnInit {
     this.dbnew = db;
   }
 
-
+  
   ngOnInit() {
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.cart);
@@ -39,8 +39,8 @@ export class CartComponent implements OnInit {
     this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
     console.log(this.tableNo);
     for(let i = 0;i<this.cart.length; i++){
-      this.price.push(this.cart[i].qty*this.cart[i].price)
-      this.totalAmt += this.price[i]
+      // this.price.push(this.cart[i].qty*this.cart[i].price)
+      this.totalAmt += this.cart[i].total
     }
     console.log(this.price)
     console.log(this.totalAmt)
@@ -165,6 +165,7 @@ export class CartComponent implements OnInit {
   }
 
   item(c: any) {
+    
     localStorage.removeItem("product");
     console.log(c)
     localStorage.setItem("product", JSON.stringify(c));

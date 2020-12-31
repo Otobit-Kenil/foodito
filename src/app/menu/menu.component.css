@@ -38,7 +38,7 @@
     margin-bottom: 10px;
     box-shadow: 0 1px 3px #DDDDDD, 6px 6px 6px #DDDDDD;
     width: 100%;
-    height: 93px;
+    height: 90px;
     overflow-x: scroll;
     overflow-y: hidden;
 }
@@ -64,7 +64,7 @@
     position: relative;
     width: 100%;
     justify-content: space-between;
-    height: 93px;
+    height: 100px;
     overflow-x: scroll;
     overflow-y: hidden;
     scroll-behavior: smooth;
@@ -352,5 +352,5 @@
 }
 
 .red {
-    background-color: red;
+    background-color: #1B2845;
 }

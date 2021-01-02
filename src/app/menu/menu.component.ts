@@ -29,14 +29,17 @@ export class MenuComponent implements OnInit {
  
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res
-   console.log(typeof(this.initial))
+
+   console.log(this.initial)
       var Hour = parseInt(moment().format('h'));
       var format = moment().format('a');
       if (Hour > 6 && Hour < 12) {
         this.menu = [];
         for (var i = 0; i < this.initial.length; i++) {
-          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Morning'] == true) {
+     
+          if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Morning == true) {
             this.menu.push(this.initial[i]);
+            
           }
         }
       }
@@ -47,7 +50,7 @@ export class MenuComponent implements OnInit {
 
         for (var i = 0; i < this.initial.length; i++) {
 
-          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Afternoon'] == true ) {
+          if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Afternoon == true ) {
             this.menu.push(this.initial[i]);
             
           }
@@ -58,9 +61,9 @@ export class MenuComponent implements OnInit {
 
       if (Hour >= 6 && format == 'pm' || format == 'pm' &&  Hour < 12 ) {
         this.menu = [];
-        console.log(this.initial)
+   
         for (var i = 0; i < this.initial.length; i++) {
-          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Evening'] == true) {
+          if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Evening == true) {
             this.menu.push(this.initial[i]);
           }
         }
@@ -69,12 +72,11 @@ export class MenuComponent implements OnInit {
       if (Hour == 12 && format =='am' || Hour >= 1 && format == 'am' || format == 'am' &&  Hour < 6 ) {
         this.menu = [];
         for (var i = 0; i < this.initial.length; i++) {
-          if (this.initial[i]['isAvailable'] == true && this.initial[i]['Night'] == true) {
+          if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Night == true) {
             this.menu.push(this.initial[i]);
           }
         }
       }
-
       this.veg = [];
       this.nVeg = [];
       for (var i = 0; i < this.menu.length; i++) {
@@ -97,7 +99,7 @@ export class MenuComponent implements OnInit {
           this.detail.push(this.menu[i]);
         }
       }
-      console.log("spe", this.detail);
+      
       // console.log("particular pID",this.menu.filter())
     });
 

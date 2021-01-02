@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ExternalLibraryService } from './razorService';
+
 
 declare let Razorpay: any;
 @Component({
@@ -24,8 +25,13 @@ export class CartComponent implements OnInit {
   qty:any;
   uniq: any = [];
   msg:string = '';
-  constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService ) {
+  num:number = 0;
+  constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd:  ChangeDetectorRef) {
     this.dbnew = db;
+
+    this.razorpayService
+    .lazyLoadLibrary('https://checkout.razorpay.com/v1/checkout.js')
+    .subscribe(); 
   }
 
   
@@ -41,12 +47,43 @@ export class CartComponent implements OnInit {
     for(let i = 0;i<this.cart.length; i++){
       // this.price.push(this.cart[i].qty*this.cart[i].price)
       this.totalAmt += this.cart[i].total
+      this.num = this.totalAmt*100 
     }
     console.log(this.price)
-    console.log(this.totalAmt)
+    console.log(this.num)
     console.log(this.cart)
 
   }
+
+  RAZORPAY_OPTIONS = {
+    "key": "rzp_test_ZcSb49CvQ0NZhe",
+    "amount": 'this.num',
+    "name": "Foodito",
+    "currency": "INR",
+    "order_id": "",
+    "description": "Load Wallet",
+    "image": "https://livestatic.novopay.in/resources/img/nodeapp/img/Logo_NP.jpg",
+    "prefill": {
+      "name": "Foodito",
+      "email": "test@test.com",
+      "contact": "8849838323",
+      "method": ""
+    },
+    "handler":"",
+    "modal": {},
+    "theme": {
+      "color": "#0096C5"
+    }
+  };
+
+  public razorPaySuccessHandler(response: any) {
+    console.log(response);
+    this.razorpayResponse = `Razorpay Response`;
+    this.showModal = true;
+    this.cd.detectChanges()
+    // document.getElementById('razorpay-response').style.display = 'block';
+  }
+
   PlaceOrder() {
     console.log(this.cart)
   var time = moment().format('DD/MM/YY, h:mm a');
@@ -63,6 +100,13 @@ export class CartComponent implements OnInit {
     }
     console.log("added")
 
+    this.RAZORPAY_OPTIONS.amount = this.totalAmt;
+
+    this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
+
+
+    let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
+    razorpay.open();
   }
 
   Plus(c:any){

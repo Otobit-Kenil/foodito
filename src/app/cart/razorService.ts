@@ -16,11 +16,11 @@ export class ExternalLibraryService {
 
 
 
-    // lazyLoadLibrary(resourceURL): Observable<any> {
-    //     return forkJoin([
-    //         this.loadScript(resourceURL)
-    //     ]);
-    // }
+    lazyLoadLibrary(resourceURL: string): Observable<any> {
+        return forkJoin([
+            this.loadScript(resourceURL)
+        ]);
+    }
 
 
     

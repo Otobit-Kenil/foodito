@@ -11,11 +11,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class FoodComponent implements OnInit {
 
-  listForm: FormGroup = new FormGroup({
-    Dairy: new FormControl(),
-
-  });
-
   food: any = [];
   fooditem: any = [];
   cart: any = [];
@@ -29,12 +24,13 @@ export class FoodComponent implements OnInit {
   optional: any[] = [];
   optingridient: any[] = [];
   sendingredient: any[] = [];
+  basic : any [] = [];
 
 
   constructor(private router: Router, db: AngularFirestore,) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
       this.optional = res
-
+      console.log(this.optional)
       for (var key in this.oingridient) {
 
         if (`${this.oingridient[key]}` == 'true') {
@@ -48,6 +44,30 @@ export class FoodComponent implements OnInit {
           }
         }
       }
+
+
+      for (var key in this.ingri) {
+
+        if (`${this.ingri[key]}` == 'true') {
+  
+          for (var i = 0; i < this.optional.length; i++) {
+            if (this.optional[i]['ingredientId'] == `${key}`) {
+  
+              this.basic.push(this.optional[i]);
+  
+            }
+          }
+        }
+      }
+
+  
+      console.log("basic", this.basic)
+
+      for(i=0; i<this.basic.length; i++){
+        
+      }
+this.ingridient = this.basic
+
       console.log("hey", this.optingridient)
     });
   }
@@ -60,15 +80,9 @@ export class FoodComponent implements OnInit {
     this.ingri = this.fooditem.Ingredients
     this.oingridient = this.fooditem.optional
 
-    for (var key in this.ingri) {
+    console.log(this.ingri)
 
-      if (`${this.ingri[key]}` == 'true') {
 
-        this.ingridient.push(`${key}`);
-
-      }
-    }
-    console.log(this.ingridient)
     this.food.push(this.fooditem)
     console.log(this.food)
   }

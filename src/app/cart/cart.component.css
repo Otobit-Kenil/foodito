@@ -67,7 +67,18 @@
 .service_req h4 {
     font-size: 13px;
     color: #1B2845;
-    padding-left: 8px;
+    position: absolute;
+    font-weight: bold;
+    padding-left: 15px;
+}
+
+.service_req_note textarea {
+    background-color: #f5f5f5;
+    border: none;
+    width: auto;
+    box-shadow: 0 1px 3px #DDDDDD, 6px 7px 4px #DDDDDD, 1px -2px 1px #ffffff, -7px -6px 7px #ffffff;
+    padding-top: 30px !important;
+    padding: 15px;
 }
 
 .ingri h4 {

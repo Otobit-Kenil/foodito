@@ -53,21 +53,18 @@ export class FoodComponent implements OnInit {
           for (var i = 0; i < this.optional.length; i++) {
             if (this.optional[i]['ingredientId'] == `${key}`) {
   
-              this.basic.push(this.optional[i]);
+              this.ingridient.push(this.optional[i]);
   
             }
           }
         }
       }
 
-  
-      console.log("basic", this.basic)
-
-      for(i=0; i<this.basic.length; i++){
-        
+      for(i=0; i<this.ingridient.length; i++){
+        this.basic[i] = this.ingridient[i].ingredient
       }
-this.ingridient = this.basic
 
+console.log("basic", this.basic)
       console.log("hey", this.optingridient)
     });
   }
@@ -88,6 +85,8 @@ this.ingridient = this.basic
   }
 
   Add_Item(f: any) {
+    this.sendingredient = this.sendingredient.concat(this.basic)
+    console.log("final", this.sendingredient)
 
     const cartItem = {
       "foodId": f.foodId,
@@ -130,7 +129,10 @@ this.ingridient = this.basic
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
     }
+
+  
   }
+
 sum = 0;
   ingridients(input: HTMLInputElement, i: any) {
 
@@ -171,9 +173,9 @@ sum = 0;
   ingridientss(input: HTMLInputElement, i: any) {
 
     input.checked === true
-      ? this.sendingredient.push(i)
-      : this.sendingredient.splice(this.sendingredient.indexOf(i.ingredient),1);
-      console.log(this.sendingredient)
+      ? this.basic.push(i.ingredient)
+      : this.basic.splice(this.sendingredient.indexOf(i.ingredient),1);
+      console.log(this.basic)
   }
   //   const cartItem = {
 

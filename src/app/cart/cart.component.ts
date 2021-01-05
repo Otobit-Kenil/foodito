@@ -26,6 +26,8 @@ export class CartComponent implements OnInit {
   uniq: any = [];
   msg:string = '';
   num:number = 0;
+
+  
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd:  ChangeDetectorRef) {
     this.dbnew = db;
 
@@ -84,17 +86,21 @@ export class CartComponent implements OnInit {
     // document.getElementById('razorpay-response').style.display = 'block';
   }
 
-  PlaceOrder() {
+  PlaceOrder(notes:string) {
+console.log(notes)
     console.log(this.cart)
-  var time = moment().format('DD/MM/YY, h:mm a');
-  console.log(time)
+  var time = moment().format('h:mm a');
+  var date = moment().format('DD/MM/YY');
+    
     
    var y = this.cart.indexOf("imgUrl")
    console.log(y)
  
   console.log(this.cart)
   if(this.cart.length > 0 ){
-    this.dbnew.collection('Orders').add({ order: this.cart, table: this.tableNo,  Total: this.totalAmt, Time : time  })   }
+ 
+    var Id = Date.now()
+    this.dbnew.collection('Orders').add({ orderId : Id, order: this.cart, table: this.tableNo,  Total: this.totalAmt, Time : time , Date : date})   }
     else{ 
       alert("your cart is empty")
     }

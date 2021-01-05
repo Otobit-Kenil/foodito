@@ -42,8 +42,12 @@
                         Service Request
                     </h4>
                 </div>
-                <p>
-                    Myers adds that asking the kitchen to leave specific ingredients off Myers adds that asking the kitchen to leave specific ingredients off Myers adds that asking the kitchen to leave specific ingredients off </p>
+                <div class="service_req_note">
+                    <form (submit)="PlaceOrder(notes.value)">
+                        <textarea id="notes" rows="5" cols="45" name="notes" placeholder="Enter your Request" value=""></textarea>
+                    </form>
+
+                </div>
             </div>
             <!-- <div class="Ingredients">
                 <div class="ingri">

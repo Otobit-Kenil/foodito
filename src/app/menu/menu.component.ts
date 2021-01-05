@@ -30,7 +30,7 @@ export class MenuComponent implements OnInit {
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res
 
-   console.log(this.initial)
+ 
       var Hour = parseInt(moment().format('h'));
       var format = moment().format('a');
       if (Hour > 6 && Hour < 12) {
@@ -55,7 +55,7 @@ export class MenuComponent implements OnInit {
             
           }
         }
-        console.log(this.menu)
+
         
       }
 
@@ -106,7 +106,7 @@ export class MenuComponent implements OnInit {
     const cate = db.collection('Categories').valueChanges().subscribe((res) => {
       this.cate = res;
 
-      console.log(this.cate)
+   
       this.cate.map( (item: { isActive: boolean; }) => {
         item.isActive = false;
       })
@@ -188,12 +188,11 @@ export class MenuComponent implements OnInit {
 
     c.isActive = true;
 
-    console.log(this.cate) 
  
 console.log(c.categoryName)
 
 
-   var id = c.categoryName
+   var id = c.categoryId
    this.menu = [];
         for (var i = 0; i < this.initial.length; i++) {
            
@@ -202,10 +201,11 @@ console.log(c.categoryName)
 
           if (this.initial[i]['category'][y] == id) {
             this.menu.push(this.initial[i]);
-          }
+          } 
         }
-        
+      
         }
+    
   }
 
   Veg() {

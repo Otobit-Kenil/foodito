@@ -30,6 +30,7 @@ export class MenuComponent implements OnInit {
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res
 
+        console.log(this.initial)
  
       var Hour = parseInt(moment().format('h'));
       var format = moment().format('a');
@@ -90,7 +91,7 @@ export class MenuComponent implements OnInit {
         }
       }
      
-
+console.log(this.menu)
      
 
       this.detail = [];

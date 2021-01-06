@@ -27,6 +27,9 @@ export class CartComponent implements OnInit {
   msg:string = '';
   num:number = 0;
 
+  Place(item:string){
+    console.log(item)
+  }
   
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd:  ChangeDetectorRef) {
     this.dbnew = db;
@@ -59,19 +62,21 @@ export class CartComponent implements OnInit {
 
   RAZORPAY_OPTIONS = {
     "key": "rzp_test_ZcSb49CvQ0NZhe",
-    "amount": 'this.num',
+    "amount": this.num,
     "name": "Foodito",
     "currency": "INR",
     "order_id": "",
     "description": "Load Wallet",
-    "image": "https://livestatic.novopay.in/resources/img/nodeapp/img/Logo_NP.jpg",
+    "image": "https://firebasestorage.googleapis.com/v0/b/foodorderingsystem-3e400.appspot.com/o/Foodito.svg?alt=media&token=fa607f39-e07c-4716-9fc1-fe028211a4dd",
     "prefill": {
       "name": "Foodito",
       "email": "test@test.com",
       "contact": "8849838323",
       "method": ""
     },
-    "handler":"",
+    "handler": function (response:any){
+      alert(response.razorpay_payment_id);
+  },
     "modal": {},
     "theme": {
       "color": "#0096C5"
@@ -85,11 +90,12 @@ export class CartComponent implements OnInit {
     this.cd.detectChanges()
     // document.getElementById('razorpay-response').style.display = 'block';
   }
+  
 
-  PlaceOrder(notes:string) {
-console.log(notes)
+  PlaceOrder() {
+
     console.log(this.cart)
-  var time = moment().format('h:mm a');
+  var time = moment().format('h:mm a'); 
   var date = moment().format('DD/MM/YY');
     
     
@@ -114,6 +120,9 @@ console.log(notes)
     let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
     razorpay.open();
   }
+
+  
+  
 
   Plus(c:any){
 

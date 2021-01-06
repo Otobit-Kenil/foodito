@@ -43,31 +43,20 @@
                     </h4>
                 </div>
                 <div class="service_req_note">
-                    <form (submit)="PlaceOrder(notes.value)">
-                        <textarea id="notes" rows="5" cols="45" name="notes" placeholder="Enter your Request" value=""></textarea>
+                    <form>
+                        <textarea (keyup)=Place($event) rows="5" cols="45" name="notes" placeholder="Enter your Request" value=""></textarea>
+
                     </form>
 
                 </div>
             </div>
-            <!-- <div class="Ingredients">
-                <div class="ingri">
-                    <h4>
-                        Add Ingredients
-                    </h4>
-                </div>
-                <div class="searchbar">
-                    <div class="search">
-                        <img src="../../assets/Icon feather-search.svg" alt=""> &nbsp;
-                        <p>Search</p>
-                    </div>
-                </div>
-            </div> -->
 
         </div>
         <div class="ORDER">
             <div class="order">
                 <span routerLink="order" (click)="PlaceOrder() "> Order</span>
             </div>
+
         </div>
 
         <!-- <div class="qty">

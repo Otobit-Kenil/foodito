@@ -25,7 +25,7 @@ export class FoodComponent implements OnInit {
   optingridient: any[] = [];
   sendingredient: any[] = [];
   basic : any [] = [];
-
+  sum:number = 0;
 
   constructor(private router: Router, db: AngularFirestore,) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
@@ -87,14 +87,15 @@ console.log("basic", this.basic)
   Add_Item(f: any) {
     this.sendingredient = this.sendingredient.concat(this.basic)
     console.log("final", this.sendingredient)
-
+    f.price = parseInt(f.price)
+     this.sum += f.price
     const cartItem = {
       "foodId": f.foodId,
       "foodName": f.foodName,
       "qty": this.qty,
       "Uprice": parseInt(f.price),
       "price": parseInt(f.price),
-      "total": parseInt(f.price)+this.sum,
+      "total": this.sum,
       "Ingredients": this.sendingredient,
       "moreInfo": f.moreInfo,
 
@@ -133,7 +134,7 @@ console.log("basic", this.basic)
   
   }
 
-sum = 0;
+
   ingridients(input: HTMLInputElement, i: any) {
 
     input.checked === true

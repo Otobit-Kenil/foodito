@@ -44,8 +44,8 @@
 }
 
 .cat_slide_img {
-    height: 50px;
-    width: auto;
+    height: 55px;
+    width: 55px;
 }
 
 
@@ -352,5 +352,5 @@
 }
 
 .red {
-    background-color: #1B2845;
+    border: 5px solid #1B2845
 }

@@ -41,6 +41,7 @@ export class CartComponent implements OnInit {
 
   
   ngOnInit() {
+ 
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.cart);
     if(this.cart.length ==  0){
@@ -52,10 +53,11 @@ export class CartComponent implements OnInit {
     for(let i = 0;i<this.cart.length; i++){
       // this.price.push(this.cart[i].qty*this.cart[i].price)
       this.totalAmt += this.cart[i].total
-      this.num = this.totalAmt*100 
+
     }
+    this.num = this.totalAmt*100
     console.log(this.price)
-    console.log(this.num)
+    console.log(this.totalAmt)
     console.log(this.cart)
 
   }
@@ -67,11 +69,11 @@ export class CartComponent implements OnInit {
     "currency": "INR",
     "order_id": "",
     "description": "Load Wallet",
-    "image": "https://firebasestorage.googleapis.com/v0/b/foodorderingsystem-3e400.appspot.com/o/Foodito.svg?alt=media&token=fa607f39-e07c-4716-9fc1-fe028211a4dd",
+    "image": "https://strathmorehotels-theroyaloban.com/wp-content/uploads/2019/05/Dinning-Discount.png",
     "prefill": {
       "name": "Foodito",
       "email": "test@test.com",
-      "contact": "8849838323",
+      "contact": "9999999990",
       "method": ""
     },
     "handler": function (response:any){
@@ -82,6 +84,7 @@ export class CartComponent implements OnInit {
       "color": "#0096C5"
     }
   };
+
 
   public razorPaySuccessHandler(response: any) {
     console.log(response);
@@ -106,13 +109,13 @@ export class CartComponent implements OnInit {
   if(this.cart.length > 0 ){
  
     var Id = Date.now()
-    this.dbnew.collection('Orders').add({ orderId : Id, order: this.cart, table: this.tableNo,  Total: this.totalAmt, Time : time , Date : date})   }
+    this.dbnew.collection('Orders').add({ orderId : Id, order: this.cart, table: this.tableNo,  Total: this.totalAmt, Time : time , Date : date, isApprove : false})   }
     else{ 
       alert("your cart is empty")
     }
     console.log("added")
 
-    this.RAZORPAY_OPTIONS.amount = this.totalAmt;
+    this.RAZORPAY_OPTIONS.amount = this.totalAmt*100;
 
     this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
 
@@ -224,6 +227,8 @@ export class CartComponent implements OnInit {
   }
 
   item(c: any) {
+
+    
     
     localStorage.removeItem("product");
     console.log(c)

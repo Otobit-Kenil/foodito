@@ -141,6 +141,7 @@ console.log(this.menu)
       "imageUrl": m.imageUrl,
       "price": parseInt(m.price),
       "Ingredients": m.Ingredients,
+      "total": this.qty*parseInt(m.price),
 
 
     };
@@ -155,7 +156,7 @@ console.log(this.menu)
         console.log("cart2", (this.cart));
         this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
         this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
-        console.log(this.total)
+        console.log(typeof(this.total))
         console.log("cart3", (this.qty * m.price));
         console.log("cart3", (this.cart));
         // this.uniq.qty = this.uniq.qty+1

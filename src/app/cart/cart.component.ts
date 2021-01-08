@@ -19,7 +19,7 @@ export class CartComponent implements OnInit {
   tableNo: any;
   dbnew: any;
   totalAmt: number=0;
-  total: any = [];
+  total: any;
   price:any = [];
   sum = [];
   qty:any;
@@ -58,7 +58,7 @@ export class CartComponent implements OnInit {
     this.num = this.totalAmt*100
     console.log(this.price)
     console.log(this.totalAmt)
-    console.log(this.cart)
+  
 
   }
 
@@ -122,6 +122,9 @@ export class CartComponent implements OnInit {
 
     let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
     razorpay.open();
+
+    localStorage.removeItem('cart');
+    localStorage.removeItem('product');
   }
 
   
@@ -137,6 +140,7 @@ export class CartComponent implements OnInit {
       "qty": this.qty,
       "price": parseInt(c.price),
       "Ingredients": c.Ingredients,
+      "total": this.total,
 
     };
     var flag = false;
@@ -145,18 +149,20 @@ export class CartComponent implements OnInit {
       this.uniq = this.cart[i]
       if (this.uniq.foodId == c.foodId) {
         localStorage.removeItem('cart');
+     
 
-        console.log(this.uniq)
-        console.log("cart2", (this.cart));
+        // console.log(this.uniq)
+        // console.log("cart2", (this.cart));
         this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
-      
-        this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+      console.log(typeof(this.cart[this.cart.indexOf(this.uniq)].price))
+        this.total = this.qty*this.cart[this.cart.indexOf(this.uniq)].price
         console.log(this.total)
-        console.log("cart3", (this.qty * c.price));
-        console.log("cart3", (this.cart));
+        console.log(this.cart)
+        console.log(cartItem)
         // this.uniq.qty = this.uniq.qty+1
         localStorage.setItem("cart", JSON.stringify(this.cart));
-        window.location.reload();
+
+  
 
         flag = true
         break
@@ -174,7 +180,7 @@ export class CartComponent implements OnInit {
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
     }
-
+    // window.location.reload();
   }
 
   Minus(c:any){

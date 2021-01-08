@@ -127,7 +127,7 @@ console.log(this.menu)
       this.tableno = res['userid'];
       console.log(this.tableno)
 
-      localStorage.setItem("table", JSON.stringify(this.tableno));
+      localStorage.setItem("table", JSON.stringify("25"));
     })
   }
 
@@ -191,8 +191,9 @@ console.log(this.menu)
     c.isActive = true;
 
  
-console.log(c.categoryName)
+    console.log(c.categoryName)
 
+   
 
    var id = c.categoryId
    this.menu = [];

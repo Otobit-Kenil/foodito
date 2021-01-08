@@ -88,17 +88,16 @@ console.log("basic", this.basic)
     this.sendingredient = this.sendingredient.concat(this.basic)
     console.log("final", this.sendingredient)
     f.price = parseInt(f.price)
-     this.sum += f.price
+     f.price += this.sum
     const cartItem = {
       "foodId": f.foodId,
       "foodName": f.foodName,
       "qty": this.qty,
       "Uprice": parseInt(f.price),
       "price": parseInt(f.price),
-      "total": this.sum,
+      "total": f.price,
       "Ingredients": this.sendingredient,
       "moreInfo": f.moreInfo,
-
       "imageUrl": f.imageUrl
 
     };
@@ -117,6 +116,7 @@ console.log("basic", this.basic)
         console.log(this.total)
         console.log("cart3", (this.qty * f.price));
         console.log("cart3", (this.cart));
+        
         // this.uniq.qty = this.uniq.qty+1
         localStorage.setItem("cart", JSON.stringify(this.cart));
 
@@ -148,35 +148,15 @@ console.log("basic", this.basic)
     
     console.log(this.sum)
 
-    // var uniq = i
-
-    // console.log(this.uniq)
-
-    // console.log(this.sendingredient)
-    // for (var y = 0; y < this.sendingredient.length; y++) {
-
-    //   if (this.sendingredient[y] == uniq) {
-
-
-    //     this.sendingredient.splice(y, 1)
-    //     console.log(this.sendingredient)
-    //     // this.ingridient = this.ingridient.filter(item => item != temp);  
-    //     break;
-    //   }
-    //   else {
-    //     this.sendingredient.push(i)
-    //     console.log(this.temp_ingri)
-    //     break;
-    //   }
-    // }
   }
 
   ingridientss(input: HTMLInputElement, i: any) {
 
     input.checked === true
       ? this.basic.push(i.ingredient)
-      : this.basic.splice(this.sendingredient.indexOf(i.ingredient),1);
+      : this.basic.splice(this.basic.indexOf(i.ingredient),1);
       console.log(this.basic)
+  
   }
   //   const cartItem = {
 

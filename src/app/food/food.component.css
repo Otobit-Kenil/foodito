@@ -201,11 +201,11 @@
 
 .ADD {
     position: relative;
-    bottom: 28px;
+    bottom: 0;
     text-align: center;
     border: 1px solid #707070;
     height: 59px;
-    width: auto;
+    width: 100%;
     border-radius: 10px;
     background-color: #1B2845;
     margin-top: 20px;

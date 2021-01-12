@@ -12,53 +12,53 @@ declare let Razorpay: any;
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  response:any;
-  razorpayResponse:any;
+  response: any;
+  razorpayResponse: any;
   showModal = false;
   cart: any = [];
   tableNo: any;
   dbnew: any;
-  totalAmt: number=0;
+  totalAmt: number = 0;
   total: any;
-  price:any = [];
+  price: any = [];
   sum = [];
-  qty:any;
+  qty: any;
   uniq: any = [];
-  msg:string = '';
-  num:number = 0;
+  msg: string = '';
+  num: number = 0;
+  sNote: string = '';
 
-  Place(item:string){
-    console.log(item)
-  }
-  
-  constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd:  ChangeDetectorRef) {
+
+  constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef) {
     this.dbnew = db;
 
     this.razorpayService
-    .lazyLoadLibrary('https://checkout.razorpay.com/v1/checkout.js')
-    .subscribe(); 
+      .lazyLoadLibrary('https://checkout.razorpay.com/v1/checkout.js')
+      .subscribe();
   }
 
-  
+
   ngOnInit() {
- 
+
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.cart);
-    if(this.cart.length ==  0){
+    if (this.cart.length == 0) {
       this.msg = 'Your Cart is Empty'
       console.log(this.msg)
     }
     this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
     console.log(this.tableNo);
-    for(let i = 0;i<this.cart.length; i++){
+    for (let i = 0; i < this.cart.length; i++) {
       // this.price.push(this.cart[i].qty*this.cart[i].price)
+      this.cart[i].isIndex = i;
       this.totalAmt += this.cart[i].total
-
+      console.log(this.cart[i].total)
     }
-    this.num = this.totalAmt*100
-    console.log(this.price)
+    console.log(this.cart)
+    this.num = this.totalAmt * 100
+
     console.log(this.totalAmt)
-  
+
 
   }
 
@@ -76,9 +76,9 @@ export class CartComponent implements OnInit {
       "contact": "9999999990",
       "method": ""
     },
-    "handler": function (response:any){
+    "handler": function (response: any) {
       alert(response.razorpay_payment_id);
-  },
+    },
     "modal": {},
     "theme": {
       "color": "#0096C5"
@@ -93,29 +93,42 @@ export class CartComponent implements OnInit {
     this.cd.detectChanges()
     // document.getElementById('razorpay-response').style.display = 'block';
   }
-  
+
+  Place(item: string) {
+    this.sNote = item;
+
+  }
 
   PlaceOrder() {
 
+
+
     console.log(this.cart)
-  var time = moment().format('h:mm a'); 
-  var date = moment().format('DD/MM/YY');
-    
-    
-   var y = this.cart.indexOf("imgUrl")
-   console.log(y)
- 
-  console.log(this.cart)
-  if(this.cart.length > 0 ){
- 
-    var Id = Date.now()
-    this.dbnew.collection('Orders').add({ orderId : Id, order: this.cart, table: this.tableNo,  Total: this.totalAmt, Time : time , Date : date, isApprove : false})   }
-    else{ 
+    var time = moment().format('h:mm a');
+    var date = moment().format('DD/MM/YY');
+
+
+    var y = this.cart.indexOf("imgUrl")
+    console.log(y)
+
+    console.log(this.cart)
+    if (this.cart.length > 0) {
+
+      var Id = Date.now()
+      this.dbnew.collection('Orders').add({
+        orderId: Id, order: this.cart, table: this.tableNo, Total: this.totalAmt, Time: time, Date: date, isApprove: false, specialNote: this.sNote
+      }).then(function (docRef:any) {
+         console.log(docRef.id)
+      }).catch(function (error:any) {
+        console.error("Error adding document: ", error);
+      });
+    }
+    else {
       alert("your cart is empty")
     }
     console.log("added")
 
-    this.RAZORPAY_OPTIONS.amount = this.totalAmt*100;
+    this.RAZORPAY_OPTIONS.amount = this.totalAmt * 100;
 
     this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
 
@@ -127,12 +140,12 @@ export class CartComponent implements OnInit {
     localStorage.removeItem('product');
   }
 
-  
-  
 
-  Plus(c:any){
 
-   
+
+  Plus(c: any) {
+
+
     const cartItem = {
 
       "foodId": c.foodId,
@@ -141,36 +154,48 @@ export class CartComponent implements OnInit {
       "price": parseInt(c.price),
       "Ingredients": c.Ingredients,
       "total": this.total,
+      "isIndex": c.isIndex,
 
     };
     var flag = false;
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     for (var i = 0; i < this.cart.length; i++) {
       this.uniq = this.cart[i]
+
+      console.log(this.uniq)
+      console.log(c.isIndex)
+
       if (this.uniq.foodId == c.foodId) {
+
         localStorage.removeItem('cart');
-     
+
 
         // console.log(this.uniq)
         // console.log("cart2", (this.cart));
+
         this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
-      console.log(typeof(this.cart[this.cart.indexOf(this.uniq)].price))
-        this.total = this.qty*this.cart[this.cart.indexOf(this.uniq)].price
-        console.log(this.total)
+        console.log(typeof (this.cart[this.cart.indexOf(this.uniq)].price))
+        this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        console.log(this.cart.total)
         console.log(this.cart)
         console.log(cartItem)
         // this.uniq.qty = this.uniq.qty+1
         localStorage.setItem("cart", JSON.stringify(this.cart));
 
-  
+
 
         flag = true
         break
+
 
       }
       else {
         console.log("not same")
 
+      }
+      if (this.cart[i].isIndex == c.isIndex) {
+
+        console.log("hello")
       }
 
     }
@@ -183,7 +208,7 @@ export class CartComponent implements OnInit {
     // window.location.reload();
   }
 
-  Minus(c:any){
+  Minus(c: any) {
 
     const cartItem = {
 
@@ -192,6 +217,7 @@ export class CartComponent implements OnInit {
       "qty": this.qty,
       "price": parseInt(c.price),
       "Ingredients": c.Ingredients,
+      "isIndex": c.isIndex,
 
     };
     var flag = false;
@@ -204,14 +230,13 @@ export class CartComponent implements OnInit {
         console.log(this.uniq)
         console.log("cart2", (this.cart));
         this.qty = this.cart[this.cart.indexOf(this.uniq)].qty -= 1
-       
-        this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
-        console.log(this.total)
-        console.log("cart3", (this.qty * c.price));
-        console.log("cart3", (this.cart));
+
+        this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        console.log(this.cart.total)
+
         // this.uniq.qty = this.uniq.qty+1
-        if(this.qty == 0){
-          this.cart.splice(i,1)
+        if (this.qty == 0) {
+          this.cart.splice(i, 1)
         }
         localStorage.setItem("cart", JSON.stringify(this.cart));
         window.location.reload();
@@ -234,8 +259,8 @@ export class CartComponent implements OnInit {
 
   item(c: any) {
 
-    
-    
+
+
     localStorage.removeItem("product");
     console.log(c)
     localStorage.setItem("product", JSON.stringify(c));

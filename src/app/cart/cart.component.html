@@ -44,20 +44,21 @@
                 </div>
                 <div class="service_req_note">
                     <form>
-                        <textarea (keyup)=Place($event) rows="5" cols="45" name="notes" placeholder="Enter your Request" value=""></textarea>
+                        <textarea (keyup)=Place($event.target.value) rows="5" cols="45" name="notes" placeholder="Enter your Request" value=""></textarea>
 
                     </form>
 
                 </div>
             </div>
+            <div class="ORDER">
+                <div class="order">
+                    <span routerLink="order" (click)="PlaceOrder() "> Order</span>
+                </div>
 
-        </div>
-        <div class="ORDER">
-            <div class="order">
-                <span routerLink="order" (click)="PlaceOrder() "> Order</span>
             </div>
 
         </div>
+
 
         <!-- <div class="qty">
             <button onclick="decrement('value')">-</button>

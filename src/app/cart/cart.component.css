@@ -5,6 +5,7 @@
     margin-top: 10px !important;
     box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
     border-radius: 10px;
+    width: 100%;
 }
 
 .productimg img {
@@ -75,7 +76,7 @@
 .service_req_note textarea {
     background-color: #f5f5f5;
     border: none;
-    width: auto;
+    width: 100%;
     box-shadow: 0 1px 3px #DDDDDD, 6px 7px 4px #DDDDDD, 1px -2px 1px #ffffff, -7px -6px 7px #ffffff;
     padding-top: 30px !important;
     padding: 15px;
@@ -126,14 +127,15 @@
 }
 
 .ORDER {
-    position: relative;
+    position: absolute;
     text-align: center;
     border: 1px solid #707070;
+    bottom: 0;
     height: 59px;
-    width: auto;
+    margin: 10px;
+    width: 100%;
     border-radius: 10px;
     background-color: #1B2845;
-    margin-top: 10px;
 }
 
 .qty {
@@ -184,4 +186,8 @@
 
 .qtycust {
     display: grid;
+}
+
+.final-p {
+    margin-left: 10px;
 }

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { FormGroup, FormControl } from '@angular/forms';
+import { ConstantPool } from '@angular/compiler';
+import { Console } from 'console';
 
 
 @Component({
@@ -24,8 +26,9 @@ export class FoodComponent implements OnInit {
   optional: any[] = [];
   optingridient: any[] = [];
   sendingredient: any[] = [];
-  basic : any [] = [];
-  sum:number = 0;
+  finalingredient: any[] = [];
+  basic: any[] = [];
+  sum: number = 0;
 
   constructor(private router: Router, db: AngularFirestore,) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
@@ -49,22 +52,22 @@ export class FoodComponent implements OnInit {
       for (var key in this.ingri) {
 
         if (`${this.ingri[key]}` == 'true') {
-  
+
           for (var i = 0; i < this.optional.length; i++) {
             if (this.optional[i]['ingredientId'] == `${key}`) {
-  
+
               this.ingridient.push(this.optional[i]);
-  
+
             }
           }
         }
       }
 
-      for(i=0; i<this.ingridient.length; i++){
+      for (i = 0; i < this.ingridient.length; i++) {
         this.basic[i] = this.ingridient[i].ingredient
       }
 
-console.log("basic", this.basic)
+      console.log("basic", this.basic)
       console.log("hey", this.optingridient)
     });
   }
@@ -77,7 +80,7 @@ console.log("basic", this.basic)
     this.ingri = this.fooditem.Ingredients
     this.oingridient = this.fooditem.optional
 
-    console.log(this.ingri)
+    // console.log(this.ingri)
 
 
     this.food.push(this.fooditem)
@@ -85,18 +88,17 @@ console.log("basic", this.basic)
   }
 
   Add_Item(f: any) {
-    this.sendingredient = this.sendingredient.concat(this.basic)
-    console.log("final", this.sendingredient)
+    this.finalingredient = this.sendingredient.concat(this.basic)
+    console.log("final", this.finalingredient)
     f.price = parseInt(f.price)
-     f.price += this.sum
+    f.price += this.sum
     const cartItem = {
       "foodId": f.foodId,
       "foodName": f.foodName,
       "qty": this.qty,
-      "Uprice": parseInt(f.price),
       "price": parseInt(f.price),
       "total": f.price,
-      "Ingredients": this.sendingredient,
+      "Ingredients": this.finalingredient,
       "moreInfo": f.moreInfo,
       "imageUrl": f.imageUrl
 
@@ -104,24 +106,42 @@ console.log("basic", this.basic)
     var flag = false;
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     for (var i = 0; i < this.cart.length; i++) {
+      this.cart[i].isIndex = i;
       this.uniq = this.cart[i]
       if (this.uniq.foodId == f.foodId) {
-        
-        localStorage.removeItem('cart');
+        // for(i=0; i < this.sendingredient.length; i++){
+        //   for( var y=0; y < this.uniq.Ingredients; y++){
+        //     this.sendingredient[i] = this.uniq.Ingredients[y]
+        //   }
+        // }
+        // console.log(this.sendingredient.sort())
+        // console.log(this.uniq.Ingredients.sort())
 
-        console.log(this.uniq)
-        console.log("cart2", (this.cart));
-        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
-        this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
-        console.log(this.total)
-        console.log("cart3", (this.qty * f.price));
-        console.log("cart3", (this.cart));
-        
-        // this.uniq.qty = this.uniq.qty+1
-        localStorage.setItem("cart", JSON.stringify(this.cart));
+        if (JSON.stringify(this.finalingredient) == JSON.stringify(this.uniq.Ingredients)) {
+          console.log(this.finalingredient)
+          console.log(this.cart)
 
-        flag = true
-        break
+          console.log(this.uniq.Ingredients)
+          localStorage.removeItem('cart');
+
+
+          console.log("cart2", (this.cart));
+          this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
+          this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+          console.log(this.total)
+          console.log("cart3", (this.qty * f.price));
+          console.log("cart3", (this.cart));
+
+          // this.uniq.qty = this.uniq.qty+1
+          localStorage.setItem("cart", JSON.stringify(this.cart));
+
+          flag = true
+          break
+        }
+        else {
+          console.log("not same")
+        } 
+
 
       }
     }
@@ -131,21 +151,21 @@ console.log("basic", this.basic)
       console.log("cart", this.cart);
     }
 
-  
+
   }
 
 
   ingridients(input: HTMLInputElement, i: any) {
 
     input.checked === true
-      ? this.sendingredient.push(i.ingredient)  
-      : this.sendingredient.splice(this.sendingredient.indexOf(i.ingredient),1)
-   
+      ? this.sendingredient.push(i.ingredient)
+      : this.sendingredient.splice(this.sendingredient.indexOf(i.ingredient), 1)
+
     console.log(this.sendingredient)
     input.checked === true
-    ? this.sum += parseInt(i.price)
-    : this.sum -= parseInt(i.price)
-    
+      ? this.sum += parseInt(i.price)
+      : this.sum -= parseInt(i.price)
+
     console.log(this.sum)
 
   }
@@ -154,9 +174,9 @@ console.log("basic", this.basic)
 
     input.checked === true
       ? this.basic.push(i.ingredient)
-      : this.basic.splice(this.basic.indexOf(i.ingredient),1);
-      console.log(this.basic)
-  
+      : this.basic.splice(this.basic.indexOf(i.ingredient), 1);
+    console.log(this.basic)
+
   }
   //   const cartItem = {
 

@@ -149,13 +149,14 @@ console.log(this.menu)
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     for (var i = 0; i < this.cart.length; i++) {
       this.uniq = this.cart[i]
+      this.cart[i].isIndex = i;
       if (this.uniq.foodId == m.foodId) {
         localStorage.removeItem('cart');
 
         console.log(this.uniq)
         console.log("cart2", (this.cart));
         this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
-        this.total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
         console.log(typeof(this.total))
         console.log("cart3", (this.qty * m.price));
         console.log("cart3", (this.cart));

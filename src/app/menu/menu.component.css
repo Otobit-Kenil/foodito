@@ -261,6 +261,7 @@
     margin-top: -8px;
     background: #397c24;
     border: 1px solid #397c24;
+    box-shadow: 1px 5px 2px #DDDDDD, -2px -8px 6px #ffffff
 }
 
 .custom01 label:hover::before {
@@ -318,6 +319,7 @@
     margin-top: -8px;
     background: #8e4426;
     border: 1px solid #8e4426;
+    box-shadow: 1px 5px 2px #DDDDDD, -2px -8px 6px #ffffff
 }
 
 .custom02 label:hover::before {

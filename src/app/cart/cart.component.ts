@@ -3,6 +3,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ExternalLibraryService } from './razorService';
+import { stringify } from '@angular/compiler/src/util';
 
 
 declare let Razorpay: any;
@@ -27,7 +28,7 @@ export class CartComponent implements OnInit {
   msg: string = '';
   num: number = 0;
   sNote: string = '';
-
+idd:any;
 
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef) {
     this.dbnew = db;
@@ -112,16 +113,24 @@ export class CartComponent implements OnInit {
     console.log(y)
 
     console.log(this.cart)
+    var id;
     if (this.cart.length > 0) {
 
-      var Id = Date.now()
+      var orderId = Date.now()
       this.dbnew.collection('Orders').add({
-        orderId: Id, order: this.cart, table: this.tableNo, Total: this.totalAmt, Time: time, Date: date, isApprove: false, specialNote: this.sNote
+        orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt, Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null
       }).then(function (docRef:any) {
-         console.log(docRef.id)
+       id = docRef.id
+   
+      console.log(id)
       }).catch(function (error:any) {
         console.error("Error adding document: ", error);
       });
+
+      
+      
+
+
     }
     else {
       alert("your cart is empty")
@@ -136,8 +145,12 @@ export class CartComponent implements OnInit {
     let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
     razorpay.open();
 
-    localStorage.removeItem('cart');
-    localStorage.removeItem('product');
+    // localStorage.removeItem('cart');
+    // localStorage.removeItem('product');
+
+   
+    console.log(id)
+   
   }
 
 
@@ -267,4 +280,5 @@ export class CartComponent implements OnInit {
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');
   }
+  
 }

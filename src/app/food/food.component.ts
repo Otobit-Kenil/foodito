@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { FormGroup, FormControl } from '@angular/forms';
-import { ConstantPool } from '@angular/compiler';
-import { Console } from 'console';
+
 
 
 @Component({
@@ -178,27 +176,4 @@ export class FoodComponent implements OnInit {
     console.log(this.basic)
 
   }
-  //   const cartItem = {
-
-  //     "category": f.category,
-  //     "description": f.description,
-  //     "ID": f.foodId,
-  //     "foodName": f.foodName,
-  //     "displayImageUrl": f.imageUrl,
-  //     "isQuantitative": f.isQuantitative,
-  //     "isSpecial": f.isSpecial,
-  //     "isVeg": f.isVeg,
-  //     "price": f.price,
-  //     "timing": f.timing,
-  //     "qty": this.qty,
-  //     "Ingredients": f.Ingredients
-  //   };
-
-  //   this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
-  //   this.cart.push(cartItem);
-  //   localStorage.setItem("cart", JSON.stringify(this.cart));
-  //   console.log("cart", this.cart);
-  //   this.router.navigateByUrl('/cart');
-  //   // window.location.reload();
-  // }
 }

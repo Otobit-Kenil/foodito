@@ -28,7 +28,6 @@ export class CartComponent implements OnInit {
   msg: string = '';
   num: number = 0;
   sNote: string = '';
-idd:any;
 
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef) {
     this.dbnew = db;
@@ -49,17 +48,18 @@ idd:any;
     }
     this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
     console.log(this.tableNo);
+
     for (let i = 0; i < this.cart.length; i++) {
       // this.price.push(this.cart[i].qty*this.cart[i].price)
       this.cart[i].isIndex = i;
       this.totalAmt += this.cart[i].total
       console.log(this.cart[i].total)
     }
+    localStorage.setItem("cart", JSON.stringify(this.cart));
     console.log(this.cart)
     this.num = this.totalAmt * 100
 
     console.log(this.totalAmt)
-
 
   }
 
@@ -102,8 +102,6 @@ idd:any;
 
   PlaceOrder() {
 
-
-
     console.log(this.cart)
     var time = moment().format('h:mm a');
     var date = moment().format('DD/MM/YY');
@@ -117,19 +115,23 @@ idd:any;
     if (this.cart.length > 0) {
 
       var orderId = Date.now()
-      this.dbnew.collection('Orders').add({
+      var sendorder = this.dbnew.collection('Orders')
+      sendorder.add({
         orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt, Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null
-      }).then(function (docRef:any) {
-       id = docRef.id
-   
-      console.log(id)
-      }).catch(function (error:any) {
+      }).then(function (docRef: any) {
+        let inter = setInterval(() => {
+          id = docRef.id
+          if (id != undefined) {
+            console.log(id)
+            sendorder.doc(id).update({ DocId: id })
+            clearInterval(inter);
+          }
+        }, 10);
+
+        console.log("done")
+      }).catch(function (error: any) {
         console.error("Error adding document: ", error);
       });
-
-      
-      
-
 
     }
     else {
@@ -141,23 +143,14 @@ idd:any;
 
     this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
 
-
     let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
     razorpay.open();
 
-    // localStorage.removeItem('cart');
-    // localStorage.removeItem('product');
-
-   
-    console.log(id)
-   
+    localStorage.removeItem('cart');
+    localStorage.removeItem('product');
   }
 
-
-
-
   Plus(c: any) {
-
 
     const cartItem = {
 
@@ -175,40 +168,32 @@ idd:any;
     for (var i = 0; i < this.cart.length; i++) {
       this.uniq = this.cart[i]
 
-      console.log(this.uniq)
+      console.log(this.uniq.isIndex)
       console.log(c.isIndex)
 
       if (this.uniq.foodId == c.foodId) {
 
-        localStorage.removeItem('cart');
+        if (this.uniq.isIndex == c.isIndex) {
 
+          localStorage.removeItem('cart');
+          console.log(this.uniq.isIndex)
+          console.log(c.isIndex);
 
-        // console.log(this.uniq)
-        // console.log("cart2", (this.cart));
+          this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
+          console.log(typeof (this.cart[this.cart.indexOf(this.uniq)].price))
+          this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+          console.log(this.cart.total)
+          console.log(this.cart)
+          console.log(cartItem)
+          // this.uniq.qty = this.uniq.qty+1
+          localStorage.setItem("cart", JSON.stringify(this.cart));
 
-        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
-        console.log(typeof (this.cart[this.cart.indexOf(this.uniq)].price))
-        this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
-        console.log(this.cart.total)
-        console.log(this.cart)
-        console.log(cartItem)
-        // this.uniq.qty = this.uniq.qty+1
-        localStorage.setItem("cart", JSON.stringify(this.cart));
-
-
-
-        flag = true
-        break
-
-
+          flag = true
+          break
+        }
       }
       else {
         console.log("not same")
-
-      }
-      if (this.cart[i].isIndex == c.isIndex) {
-
-        console.log("hello")
       }
 
     }
@@ -218,7 +203,7 @@ idd:any;
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
     }
-    // window.location.reload();
+    window.location.reload();
   }
 
   Minus(c: any) {
@@ -238,25 +223,27 @@ idd:any;
     for (var i = 0; i < this.cart.length; i++) {
       this.uniq = this.cart[i]
       if (this.uniq.foodId == c.foodId) {
-        localStorage.removeItem('cart');
 
-        console.log(this.uniq)
-        console.log("cart2", (this.cart));
-        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty -= 1
+        if (this.uniq.isIndex == c.isIndex) {
+          localStorage.removeItem('cart');
 
-        this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
-        console.log(this.cart.total)
+          console.log(this.uniq)
+          console.log("cart2", (this.cart));
+          this.qty = this.cart[this.cart.indexOf(this.uniq)].qty -= 1
 
-        // this.uniq.qty = this.uniq.qty+1
-        if (this.qty == 0) {
-          this.cart.splice(i, 1)
+          this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+          console.log(this.cart.total)
+
+          // this.uniq.qty = this.uniq.qty+1
+          if (this.qty == 0) {
+            this.cart.splice(i, 1)
+          }
+          localStorage.setItem("cart", JSON.stringify(this.cart));
+          window.location.reload();
+
+          flag = true
+          break
         }
-        localStorage.setItem("cart", JSON.stringify(this.cart));
-        window.location.reload();
-
-        flag = true
-        break
-
       }
       else {
         console.log("not same")
@@ -272,13 +259,16 @@ idd:any;
 
   item(c: any) {
 
-
-
     localStorage.removeItem("product");
     console.log(c)
     localStorage.setItem("product", JSON.stringify(c));
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');
   }
-  
+
+  Clear(){
+    this.cart.length = 0;
+    localStorage.setItem("cart", JSON.stringify(this.cart));  
+  }
+
 }

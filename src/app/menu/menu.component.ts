@@ -28,14 +28,14 @@ export class MenuComponent implements OnInit {
   constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router) {
  
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
-      this.initial = res
+      this.initial = res           // get all item from food collection into initial array 
 
         console.log(this.initial)
  
       var Hour = parseInt(moment().format('h'));
-      var format = moment().format('a');
-      if (Hour > 6 && Hour < 12) {
-        this.menu = [];
+      var format = moment().format('a');      // format of time AM or Pm
+      if (Hour > 6 && Hour < 12) {            // item for Morning
+        this.menu = [];  
         for (var i = 0; i < this.initial.length; i++) {
      
           if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Morning == true) {
@@ -46,7 +46,7 @@ export class MenuComponent implements OnInit {
       }
       
      
-      if (Hour == 12 && format =='pm' || Hour >= 1 && format == 'pm' || format == 'pm' &&  Hour < 6 ) {
+      if (Hour == 12 && format =='pm' || Hour >= 1 && format == 'pm' || format == 'pm' &&  Hour < 6 ) {             // item for Afternoon
         this.menu = [];
 
         for (var i = 0; i < this.initial.length; i++) {
@@ -60,8 +60,8 @@ export class MenuComponent implements OnInit {
         
       }
 
-      if (Hour >= 6 && format == 'pm' || format == 'pm' &&  Hour < 12 ) {
-        this.menu = [];
+      if (Hour >= 6 && format == 'pm' || format == 'pm' &&  Hour < 12 ) {        // item for Evening 
+        this.menu = [];    
    
         for (var i = 0; i < this.initial.length; i++) {
           if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Evening == true) {
@@ -70,7 +70,7 @@ export class MenuComponent implements OnInit {
         }
       }
 
-      if (Hour == 12 && format =='am' || Hour >= 1 && format == 'am' || format == 'am' &&  Hour < 6 ) {
+      if (Hour == 12 && format =='am' || Hour >= 1 && format == 'am' || format == 'am' &&  Hour < 6 ) {         // item for Evening
         this.menu = [];
         for (var i = 0; i < this.initial.length; i++) {
           if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Night == true) {
@@ -94,7 +94,7 @@ export class MenuComponent implements OnInit {
 console.log(this.menu)
      
 
-      this.detail = [];
+      this.detail = [];          // for specail item panel 
       for (var i = 0; i < this.menu.length; i++) {
         if (this.menu[i]['isSpecial'] == true) {
           this.detail.push(this.menu[i]);
@@ -185,7 +185,7 @@ console.log(this.menu)
   toggle = true;
   category(c:any){
     
-   this.cate.forEach((element: { isActive: boolean; }) => {
+   this.cate.forEach((element: { isActive: boolean; }) => {        // for highlight border around cate icon 
      element.isActive = false
    });
 
@@ -220,7 +220,7 @@ console.log(this.menu)
     this.menu = this.nVeg;
   }
 
-  item(m: any) {
+  item(m: any) {            // open particuler product 
     localStorage.removeItem("product");
     console.log(m)
     localStorage.setItem("product", JSON.stringify(m));

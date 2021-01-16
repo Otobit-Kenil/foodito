@@ -24,7 +24,7 @@ export class FoodComponent implements OnInit {
   optional: any[] = [];
   optingridient: any[] = [];
   sendingredient: any[] = [];
-  finalingredient: any[] = [];
+
   basic: any[] = [];
   sum: number = 0;
 
@@ -62,11 +62,12 @@ export class FoodComponent implements OnInit {
       }
 
       for (i = 0; i < this.ingridient.length; i++) {
-        this.basic[i] = this.ingridient[i].ingredient
+        this.basic[i] = this.ingridient[i].ingredientId
       }
+      this.basic.sort()
 
       console.log("basic", this.basic)
-      console.log("hey", this.optingridient)
+
     });
   }
 
@@ -86,25 +87,28 @@ export class FoodComponent implements OnInit {
   }
 
   Add_Item(f: any) {
-    this.finalingredient = this.sendingredient.concat(this.basic)
-    console.log("final", this.finalingredient)
+    // this.finalingredient = this.sendingredient.concat(this.basic)
+    // console.log("final", this.finalingredient)
     f.price = parseInt(f.price)
     f.price += this.sum
     const cartItem = {
+
       "foodId": f.foodId,
       "foodName": f.foodName,
       "qty": this.qty,
       "price": parseInt(f.price),
       "total": f.price,
-      "Ingredients": this.finalingredient,
+      "Ingredients": this.basic,
+      "extra":this.sendingredient,
       "moreInfo": f.moreInfo,
-      "imageUrl": f.imageUrl
+      "imageUrl": f.imageUrl,
+      "isIndex" : this.cart.isIndex,
 
     };
     var flag = false;
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     for (var i = 0; i < this.cart.length; i++) {
-      this.cart[i].isIndex = i;
+      this.cart.isIndex = i;
       this.uniq = this.cart[i]
       if (this.uniq.foodId == f.foodId) {
         // for(i=0; i < this.sendingredient.length; i++){
@@ -115,8 +119,12 @@ export class FoodComponent implements OnInit {
         // console.log(this.sendingredient.sort())
         // console.log(this.uniq.Ingredients.sort())
 
-        if (JSON.stringify(this.finalingredient) == JSON.stringify(this.uniq.Ingredients)) {
-          console.log(this.finalingredient)
+        if (JSON.stringify(this.basic) == JSON.stringify(this.uniq.Ingredients)) {
+
+          if (JSON.stringify(this.sendingredient) == JSON.stringify(this.uniq.extra)) {
+
+
+          // console.log(this.finalingredient)
           console.log(this.cart)
 
           console.log(this.uniq.Ingredients)
@@ -135,6 +143,7 @@ export class FoodComponent implements OnInit {
 
           flag = true
           break
+          }
         }
         else {
           console.log("not same")
@@ -156,8 +165,9 @@ export class FoodComponent implements OnInit {
   ingridients(input: HTMLInputElement, i: any) {
 
     input.checked === true
-      ? this.sendingredient.push(i.ingredient)
-      : this.sendingredient.splice(this.sendingredient.indexOf(i.ingredient), 1)
+      ? this.sendingredient.push(i.ingredientId)
+      : this.sendingredient.splice(this.sendingredient.indexOf(i.ingredientId), 1)
+        this.sendingredient.sort()
 
     console.log(this.sendingredient)
     input.checked === true
@@ -171,9 +181,10 @@ export class FoodComponent implements OnInit {
   ingridientss(input: HTMLInputElement, i: any) {
 
     input.checked === true
-      ? this.basic.push(i.ingredient)
-      : this.basic.splice(this.basic.indexOf(i.ingredient), 1);
-    console.log(this.basic)
+      ? this.basic.push(i.ingredientId)
+      : this.basic.splice(this.basic.indexOf(i.ingredientId), 1);
+      this.basic.sort()
+    console.log("basic", this.basic)
 
   }
 }

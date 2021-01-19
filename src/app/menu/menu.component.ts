@@ -131,7 +131,7 @@ console.log(this.menu)
     })
   }
 
-  Add_Item(m: any) {
+  Add_Item(m: any) {  
 
     const cartItem = {
 
@@ -142,6 +142,8 @@ console.log(this.menu)
       "price": parseInt(m.price),
       "Ingredients": m.Ingredients,
       "total": this.qty*parseInt(m.price),
+      "description": m.description,
+      "moreInfo":m.moreInfo,
 
 
     };
@@ -212,8 +214,13 @@ console.log(this.menu)
     
   }
 
-  Veg() {
-    this.menu = this.veg;
+  Veg(input: HTMLInputElement) {
+
+    input.checked === true
+    ? this.menu = this.veg
+    : 
+
+
   }
 
   NonVeg() {

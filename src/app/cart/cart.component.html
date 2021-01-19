@@ -35,48 +35,25 @@
             <h4>Total : ₹ {{totalAmt}}</h4>
         </div>
 
-        <div class="row">
-            <div class="Request">
-                <div class="service_req">
-                    <h4>
-                        Service Request
-                    </h4>
-                </div>
-                <div class="service_req_note">
-                    <form>
-                        <textarea (keyup)=Place($event.target.value) rows="5" cols="45" name="notes" placeholder="Enter your Request" value=""></textarea>
 
-                    </form>
-
-                </div>
-            </div>
-
-            <div>
-                <button (click)="Clear() ">Clear All</button>
-            </div>
-            <div class="ORDER">
-                <div class="order">
-                    <span routerLink="order" (click)="PlaceOrder() "> Order</span>
-                </div>
+        <div class="Request">
+            <!-- <div class="service_req">
+                <h4>
+                    Service Request
+                </h4>
+            </div> -->
+            <div class="service_req_note">
+                <textarea (keyup)=Place($event.target.value) rows="5" cols="43" name="notes" placeholder="Enter Your Specail Request" value=""></textarea>
 
             </div>
 
         </div>
 
 
-        <!-- <div class="qty">
-            <button onclick="decrement('value')">-</button>
-            <input id=demoInput type=number min=1 max=100 value="1" />
-            <button onclick="increment('value')">+</button>
-        </div>
-        <script>
-            function increment() {
-                document.getElementById('demoInput').stepUp();
-            }
 
-            function decrement() {
-                document.getElementById('demoInput').stepDown();
-            }
-        </script> -->
+
+        <div class="ORDER">
+            <button routerLink="order" (click)="PlaceOrder() "> ORDER NOW</button>
+        </div>
 
     </div>

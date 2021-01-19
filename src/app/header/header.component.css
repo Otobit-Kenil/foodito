@@ -9,11 +9,25 @@
     box-shadow: 0 1px 3px #DDDDDD, 6px 6px 12px #DDDDDD;
     margin-bottom: 20px;
     padding: 10px;
+    position: sticky;
 }
 
 .badge {
     position: relative;
-    right: 54%;
+    right: 46%;
+    bottom: 4px;
     font-size: 15px;
-    color: #000000;
+    color: #1B2845;
+    outline: none;
+}
+
+.cart {
+    display: flex;
+}
+
+.cart h4 {
+    font-size: 20px;
+    color: #1B2845;
+    font-weight: bold;
+    margin-bottom: 0px;
 }

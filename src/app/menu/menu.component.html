@@ -20,10 +20,10 @@
 
                 <div class="filterbar">
                     <div class="custom01" style="margin-right: 15px;">
-                        <input type="radio" id="radio03-01" name="demo01" (click)="Veg()" /><label for="radio03-01"></label>
+                        <input type="checkbox" id="radio03-01" name="demo01" (click)="Veg($event.srcElement)" /><label for="radio03-01"></label>
                     </div>
                     <div class="custom02">
-                        <input type="radio" id="radio03-02" name="demo01" (click)="NonVeg()" /><label for="radio03-02"></label>
+                        <input type="radio" id="radio03-02" name="demo01" (click)="NonVeg($event.srcElement)" /><label for="radio03-02"></label>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <h4> <b>Our Speciality</b></h4>
             <div class="Sproduct">
 
-                <div class="product set" *ngFor="let m of detail">
+                <div class="Sproducts set" *ngFor="let m of detail">
                     <div class="back-sho">
                         <div class="productimg">
                             <img src="{{m.imageUrl}}" (click)="item(m)" alt="">
@@ -48,10 +48,9 @@
                             <h5> ₹ {{m.price}} </h5>
 
                         </div>
-                        <div class=" Specail_add ">
-                            <div class="add ">
-                                <button (click)="Add_Item(m) ">Add</button>
-                            </div>
+                        <div class=" Specail">
+                            <button (click)="Add_Item(m) ">Add</button>
+
                         </div>
                     </div>
                 </div>
@@ -91,7 +90,7 @@
                 <div class="pro-detail ">
                     <h3 (click)="item(m)">{{m.foodName}}</h3>
                     <h4>{{m.description}}</h4>
-                    <h5><b>  ₹ {{m.price}}</b></h5>
+                    <h5> ₹ {{m.price}}</h5>
                 </div>
                 <!-- <div class="ADD " id="qty2" style="visibility: hidden;">
 
@@ -102,11 +101,7 @@
                 </div> -->
 
                 <div class="ADD">
-
-                    <div class="add ">
-                        <button (click)="Add_Item(m) ">Add</button>
-                    </div>
-
+                    <button (click)="Add_Item(m) ">Add</button>
                 </div>
 
 

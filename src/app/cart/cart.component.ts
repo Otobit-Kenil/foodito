@@ -82,7 +82,7 @@ export class CartComponent implements OnInit {
     },
     "modal": {},
     "theme": {
-      "color": "#0096C5"
+      "color": "#1B2845"
     }
   };
 
@@ -265,6 +265,7 @@ export class CartComponent implements OnInit {
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');
   }
+
 
   Clear(){
     this.cart.length = 0;

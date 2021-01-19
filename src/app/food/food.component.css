@@ -10,7 +10,6 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
     position: relative;
-    left: -10px;
 }
 
 .food-name h2 {
@@ -63,6 +62,7 @@
     display: inline-block;
     padding: 8px 0px 8px 40px;
     cursor: pointer;
+    color: #1B2845;
 }
 
 .custom01 label::before,
@@ -190,23 +190,19 @@
     box-shadow: 0 1px 3px #DDDDDD, 2px 2px 4px #DDDDDD, 1px 2px 1px #ffffff, -5px -5px 4px #ffffff;
 }
 
-.add {
-    color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: bold;
-}
-
-.ADD {
+.ADD button {
     position: relative;
-    bottom: 0;
     text-align: center;
-    border: 1px solid #707070;
+    /* border: 1px solid #707070; */
     height: 59px;
+    margin-bottom: 10px;
     width: 100%;
     border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
     background-color: #1B2845;
-    margin-top: 20px;
+    outline: none;
+    border: none;
 }

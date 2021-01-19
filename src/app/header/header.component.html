@@ -3,15 +3,16 @@
         <div class="header">
             <div class="head_left">
                 <a routerLink="menu">
-                    <img src="../../assets/Foodito.svg" alt="foodito">
+                    <img src="../../assets/Foodito.png" alt="foodito">
                 </a>
+
                 <div class="head_right">
                     <div class="cart">
 
-                        <img src="../../assets/Icon map-food.svg" routerLink="cart" alt="cart"> &nbsp; &nbsp;
-                        <span class="badge" *ngIf="badgeCount > 0">{{badgeCount}}</span>
+                        <img src="../../assets/Icon map-food.svg" routerLink="cart" alt="cart" style="outline: none;"> &nbsp; &nbsp;
+                        <span class="badge" *ngIf="badgeCount > 0" routerLink="cart">{{badgeCount}}</span>
 
-                        <img src="../../assets/Icon ionic-ios-settings.svg" alt="setting">
+                        <h4>{{tableNo}}</h4>
 
                     </div>
                 </div>

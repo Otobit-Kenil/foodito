@@ -33,8 +33,8 @@
 
 .food-photo img {
     border-radius: 10px;
-    height: 100%;
-    width: 65%;
+    height: 130px;
+    width: 130px;
     margin-right: 10px;
 }
 
@@ -191,12 +191,14 @@
 }
 
 .ADD button {
-    position: relative;
+    position: fixed;
+    bottom: 0;
     text-align: center;
     /* border: 1px solid #707070; */
     height: 59px;
     margin-bottom: 10px;
-    width: 100%;
+    margin-top: 10px;
+    width: 92%;
     border-radius: 10px;
     color: white;
     font-size: 16px;
@@ -205,4 +207,8 @@
     background-color: #1B2845;
     outline: none;
     border: none;
+}
+
+.food-detail {
+    margin: 20% auto;
 }

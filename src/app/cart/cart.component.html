@@ -1,59 +1,84 @@
 <div class="section">
     <div class="container">
+        <div class="cartdetail">
 
-        <div class="tableinfo"> Table No. - {{tableNo}}</div>
-        <div class="msg">{{msg}}</div>
-        <div class="product" *ngFor="let c of cart">
-            <div class="productimg">
-                <img src="{{c.imageUrl}}" alt="">
-            </div>
-            <div class="pro-detail">
-                <h3>{{c.foodName}}</h3>
-                <h4>{{c.description}}</h4>
-                <h3> ₹ {{c.qty*c.price}} </h3>
-                <!-- <h5>{{c.qty}}</h5> -->
-            </div>
-            <div class="qtycust">
-                <div class="qty">
-                    <h4 (click)="Minus(c)">-</h4>
-                    <h5>{{c.qty}}</h5>
-                    <h4 (click)="Plus(c)">+</h4>
+            <div class="tableinfo"> Table No. {{tableNo}}</div>
+            <div class="msg">{{msg}}</div>
+            <div class="product" *ngFor="let c of cart">
+                <div class="productimg">
+                    <img src="{{c.imageUrl}}" alt="">
                 </div>
-                <div class="cust">
-                    <div class="cust_name" (click)="item(c)">Customize </div>
-                    <div class="cust-Icon"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
+                <div class="pro-detail">
+                    <h3>{{c.foodName}}</h3>
+                    <h4>{{c.description}}</h4>
+                    <h3> ₹ {{c.qty*c.price}} </h3>
+                    <!-- <h5>{{c.qty}}</h5> -->
+                </div>
+                <div class="qtycust">
+                    <div class="qty">
+                        <h4 (click)="Minus(c)">-</h4>
+                        <h5>{{c.qty}}</h5>
+                        <h4 (click)="Plus(c)">+</h4>
                     </div>
-                </div>
+                    <div class="cust">
+                        <div class="cust_name" (click)="item(c)">Customize </div>
+                        <div class="cust-Icon"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
+                        </div>
+                    </div>
 
+
+                </div>
 
             </div>
 
-        </div>
+
+            <div class="final-p">
+                <h4>Total : ₹ {{totalAmt}}</h4>
+            </div>
 
 
-        <div class="final-p">
-            <h4>Total : ₹ {{totalAmt}}</h4>
-        </div>
-
-
-        <div class="Request">
-            <!-- <div class="service_req">
+            <div class="Request">
+                <!-- <div class="service_req">
                 <h4>
                     Service Request
                 </h4>
             </div> -->
-            <div class="service_req_note">
-                <textarea (keyup)=Place($event.target.value) rows="5" cols="43" name="notes" placeholder="Enter Your Specail Request" value=""></textarea>
+                <div class="service_req_note">
+                    <textarea (keyup)=Place($event.target.value) rows="5" cols="43" name="notes" placeholder="Enter Your Specail Request" value=""></textarea>
+
+                </div>
 
             </div>
 
+            <form>
+                <label>Customer Name: </label>
+                <input type="text" (keyup)=name($event.target.value) name="name" placeholder="Enter Your Name" value=""><br><br>
+                <label>Mobile: </label>
+                <input type="text" name="mobile" (keyup)=mobile($event.target.value) placeholder="Enter mobile number" value="" required>
+                <div class="ORDER">
+                    <button routerLink="order" class="btn btn-lg btn-outline-primary" (click)="ConformOrder()">ORDER NOW</button>
+                </div>
+            </form>
+
+            <!-- <ng-template #content let-modal>
+                <div class="modal-header">
+                    <h4 class="modal-title" id="modal-basic-title">Order Conformation</h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body">
+                    <form (submit)="ConformOrder($event,$event)">
+                        <label>Customer Name: </label>
+                        <input type="text" name="name" placeholder="Enter Your Name" value=""><br><br>
+                        <label>Mobile: </label>
+                        <input type="text" name="mobile" placeholder="Enter mobile number" value="">
+                        <br>
+                        <button type="submit" class="nxtbtn">Save</button>
+                    </form>
+                </div>
+
+            </ng-template> -->
         </div>
-
-
-
-
-        <div class="ORDER">
-            <button routerLink="order" (click)="PlaceOrder() "> ORDER NOW</button>
-        </div>
-
     </div>
+</div>

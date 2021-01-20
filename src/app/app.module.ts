@@ -14,6 +14,7 @@ import { OrderComponent } from './order/order.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { FoodComponent } from './food/food.component';
+import { CommonService } from './services/common.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { FoodComponent } from './food/food.component';
     BrowserAnimationsModule,
     MatAutocompleteModule
   ],
-  providers: [],
+  providers: [CommonService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ExternalLibraryService } from './razorService';
 import { stringify } from '@angular/compiler/src/util';
+import { CommonService } from '../services/common.service';
+import {FormGroup, FormControl, FormBuilder} from '@angular/forms'
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 
 declare let Razorpay: any;
@@ -13,6 +16,10 @@ declare let Razorpay: any;
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
+  signupForm: FormGroup = new FormGroup({
+    name: new FormControl(),
+		mobile: new FormControl(),
+  })
   response: any;
   razorpayResponse: any;
   showModal = false;
@@ -28,8 +35,12 @@ export class CartComponent implements OnInit {
   msg: string = '';
   num: number = 0;
   sNote: string = '';
+  closeResult = '';
+	Name: string = "";
+	Mobile: string = "";
+	
 
-  constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef) {
+  constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef, private commonService: CommonService, private modalService: NgbModal) {
     this.dbnew = db;
 
     this.razorpayService
@@ -37,8 +48,21 @@ export class CartComponent implements OnInit {
       .subscribe();
   }
 
+  openVerticallyCentered(content:any) {
+    this.modalService.open(content, { centered: true });
+  }
 
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
   ngOnInit() {
+
 
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.cart);
@@ -64,7 +88,8 @@ export class CartComponent implements OnInit {
   }
 
   RAZORPAY_OPTIONS = {
-    "key": "rzp_test_ZcSb49CvQ0NZhe",
+    "key": "rzp_test_LkGyvMQnSFDTBu",
+    // "keySecret": "plReqYFenjeSYL2waLPPwKmy",
     "amount": this.num,
     "name": "Foodito",
     "currency": "INR",
@@ -100,7 +125,23 @@ export class CartComponent implements OnInit {
 
   }
 
-  PlaceOrder() {
+  name(name: string){
+this.Name = name
+console.log(this.Name);
+  }
+
+  mobile(mobile: string){
+    this.Mobile = mobile
+    console.log(this.Mobile);
+      }
+
+   
+  ConformOrder() {
+    // this.Name = event.target.name.value;
+    // this.Mobile = event.target.mobile.value;
+    // console.log(this.Name);
+    // console.log(this.Mobile);
+
 
     console.log(this.cart)
     var time = moment().format('h:mm a');
@@ -117,10 +158,14 @@ export class CartComponent implements OnInit {
       var orderId = Date.now()
       var sendorder = this.dbnew.collection('Orders')
       sendorder.add({
-        orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt, Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null
+        orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt, 
+        Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null,
+        Name: this.Name, Mobile: this.Mobile
       }).then(function (docRef: any) {
         let inter = setInterval(() => {
+        
           id = docRef.id
+         
           if (id != undefined) {
             console.log(id)
             sendorder.doc(id).update({ DocId: id })
@@ -187,7 +232,9 @@ export class CartComponent implements OnInit {
           console.log(cartItem)
           // this.uniq.qty = this.uniq.qty+1
           localStorage.setItem("cart", JSON.stringify(this.cart));
-
+          window.location.reload();
+          this.commonService.changeCount(this.cart.length)
+  
           flag = true
           break
         }
@@ -202,6 +249,7 @@ export class CartComponent implements OnInit {
       this.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
+      this.commonService.changeCount(this.cart.length)
     }
     window.location.reload();
   }
@@ -239,7 +287,12 @@ export class CartComponent implements OnInit {
             this.cart.splice(i, 1)
           }
           localStorage.setItem("cart", JSON.stringify(this.cart));
+      
+
+         
           window.location.reload();
+
+          this.commonService.changeCount(this.cart.length)
 
           flag = true
           break
@@ -254,6 +307,7 @@ export class CartComponent implements OnInit {
       this.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
+      this.commonService.changeCount(this.cart.length)
     }
   }
 

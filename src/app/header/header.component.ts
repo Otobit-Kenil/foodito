@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-header',
@@ -9,17 +10,20 @@ export class HeaderComponent implements OnInit {
   badgeCount: number = 0;
 cart:any [] = [];
   tableNo: any;
-  constructor() {
-    this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    this.badgeCount = this.cart.length;
-    console.log(this.badgeCount)
-    
+  constructor(public commonService: CommonService) {
+   
+    this.commonService.changeCount(this.cart.length)
 
     this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
    console.log(this.tableNo)
    }
 
   ngOnInit() {
+    this.commonService.responseCount.subscribe((res)=> {
+      console.log(res);
+      this.badgeCount = res;
+    })
+
    
   }
 

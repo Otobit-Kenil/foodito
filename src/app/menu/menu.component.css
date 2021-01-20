@@ -1,20 +1,19 @@
 .searchbar {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
 }
 
 .search_icon {
-    position: relative;
-    right: -12px;
-    bottom: -26px;
     width: 30px;
+    position: absolute;
+    left: 18px;
+    padding: 4px;
 }
 
 .filterbar {
     display: flex;
-    justify-content: space-between;
-    margin-top: 22px;
-    position: absolute;
-    right: 30px;
 }
 
 .search-input {
@@ -206,10 +205,6 @@
     outline: none;
 }
 
-.ADD button::after {
-    border: none;
-}
-
 .productlist {
     width: 100%;
     height: 450px;
@@ -240,6 +235,10 @@
     left: -2px;
 }
 
+.menudetail {
+    margin: 26% auto;
+}
+
 .back-sho {
     display: flex;
     box-shadow: 0 1px 3px #DDDDDD, 6px 6px 4px #DDDDDD;
@@ -250,7 +249,7 @@
     position: relative;
 }
 
-.custom01 input[type="checkbox"] {
+.custom01 input[type="radio"] {
     display: none;
 }
 
@@ -297,12 +296,12 @@
     transform: scale(2);
 }
 
-.custom01 input[type="checkbox"]:checked+label::before {
+.custom01 input[type="radio"]:checked+label::before {
     background: #fff;
     border: 3px solid #397c24;
 }
 
-.custom01 input[type="checkbox"]:checked+label::after {
+.custom01 input[type="radio"]:checked+label::after {
     opacity: 1;
     -webkit-transform: scale(1);
     transform: scale(1);

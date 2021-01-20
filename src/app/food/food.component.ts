@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { CommonService } from '../services/common.service';
 
 
 
@@ -24,16 +25,17 @@ export class FoodComponent implements OnInit {
   optional: any[] = [];
   optingridient: any[] = [];
   sendingredient: any[] = [];
+  extraIngredient: any[] = [];
   basic: any[] = [];
   sum: number = 0;
 
-  constructor(private router: Router, db: AngularFirestore,) {
+  constructor(private router: Router, db: AngularFirestore, private commonService: CommonService) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
       this.optional = res
       console.log(this.optional)
      
       // }
-console.log(this.optingridient)
+
 
       for (var key in this.ingri) {
 
@@ -60,40 +62,21 @@ console.log(this.optingridient)
           if (this.optional[i]['ingredientId'] == `${key}`) {
   
             this.optingridient.push(this.optional[i]);
+
   
           }
         }
       }
+
       this.basic = this.ingri
+      this.extraIngredient = this.oingridient
       console.log(this.ingridient)
-      console.log(this.ingri)
-      // console.log(Object.keys(this.basic).indexOf("Ce4cHVYOfPBbsKUGg4qi"))
-
-      // var obj = Object.entries(this.ingri)
 
 
-      // console.log(obj[0])
 
-
-      // for (var i = 0; i < Object.keys(this.ingri).length; i++) {
-
-
-      //   this.basic[i] = Object.keys(this.ingri) : Object.keys(this.ingri)
-      // }
-      // for (i = 0; i < this.ingridient.length; i++) {
-
-      //   const convert = this.ingridient[i].ingredientId
-      //   console.log(convert)
-      //   this.basic[i] = {convert}
-
-      // }
-      // this.basic.forEach((element: { isActive: boolean; }) => {        // for highlight border around cate icon 
-      //   element.isActive = true
-      // });
-      // this.basic.sort()
 
       console.log("basic", this.basic)
-
+      console.log("optional", this.extraIngredient)
     });
   }
 
@@ -107,29 +90,15 @@ console.log(this.optingridient)
     this.oingridient = this.fooditem.optional
     console.log(this.oingridient)
 
-    // console.log(typeof(this.fooditem.optional))
-    // for (var i = 0; i < this.fooditem.optional.length; i++) {
-    //   this.oingridient.push(this.fooditem.optional[i])
-    // }
-
-
-
-    // this.oingridient.forEach((element: { isActive: boolean; }) => {        // for highlight border around cate icon 
-    //   element.isActive = false
-    // });
     console.log(this.ingri)
     console.log(this.oingridient)
-
-
-
 
     this.food.push(this.fooditem)
     console.log(this.food)
   }
 
   Add_Item(f: any) {
-    // this.finalingredient = this.sendingredient.concat(this.basic)
-    // console.log("final", this.finalingredient)
+
     f.price = parseInt(f.price)
     f.price += this.sum
     const cartItem = {
@@ -140,7 +109,7 @@ console.log(this.optingridient)
       "price": parseInt(f.price),
       "total": f.price,
       "Ingredients": this.basic,
-      "extra": this.oingridient,
+      "optional": this.oingridient,
       "description": f.description,
       "moreInfo": f.moreInfo,
       "imageUrl": f.imageUrl,
@@ -153,13 +122,6 @@ console.log(this.optingridient)
       this.cart.isIndex = i;
       this.uniq = this.cart[i]
       if (this.uniq.foodId == f.foodId) {
-        // for(i=0; i < this.sendingredient.length; i++){
-        //   for( var y=0; y < this.uniq.Ingredients; y++){
-        //     this.sendingredient[i] = this.uniq.Ingredients[y]
-        //   }
-        // }
-        // console.log(this.sendingredient.sort())
-        // console.log(this.uniq.Ingredients.sort())
 
         if (JSON.stringify(this.basic) == JSON.stringify(this.uniq.Ingredients)) {
 
@@ -182,6 +144,7 @@ console.log(this.optingridient)
 
             // this.uniq.qty = this.uniq.qty+1
             localStorage.setItem("cart", JSON.stringify(this.cart));
+            this.commonService.changeCount(this.cart.length)
 
             flag = true
             break
@@ -198,6 +161,8 @@ console.log(this.optingridient)
       this.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
+      this.commonService.changeCount(this.cart.length)
+      
     }
 
 
@@ -209,8 +174,8 @@ console.log(this.optingridient)
   ingridients(input: HTMLInputElement, i: any) {
 
     input.checked === true
-      ? this.oingridient[i.ingredientId] = true
-      : this.oingridient[i.ingredientId] = false
+      ? this.extraIngredient[i.ingredientId] = true
+      : this.extraIngredient[i.ingredientId] = false
 
 
     console.log("Extra", this.oingridient)
@@ -232,10 +197,6 @@ console.log(this.optingridient)
 
     console.log("basic", this.basic)
 
-
-   if(this.basic[i.ingredientId] = true){
-
-   }
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { snapshotChanges } from 'angularfire2/database';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
@@ -6,6 +6,8 @@ import { environment } from 'src/environments/environment';
 import { FormControl } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import * as moment from 'moment';
+import { CommonService } from '../services/common.service';
+
 
 @Component({
   selector: 'app-menu',
@@ -13,7 +15,7 @@ import * as moment from 'moment';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
+searchField: any;
   cart: any = [];
   tableno: any;
   initial: any = [];
@@ -25,7 +27,8 @@ export class MenuComponent implements OnInit {
   qty: number = 1;
   uniq: any = [];
   total: any = 0;
-  constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router) {
+  button:any
+  constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router, private commonService: CommonService) {
  
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res           // get all item from food collection into initial array 
@@ -127,60 +130,86 @@ console.log(this.menu)
       this.tableno = res['userid'];
       console.log(this.tableno)
 
+      this.searchField = new FormControl();
+
       localStorage.setItem("table", JSON.stringify("25"));
     })
   }
 
-  Add_Item(m: any) {  
-
-    const cartItem = {
-
-      "foodId":m.foodId,
-      "foodName": m.foodName,
-      "qty": this.qty,
-      "imageUrl": m.imageUrl,
-      "price": parseInt(m.price),
-      "Ingredients": m.Ingredients,
-      "total": this.qty*parseInt(m.price),
-      "description": m.description,
-      "moreInfo":m.moreInfo,
+  Add_Item(m: any, element:any) {  
 
 
-    };
-    var flag = false;
-    this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
-    for (var i = 0; i < this.cart.length; i++) {
-      this.uniq = this.cart[i]
-      this.cart[i].isIndex = i;
-      if (this.uniq.foodId == m.foodId) {
-        localStorage.removeItem('cart');
+  console.log(m.isCustomize)
+    if(m.isCustomize == true){
+      localStorage.removeItem("product");
+      console.log(m)
+      localStorage.setItem("product", JSON.stringify(m));
+      JSON.parse(localStorage.getItem('product') || '[]');
+      this.router.navigateByUrl('/food');
+    }
+ 
+    else{
+      
+    this.button = element
+    this.button.textContent = 'Added'
 
-        console.log(this.uniq)
-        console.log("cart2", (this.cart));
-        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
-        this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
-        console.log(typeof(this.total))
-        console.log("cart3", (this.qty * m.price));
-        console.log("cart3", (this.cart));
-        // this.uniq.qty = this.uniq.qty+1
+      const cartItem = {
+
+        "foodId":m.foodId,
+        "foodName": m.foodName,
+        "qty": this.qty,
+        "imageUrl": m.imageUrl,
+        "price": parseInt(m.price),
+        "Ingredients": m.Ingredients,
+        "total": this.qty*parseInt(m.price),
+        "description": m.description,
+        "moreInfo":m.moreInfo,
+        "optional":m.optional,
+  
+  
+      };
+      var flag = false;
+      this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      for (var i = 0; i < this.cart.length; i++) {
+        this.uniq = this.cart[i]
+        this.cart[i].isIndex = i;
+        if (this.uniq.foodId == m.foodId) {
+          localStorage.removeItem('cart');
+  
+          console.log(this.uniq)
+          console.log("cart2", (this.cart));
+          this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
+          this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+          console.log(typeof(this.total))
+          console.log("cart3", (this.qty * m.price));
+          console.log("cart3", (this.cart));
+          // this.uniq.qty = this.uniq.qty+1
+          localStorage.setItem("cart", JSON.stringify(this.cart));
+  
+          
+     
+          flag = true
+          break
+  
+        }
+        else {
+          console.log("not same")
+  
+        }
+  
+      }
+      
+      this.commonService.changeCount(this.cart.length)
+      if (!flag) {
+        this.cart.push(cartItem);
         localStorage.setItem("cart", JSON.stringify(this.cart));
-
-        flag = true
-        break
-
+        console.log("cart", this.cart);
+        this.commonService.changeCount(this.cart.length)
       }
-      else {
-        console.log("not same")
-
-      }
-
-    }
-    if (!flag) {
-      this.cart.push(cartItem);
-      localStorage.setItem("cart", JSON.stringify(this.cart));
-      console.log("cart", this.cart);
+  
     }
 
+  
    
   }
 
@@ -214,11 +243,11 @@ console.log(this.menu)
     
   }
 
-  Veg(input: HTMLInputElement) {
-
-    input.checked === true
-    ? this.menu = this.veg
-    : 
+  Veg() {
+    this.menu = this.veg;
+    // input.checked === true
+    // ? this.menu = this.veg
+    // : this.menu = this.veg
 
 
   }

@@ -6,13 +6,15 @@ import { MenuComponent } from './menu/menu.component';
 import { OrderComponent } from './order/order.component';
 
 const routes: Routes = [
+  { path: '', component: MenuComponent, pathMatch: 'full' },
   { path: 'menu', component: MenuComponent },
   { path: 'menu/:userid', component: MenuComponent },
   { path: 'cart', component: CartComponent },
   { path: 'food', component: FoodComponent },
   { path: 'menu/food', component: FoodComponent },
   { path: 'order', component: OrderComponent },
-  { path: 'cart/order', component: OrderComponent }
+  { path: 'cart/order', component: OrderComponent },
+  { path: '**', pathMatch: 'full', redirectTo: '/' }
 
 ];
 

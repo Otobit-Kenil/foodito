@@ -9,10 +9,11 @@
                         <div class="search_icon">
                             <img src="../../assets/Icon feather-search.svg" alt="searchbar">
                         </div>
-                        <form class="example-form">
-                            <input type="text" class="search-input" placeholder="Search" aria-label="Number" matInput [formControl]="searchField">
-
+                        <form autocomplete="off">
+                            <input id="myInput" type="text" name="search" class="search-input" (keyup)=Search($event.target.value) placeholder="Search">
                         </form>
+
+
                     </div>
 
                     <div class="filterbar">
@@ -96,11 +97,21 @@
                     </div>
 
                 </div> -->
-
-                    <div class="ADD">
-                        <button (click)="Add_Item(m,$event.target) ">Add</button>
+                    <div class="cust" *ngIf="m.isCustomize == true">
+                        <div class="cust_name">Customizable </div>
+                        <!-- <div class="cust-Icon"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
+                        </div> -->
                     </div>
-
+                    <div class="ADD">
+                        <button *ngIf="showMainContent" (click)="Add_Item(m) ">Add</button>
+                    </div>
+                    <div class="ADD">
+                        <div class="qty" *ngIf="!showMainContent">
+                            <h4 (click)="Minus(m)">-</h4>
+                            <h5>{{c.qty}}</h5>
+                            <h4 (click)="Plus(m)">+</h4>
+                        </div>
+                    </div>
 
                 </div>
             </div>

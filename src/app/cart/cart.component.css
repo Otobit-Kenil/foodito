@@ -66,6 +66,7 @@
     position: absolute;
     font-weight: 500;
     padding-left: 15px;
+    margin-bottom: 0;
 }
 
 .service_req_note textarea {
@@ -189,4 +190,20 @@
 
 .cartdetail {
     margin: 25% auto;
+}
+
+.search input {
+    height: auto;
+    font-size: 13px;
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #F5f5f5;
+    padding-left: 17px;
+    border-radius: 8px;
+    background: #f5f5f5;
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px #DDDDDD, 2px 2px 4px #DDDDDD, 1px 2px 1px #ffffff, -5px -5px 4px #ffffff;
+    outline: none;
 }

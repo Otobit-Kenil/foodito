@@ -144,7 +144,12 @@ export class FoodComponent implements OnInit {
 
             // this.uniq.qty = this.uniq.qty+1
             localStorage.setItem("cart", JSON.stringify(this.cart));
-            this.commonService.changeCount(this.cart.length)
+            var tQty = 0;
+            for(i=0; i<this.cart.length; i++){
+            tQty +=  this.cart[i].qty; 
+            }
+            this.commonService.changeCount(tQty)
+  
 
             flag = true
             break

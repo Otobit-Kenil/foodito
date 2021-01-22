@@ -33,8 +33,8 @@
 
 .food-photo img {
     border-radius: 10px;
-    height: 130px;
-    width: 130px;
+    height: 140px;
+    width: 145px;
     margin-right: 10px;
 }
 
@@ -210,5 +210,5 @@
 }
 
 .food-detail {
-    margin: 20% auto;
+    margin: 26% auto;
 }

@@ -307,7 +307,12 @@ console.log(this.Name);
       this.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
-      this.commonService.changeCount(this.cart.length)
+      var tQty = 0;
+      for(i=0; i<this.cart.length; i++){
+      tQty +=  this.cart[i].qty; 
+      }
+      this.commonService.changeCount(tQty)
+
     }
   }
 

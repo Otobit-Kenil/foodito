@@ -5,8 +5,8 @@ import * as moment from 'moment';
 import { ExternalLibraryService } from './razorService';
 import { stringify } from '@angular/compiler/src/util';
 import { CommonService } from '../services/common.service';
-import {FormGroup, FormControl, FormBuilder} from '@angular/forms'
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms'
+import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
 declare let Razorpay: any;
@@ -18,7 +18,7 @@ declare let Razorpay: any;
 export class CartComponent implements OnInit {
   signupForm: FormGroup = new FormGroup({
     name: new FormControl(),
-		mobile: new FormControl(),
+    mobile: new FormControl(),
   })
   response: any;
   razorpayResponse: any;
@@ -36,9 +36,9 @@ export class CartComponent implements OnInit {
   num: number = 0;
   sNote: string = '';
   closeResult = '';
-	Name: string = "";
-	Mobile: string = "";
-	
+  Name: string = "";
+  Mobile: string = "";
+
 
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef, private commonService: CommonService, private modalService: NgbModal) {
     this.dbnew = db;
@@ -48,7 +48,7 @@ export class CartComponent implements OnInit {
       .subscribe();
   }
 
-  openVerticallyCentered(content:any) {
+  openVerticallyCentered(content: any) {
     this.modalService.open(content, { centered: true });
   }
 
@@ -114,6 +114,56 @@ export class CartComponent implements OnInit {
 
   public razorPaySuccessHandler(response: any) {
     console.log(response);
+
+
+    if (response.razorpay_payment_id != "") {
+
+      this.cart.forEach((element: { isAprove: boolean; }) => {        // for highlight border around cate icon 
+        element.isAprove = false
+      });
+      console.log(this.cart);
+  
+      var time = moment().format('h:mm a');
+      var date = moment().format('DD/MM/YY');
+
+      var id;
+      if (this.cart.length > 0 &&  this.Mobile != "") {
+
+        var orderId = Date.now()
+        var sendorder = this.dbnew.collection('Orders')
+        sendorder.add({
+          orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt,
+          Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null,
+          Name: this.Name, Mobile: this.Mobile
+        }).then(function (docRef: any) {
+          let inter = setInterval(() => {
+
+            id = docRef.id
+
+            if (id != undefined) {
+              console.log(id)
+              sendorder.doc(id).update({ DocId: id })
+              clearInterval(inter);
+            }
+          }, 10);
+
+        }).catch(function (error: any) {
+          console.error("Error adding document: ", error);
+        });
+
+      }
+      else {
+        alert("your cart is empty")
+      }
+      console.log("added")
+
+      localStorage.removeItem('cart');
+      localStorage.removeItem('product');
+      var tQty = 0;
+      this.commonService.changeCount(tQty)
+      this.router.navigateByUrl('/menu');
+
+    }
     this.razorpayResponse = `Razorpay Response`;
     this.showModal = true;
     this.cd.detectChanges()
@@ -125,64 +175,20 @@ export class CartComponent implements OnInit {
 
   }
 
-  name(name: string){
-this.Name = name
-console.log(this.Name);
+  name(name: string) {
+    this.Name = name
+    console.log(this.Name);
   }
 
-  mobile(mobile: string){
+  mobile(mobile: string) {
     this.Mobile = mobile
     console.log(this.Mobile);
-      }
+  }
 
-   
+
   ConformOrder() {
-    // this.Name = event.target.name.value;
-    // this.Mobile = event.target.mobile.value;
-    // console.log(this.Name);
-    // console.log(this.Mobile);
-
-
     console.log(this.cart)
-    var time = moment().format('h:mm a');
-    var date = moment().format('DD/MM/YY');
 
-
-    var y = this.cart.indexOf("imgUrl")
-    console.log(y)
-
-    console.log(this.cart)
-    var id;
-    if (this.cart.length > 0) {
-
-      var orderId = Date.now()
-      var sendorder = this.dbnew.collection('Orders')
-      sendorder.add({
-        orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt, 
-        Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null,
-        Name: this.Name, Mobile: this.Mobile
-      }).then(function (docRef: any) {
-        let inter = setInterval(() => {
-        
-          id = docRef.id
-         
-          if (id != undefined) {
-            console.log(id)
-            sendorder.doc(id).update({ DocId: id })
-            clearInterval(inter);
-          }
-        }, 10);
-
-        console.log("done")
-      }).catch(function (error: any) {
-        console.error("Error adding document: ", error);
-      });
-
-    }
-    else {
-      alert("your cart is empty")
-    }
-    console.log("added")
 
     this.RAZORPAY_OPTIONS.amount = this.totalAmt * 100;
 
@@ -191,8 +197,11 @@ console.log(this.Name);
     let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
     razorpay.open();
 
-    localStorage.removeItem('cart');
-    localStorage.removeItem('product');
+
+
+
+
+
   }
 
   Plus(c: any) {
@@ -232,9 +241,15 @@ console.log(this.Name);
           console.log(cartItem)
           // this.uniq.qty = this.uniq.qty+1
           localStorage.setItem("cart", JSON.stringify(this.cart));
-          window.location.reload();
-          this.commonService.changeCount(this.cart.length)
-  
+          // window.location.reload();
+          var tQty = 0;
+          for (i = 0; i < this.cart.length; i++) {
+            tQty += this.cart[i].qty;
+          }
+
+          this.commonService.changeCount(tQty)
+
+
           flag = true
           break
         }
@@ -249,9 +264,19 @@ console.log(this.Name);
       this.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
-      this.commonService.changeCount(this.cart.length)
+      var tQty = 0;
+      for (i = 0; i < this.cart.length; i++) {
+        tQty += this.cart[i].qty;
+      }
+
+      // window.location.reload();
+
+      this.commonService.changeCount(tQty)
+
+
+      this.commonService.changeCount(tQty)
     }
-    window.location.reload();
+    // window.location.reload();
   }
 
   Minus(c: any) {
@@ -287,12 +312,15 @@ console.log(this.Name);
             this.cart.splice(i, 1)
           }
           localStorage.setItem("cart", JSON.stringify(this.cart));
-      
 
-         
-          window.location.reload();
+          var tQty = 0;
+          for (i = 0; i < this.cart.length; i++) {
+            tQty += this.cart[i].qty;
+          }
 
-          this.commonService.changeCount(this.cart.length)
+          // window.location.reload();
+
+          this.commonService.changeCount(tQty)
 
           flag = true
           break
@@ -308,8 +336,8 @@ console.log(this.Name);
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
       var tQty = 0;
-      for(i=0; i<this.cart.length; i++){
-      tQty +=  this.cart[i].qty; 
+      for (i = 0; i < this.cart.length; i++) {
+        tQty += this.cart[i].qty;
       }
       this.commonService.changeCount(tQty)
 
@@ -326,9 +354,9 @@ console.log(this.Name);
   }
 
 
-  Clear(){
+  Clear() {
     this.cart.length = 0;
-    localStorage.setItem("cart", JSON.stringify(this.cart));  
+    localStorage.setItem("cart", JSON.stringify(this.cart));
   }
 
 }

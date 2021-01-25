@@ -2,7 +2,7 @@
     <div class="container">
         <div class="cartdetail">
 
-            <div class="tableinfo"> Table No. {{tableNo}}</div>
+            <!-- <div class="tableinfo"> Table {{tableNo}}</div> -->
             <div class="msg">{{msg}}</div>
             <div class="product" *ngFor="let c of cart">
                 <div class="productimg">
@@ -54,7 +54,8 @@
                     </div>
                     <h4>Mobile No.</h4><br>
                     <div class="search">
-                        <input type="number" name="mobile" (keyup)=mobile($event.target.value) placeholder="Enter mobile number" value="" required>
+                        <input type="number" name="mobile" (keyup)=mobile($event.target.value) placeholder="Enter mobile number" pattern="[1-9]{1}[0-9]{9}" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="10" value=""
+                            required>
                     </div>
                     <div class="ORDER">
                         <button routerLink="order" class="btn btn-lg btn-outline-primary" (click)="ConformOrder()">ORDER NOW</button>

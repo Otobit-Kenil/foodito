@@ -79,9 +79,9 @@
 
             </div>
 
-            <div class="productlist ">
+            <div class="productlist">
 
-                <div class="product " *ngFor="let m of menu ">
+                <div class="product " *ngFor="let m of finalsearch ">
                     <div class="productimg ">
                         <img src="{{m.imageUrl}} " (click)="item(m)" alt=" ">
                     </div>
@@ -103,18 +103,24 @@
                         </div> -->
                     </div>
                     <div class="ADD">
-                        <button *ngIf="showMainContent" (click)="Add_Item(m) ">Add</button>
+                        <button *ngIf="m.isIncrease == false  " (click)="Add_Item(m) ">Add</button>
                     </div>
                     <div class="ADD">
-                        <div class="qty" *ngIf="!showMainContent">
+                        <div class="qty" *ngIf="m.isIncrease == true">
                             <h4 (click)="Minus(m)">-</h4>
-                            <h5>{{c.qty}}</h5>
+                            <h5>{{m.qty}}</h5>
                             <h4 (click)="Plus(m)">+</h4>
                         </div>
                     </div>
 
                 </div>
+
+
             </div>
+
+
+
+
         </div>
     </div>
 </div>

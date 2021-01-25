@@ -20,7 +20,6 @@ export class FoodComponent implements OnInit {
   uniq: any = [];
   total: any = 0;
   ingri: any[] = [];
-  temp_ingri: any[] = [];
   oingridient: any[] = [];
   optional: any[] = [];
   optingridient: any[] = [];
@@ -32,66 +31,47 @@ export class FoodComponent implements OnInit {
   constructor(private router: Router, db: AngularFirestore, private commonService: CommonService) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
       this.optional = res
-      console.log(this.optional)
-     
-      // }
-
+  
 
       for (var key in this.ingri) {
-
-        // if (`${this.ingri[key]}` == 'true') {
-
         for (var i = 0; i < this.optional.length; i++) {
           if (this.optional[i]['ingredientId'] == `${key}`) {
 
             this.ingridient.push(this.optional[i]);
-            // console.log(this.optional[i].ingredientId)
-            // this.basic.push(this.optional[i].ingredientId)
-
-
           }
         }
-        //   }
       }
-
       for (var key in this.oingridient) {
-
-        // if (`${this.oingridient[key]}` == 'true') {
-    
         for (var i = 0; i < this.optional.length; i++) {
           if (this.optional[i]['ingredientId'] == `${key}`) {
   
             this.optingridient.push(this.optional[i]);
-
-  
           }
         }
       }
-
       this.basic = this.ingri
       this.extraIngredient = this.oingridient
+      
+     
+      this.ingridient.forEach((element: { isActive: boolean; }) => {      
+        element.isActive = true
+      });
+  
+      this.optingridient.forEach((element: { isActive: boolean; }) => {      
+        element.isActive = false
+      });
       console.log(this.ingridient)
+      console.log(this.optingridient);
 
 
-
-
-      console.log("basic", this.basic)
-      console.log("optional", this.extraIngredient)
     });
   }
 
   ngOnInit() {
   
-
     this.fooditem = JSON.parse(localStorage.getItem('product') || '[]');
-    this.temp_ingri = this.ingridient;
-    // this.sendingredient = this.temp_ingri;
-    this.ingri = this.fooditem.Ingredients
-    this.oingridient = this.fooditem.optional
-    console.log(this.oingridient)
-
-    console.log(this.ingri)
-    console.log(this.oingridient)
+    this.ingri = this.fooditem.Ingredients            // basic Ingredients from food collection 
+    this.oingridient = this.fooditem.optional         // Extra Ingredients from food collection 
 
     this.food.push(this.fooditem)
     console.log(this.food)
@@ -108,8 +88,8 @@ export class FoodComponent implements OnInit {
       "qty": this.qty,
       "price": parseInt(f.price),
       "total": f.price,
-      "Ingredients": this.basic,
-      "optional": this.oingridient,
+      "Ingredients": this.ingridient,
+      "optional": this.optingridient,
       "description": f.description,
       "moreInfo": f.moreInfo,
       "imageUrl": f.imageUrl,
@@ -121,17 +101,16 @@ export class FoodComponent implements OnInit {
     for (var i = 0; i < this.cart.length; i++) {
       this.cart.isIndex = i;
       this.uniq = this.cart[i]
+      console.log(this.uniq)
       if (this.uniq.foodId == f.foodId) {
+debugger
+        if (JSON.stringify(this.ingridient) == JSON.stringify(this.uniq.Ingredients)) {
 
-        if (JSON.stringify(this.basic) == JSON.stringify(this.uniq.Ingredients)) {
+          if (JSON.stringify(this.optingridient) == JSON.stringify(this.uniq.optional)) {
 
-          if (JSON.stringify(this.sendingredient) == JSON.stringify(this.uniq.extra)) {
-
-
-            // console.log(this.finalingredient)
             console.log(this.cart)
-
             console.log(this.uniq.Ingredients)
+            console.log(this.uniq.extra)
             localStorage.removeItem('cart');
 
 
@@ -175,15 +154,25 @@ export class FoodComponent implements OnInit {
 
   }
 
-
   ingridients(input: HTMLInputElement, i: any) {
 
-    input.checked === true
-      ? this.extraIngredient[i.ingredientId] = true
-      : this.extraIngredient[i.ingredientId] = false
+
+    input.checked == true
+      ? this.ingridient[this.ingridient.findIndex((x: { ingredientId: any; }) => x.ingredientId == i.ingredientId)].isActive = true
+      : this.ingridient[this.ingridient.findIndex((x: { ingredientId: any; }) => x.ingredientId == i.ingredientId)].isActive = false
+
+    console.log("basic", this.ingridient)
+
+  }
+  
+  Extra(input: HTMLInputElement, i: any) {
+
+    input.checked == true
+      ? this.optingridient[this.optingridient.findIndex((x: { ingredientId: any; }) => x.ingredientId == i.ingredientId)].isActive = true
+      : this.optingridient[this.optingridient.findIndex((x: { ingredientId: any; }) => x.ingredientId == i.ingredientId)].isActive = false
 
 
-    console.log("Extra", this.oingridient)
+    console.log("Extra", this.optingridient)
     input.checked === true
       ? this.sum += parseInt(i.price)
       : this.sum -= parseInt(i.price)
@@ -191,17 +180,4 @@ export class FoodComponent implements OnInit {
     console.log(this.sum)
 
   }
-
-
-  ingridientss(input: HTMLInputElement, i: any) {
-
-    input.checked === true
-      ? this.basic[i.ingredientId] = true
-      : this.basic[i.ingredientId] = false
-    //  this.basic.splice(this.basic.indexOf(i.ingredientId),1)
-
-    console.log("basic", this.basic)
-
-  }
-
 }

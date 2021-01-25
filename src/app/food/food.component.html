@@ -31,7 +31,7 @@
                         <div class="col-sm-3" style="width: 50%;">
                             <div class="custom01" *ngFor="let i of ingridient | slice:0:3">
                                 <div>
-                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo01" formControlName="{{i.ingredient}}" (change)="ingridientss($event.srcElement,i)" checked/><label for="{{i.ingredient}}">{{i.ingredient}}</label>
+                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo01" formControlName="{{i.ingredient}}" (change)="ingridients($event.srcElement,i)" [ng-checked]="i.isActive" /><label for="{{i.ingredient}}">{{i.ingredient}}</label>
                                 </div>
 
                             </div>
@@ -39,7 +39,7 @@
                         <div class="col-sm-3" style="width: 50%;">
                             <div class="custom01" *ngFor="let i of ingridient | slice:3:6">
                                 <div>
-                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo02" formControlName="{{i.ingredient}}" (change)="ingridientss($event.srcElement,i)" checked/><label for="{{i.ingredient}}">{{i.ingredient}}</label>
+                                    <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} name="demo02" formControlName="{{i.ingredient}}" (change)="ingridients($event.srcElement,i)" [ng-checked]="i.isActive" /><label for="{{i.ingredient}}">{{i.ingredient}}</label>
                                 </div>
 
                             </div>
@@ -58,7 +58,7 @@
                             <div class="col-sm-3" style="width: 50%;">
                                 <div class="extraingredients" *ngFor="let i of optingridient | slice:0:3">
                                     <div>
-                                        <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} formControlName="{{i}}" name="demo03" (change)="ingridients($event.srcElement,i)" />
+                                        <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} formControlName="{{i}}" name="demo03" (change)="Extra($event.srcElement,i)" [ng-checked]="i.isActive" />
                                         <label for="{{i.ingredient}}">{{i.ingredient}}  <br>  ₹ {{i.price}}</label>
                                     </div>
 
@@ -67,7 +67,7 @@
                             <div class="col-sm-3" style="width: 50%;">
                                 <div class="extraingredients" *ngFor="let i of optingridient | slice:3:6">
                                     <div>
-                                        <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} formControlName="{{i}}" name="demo04" (change)="ingridients($event.srcElement,i)" />
+                                        <input type="checkbox" id="{{i.ingredient}}" value={{i.ingredient}} formControlName="{{i}}" name="demo04" (change)="Extra($event.srcElement,i)" [ng-checked]="i.isActive" />
                                         <label for="{{i.ingredient}}">{{i.ingredient}} <br>  ₹ {{i.price}}  </label>
                                     </div>
 

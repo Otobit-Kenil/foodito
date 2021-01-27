@@ -98,12 +98,12 @@
 
                 </div> -->
                     <div class="cust" *ngIf="m.isCustomize == true">
-                        <div class="cust_name">Customizable </div>
-                        <!-- <div class="cust-Icon"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
-                        </div> -->
+                        <!-- <div class="cust_name">Customizable </div> -->
+                        <div class="cust_name"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
+                        </div>
                     </div>
                     <div class="ADD">
-                        <button *ngIf="m.isIncrease == false  " (click)="Add_Item(m) ">Add</button>
+                        <button *ngIf="m.isIncrease == false" (click)="Add_Item(m) ">Add</button>
                     </div>
                     <div class="ADD">
                         <div class="qty" *ngIf="m.isIncrease == true">

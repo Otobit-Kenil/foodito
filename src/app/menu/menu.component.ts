@@ -49,7 +49,8 @@ export class MenuComponent implements OnInit {
 
 
       var Hour = parseInt(moment().format('h'));
-      var format = moment().format('a');      // format of time AM or Pm
+      var format = moment().format('a');      // format is time in AM or Pm
+
       if (Hour > 6 && Hour < 12) {            // item for Morning
         this.menu = [];
         for (var i = 0; i < this.initial.length; i++) {
@@ -110,10 +111,10 @@ export class MenuComponent implements OnInit {
 
       console.log(this.finalsearch)
 
-      for (var i = 0; i < this.menu.length; i++) {
-        this.search[i] = this.menu[i].foodName;
-      }
-      console.log(this.search);
+      // for (var i = 0; i < this.menu.length; i++) {
+      //   this.search[i] = this.menu[i].foodName;
+      // }
+      // console.log(this.search);
 
 
       this.detail = [];          // for specail item panel 

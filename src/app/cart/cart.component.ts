@@ -16,12 +16,10 @@ declare let Razorpay: any;
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent implements OnInit {
-  signupForm: FormGroup = new FormGroup({
-    name: new FormControl(),
-    mobile: new FormControl(),
-  })
   response: any;
   razorpayResponse: any;
+  showContent: Boolean = true;
+  showcontent: Boolean = true;
   showModal = false;
   cart: any = [];
   tableNo: any;
@@ -122,12 +120,12 @@ export class CartComponent implements OnInit {
         element.isAprove = false
       });
       console.log(this.cart);
-  
+
       var time = moment().format('h:mm a');
       var date = moment().format('DD/MM/YY');
 
       var id;
-      if (this.cart.length > 0 &&  this.Mobile != "") {
+      if (this.cart.length > 0 && this.Mobile != "") {
 
         var orderId = Date.now()
         var sendorder = this.dbnew.collection('Orders')
@@ -182,23 +180,40 @@ export class CartComponent implements OnInit {
 
   mobile(mobile: string) {
     this.Mobile = mobile
-    console.log(this.Mobile);
+
+
+    this.showContent = true;
+    this.showcontent = true;
   }
 
 
   ConformOrder() {
-    console.log(this.cart)
 
 
-    this.RAZORPAY_OPTIONS.amount = this.totalAmt * 100;
+    if(this.Mobile.length == 0){
+      this.showContent = false;
+      this.showcontent = true;
+    }
 
-    this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
+    if(this.Mobile.length > 0 && this.Mobile.length < 10){
+      this.showContent = true;
+      this.showcontent = false;
+    }
 
-    let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
-    razorpay.open();
+    if(this.Mobile.length == 10) {
 
+      this.showContent = true;
+      this.showcontent = true;
 
+      this.RAZORPAY_OPTIONS.amount = this.totalAmt * 100;
 
+      this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
+
+      let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
+      razorpay.open();
+
+    }
+ 
 
 
 

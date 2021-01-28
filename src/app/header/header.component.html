@@ -8,13 +8,14 @@
 
                 <div class="head_right">
                     <div class="cart">
-
-                        <img src="../../assets/Icon map-food.svg" routerLink="cart" alt="cart" style="outline: none;"> &nbsp; &nbsp;
-                        <span class="badge" *ngIf="badgeCount > 0" routerLink="cart">{{badgeCount}}</span>
-
-                        <h4>{{tableNo}}</h4>
-
+                        <h4 class="badge" *ngIf="badgeCount > 0" routerLink="cart">{{badgeCount}}</h4>
+                        <img src="../../assets/Icon map-food.svg" routerLink="cart" alt="cart" style="outline: none;">
                     </div>
+                    <div class="table">
+                        <h4>{{tableNo}}</h4>
+                        <img src="../../assets/Table.svg" routerLink="cart" alt="table" style="outline: none;">
+                    </div>
+
                 </div>
             </div>
         </div>

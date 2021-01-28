@@ -1,0 +1,74 @@
+<div class="container">
+    <div class="orderdetail" *ngFor="let o of orderHistory">
+        <div class="heading">
+            <div class="order">
+                <h6>OrderID</h6>
+                <h4>{{o.orderId}}</h4>
+            </div>
+            <div class="time">
+                <h6>OrderTime</h6>
+                <h4>{{o.Time}}</h4>
+            </div>
+        </div>
+
+        <div class="itemdetail">
+            <div class="product">
+                <div class="productimg ">
+                    <img src="../../assets/food1.png" alt=" ">
+                </div>
+                <div class="pro-detail ">
+                    <h5>Salad</h5>
+                    <h3> ₹ 250</h3>
+                </div>
+                <div class="qty">
+                    <h4>3</h4>
+
+                    <div class="ADD">
+                        <h5>Prepare</h5>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="product">
+                <div class="productimg ">
+                    <img src="../../assets/food1.png" alt=" ">
+                </div>
+                <div class="pro-detail ">
+                    <h5>Sandwich</h5>
+                    <h3> ₹ 300</h3>
+                </div>
+                <div class="qty">
+                    <h4>1</h4>
+
+                    <div class="ADD2">
+                        <h5>Preparing</h5>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="product">
+                <div class="productimg ">
+                    <img src="../../assets/food1.png" alt=" ">
+                </div>
+                <div class="pro-detail ">
+                    <h5>Soup</h5>
+                    <h3> ₹ 100</h3>
+                </div>
+                <div class="qty">
+                    <h4>2</h4>
+
+                    <div class="ADD3">
+                        <h5>Prepared</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="total">
+            <h5>Total Amount</h5>
+            <h4> ₹ {{o.Total}} </h4>
+        </div>
+    </div>
+</div>

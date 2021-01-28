@@ -1,5 +1,6 @@
 .head_right {
     float: right;
+    display: flex;
 }
 
 .back-bg {
@@ -7,7 +8,6 @@
     background: #F5F5F5;
     border-radius: 10px;
     box-shadow: 0 1px 3px #DDDDDD, 6px 6px 12px #DDDDDD;
-    margin-bottom: 20px;
     padding: 10px;
     position: fixed;
     top: 0;
@@ -17,7 +17,7 @@
 
 .badge {
     position: relative;
-    right: 52%;
+    left: 32%;
     bottom: 4px;
     font-size: 15px;
     color: #1B2845;
@@ -26,15 +26,37 @@
 
 .cart {
     display: flex;
+    padding-top: 12px;
 }
 
 .cart h4 {
-    font-size: 20px;
+    position: relative;
+    left: 30%;
+    bottom: 10px;
+    font-size: 17px;
     color: #1B2845;
-    font-weight: bold;
-    margin-bottom: -5px;
+    font-weight: 500;
 }
 
 .cart img {
     height: 27px;
+    margin-right: 10px;
+}
+
+.table {
+    display: grid;
+}
+
+.table h4 {
+    position: relative;
+    font-size: 17px;
+    color: #1B2845;
+    left: 22%;
+    font-weight: 500;
+    bottom: 2%;
+}
+
+.table img {
+    height: 20px;
+    margin-top: -21px;
 }

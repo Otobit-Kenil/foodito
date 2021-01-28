@@ -162,7 +162,7 @@ export class MenuComponent implements OnInit {
   }
 
   Add_Item(m: any) {
-m.qty += 1
+    m.qty += 1
     // this.showMainContent = this.showMainContent ? false : true;
 
     m.isIncrease = true;

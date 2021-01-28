@@ -129,6 +129,7 @@ export class CartComponent implements OnInit {
 
         var orderId = Date.now()
         var sendorder = this.dbnew.collection('Orders')
+        var call = this.commonService
         sendorder.add({
           orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt,
           Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null,
@@ -142,13 +143,14 @@ export class CartComponent implements OnInit {
               console.log(id)
               sendorder.doc(id).update({ DocId: id })
               clearInterval(inter);
+             
             }
           }, 10);
 
         }).catch(function (error: any) {
           console.error("Error adding document: ", error);
         });
-
+        call.storeid(this.Mobile)
       }
       else {
         alert("your cart is empty")
@@ -159,7 +161,8 @@ export class CartComponent implements OnInit {
       localStorage.removeItem('product');
       var tQty = 0;
       this.commonService.changeCount(tQty)
-      this.router.navigateByUrl('/menu');
+
+      this.router.navigateByUrl('/order')
 
     }
     this.razorpayResponse = `Razorpay Response`;
@@ -211,6 +214,9 @@ export class CartComponent implements OnInit {
 
       let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
       razorpay.open();
+
+
+      
 
     }
  

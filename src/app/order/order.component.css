@@ -1,0 +1,154 @@
+.orderdetail {
+    margin: 26% auto;
+}
+
+.heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.order h6,
+.time h6 {
+    font-size: 9px;
+    color: #1B2845;
+    margin-bottom: 0px;
+}
+
+.order h4,
+.time h4 {
+    font-size: 17px;
+    color: #1B2845;
+    margin-bottom: 0px;
+}
+
+.itemdetail {
+    display: grid;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.product {
+    display: flex;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.productimg img {
+    height: 93px;
+    width: 109px;
+    border-radius: 10px;
+}
+
+.pro-detail {
+    text-align: left;
+    padding-top: 6%;
+    margin-left: 3%;
+    margin-right: 3%;
+    width: 100%;
+    height: 93px;
+    background-color: #F5F5F5;
+}
+
+.pro-detail h3 {
+    font-size: 17px;
+    color: #1B2845;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
+.pro-detail h5 {
+    color: #1B2845;
+    font-size: 17px;
+    margin-bottom: 0px;
+    font-weight: 600;
+}
+
+.qty {
+    width: 100%;
+    box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
+    border-radius: 10px;
+    display: flex;
+}
+
+.qty h4 {
+    font-size: 17px;
+    font-weight: 500;
+    color: #1B2845;
+    margin: 15px;
+    margin-top: 25% !important;
+    margin-right: 20px !important;
+}
+
+.ADD {
+    height: 93px;
+    width: 90%;
+    border-radius: 10px;
+    background-color: #194CF4;
+    box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
+    color: #f5f5f5;
+    font-weight: 500;
+    border: none;
+    outline: none;
+}
+
+.ADD h5 {
+    font-size: 17px;
+    font-weight: 500;
+    color: #1B2845;
+    margin: 15px;
+    margin-top: 36% !important;
+}
+
+.ADD2 h5 {
+    font-size: 17px;
+    font-weight: 500;
+    color: #1B2845;
+    margin: 15px;
+    margin-top: 36% !important;
+}
+
+.ADD3 h5 {
+    font-size: 17px;
+    font-weight: 500;
+    color: #1B2845;
+    margin: 15px;
+    margin-top: 36% !important;
+}
+
+.ADD2 {
+    height: 93px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #19F4B1;
+    box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
+    color: #f5f5f5;
+    font-weight: 500;
+    border: none;
+    outline: none;
+}
+
+.ADD3 {
+    height: 93px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #F4C119;
+    box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
+    color: #f5f5f5;
+    font-weight: 500;
+    border: none;
+    outline: none;
+}
+
+.total h5 {
+    font-size: 12px;
+    color: #1B2845;
+    margin-bottom: 0px;
+}
+
+.total h4 {
+    font-size: 24px;
+    color: #1B2845;
+    margin-bottom: 0px;
+}

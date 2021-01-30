@@ -106,7 +106,7 @@
                         <button *ngIf="m.isIncrease == false" (click)="Add_Item(m) ">Add</button>
                     </div>
                     <div class="ADD">
-                        <div class="qty" *ngIf="m.isIncrease == true || m.qty >= 1">
+                        <div class="qty" *ngIf="m.isIncrease == true">
                             <h4 (click)="Minus(m)">-</h4>
                             <h5>{{m.qty}}</h5>
                             <h4 (click)="Plus(m)">+</h4>

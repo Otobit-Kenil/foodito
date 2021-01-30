@@ -12,25 +12,25 @@
         </div>
 
         <div class="itemdetail">
-            <div class="product">
+            <div class="product" *ngFor="let i of o.order">
                 <div class="productimg ">
-                    <img src="../../assets/food1.png" alt=" ">
+                    <img src="{{i.imageUrl}}" alt=" ">
                 </div>
                 <div class="pro-detail ">
-                    <h5>Salad</h5>
-                    <h3> ₹ 250</h3>
+                    <h5>{{i.foodName}}</h5>
+                    <h3> ₹ {{i.total}}</h3>
                 </div>
                 <div class="qty">
-                    <h4>3</h4>
+                    <h4>{{i.qty}}</h4>
 
                     <div class="ADD">
-                        <h5>Prepare</h5>
+                        <h5>{{i.isStatus}}</h5>
                     </div>
                 </div>
             </div>
 
 
-            <div class="product">
+            <!-- <div class="product">
                 <div class="productimg ">
                     <img src="../../assets/food1.png" alt=" ">
                 </div>
@@ -63,7 +63,7 @@
                         <h5>Prepared</h5>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="total">

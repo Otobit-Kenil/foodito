@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore} from 'angularfire2/firestore';
 import { CommonService } from '../services/common.service';
 
 
@@ -94,6 +94,7 @@ export class FoodComponent implements OnInit {
       "moreInfo": f.moreInfo,
       "imageUrl": f.imageUrl,
       "isIndex": this.cart.isIndex,
+      "isStatus": "prepare",
 
     };
     var flag = false;

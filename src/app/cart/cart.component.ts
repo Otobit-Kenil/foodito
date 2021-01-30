@@ -1,11 +1,9 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore} from 'angularfire2/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ExternalLibraryService } from './razorService';
-import { stringify } from '@angular/compiler/src/util';
 import { CommonService } from '../services/common.service';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms'
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -116,9 +114,11 @@ export class CartComponent implements OnInit {
 
     if (response.razorpay_payment_id != "") {
 
-      this.cart.forEach((element: { isAprove: boolean; }) => {        // for highlight border around cate icon 
+      this.cart.forEach((element: { isAprove: boolean}) => {        // for highlight border around cate icon 
         element.isAprove = false
+    
       });
+      
       console.log(this.cart);
 
       var time = moment().format('h:mm a');

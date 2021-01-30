@@ -1,13 +1,11 @@
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { snapshotChanges } from 'angularfire2/database';
-import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { environment } from 'src/environments/environment';
 import { FormControl } from '@angular/forms';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import * as moment from 'moment';
 import { CommonService } from '../services/common.service';
-import { stringify } from '@angular/compiler/src/util';
+
 
 
 @Component({
@@ -38,10 +36,10 @@ export class MenuComponent implements OnInit {
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res           // get all item from food collection into initial array 
 
- 
 
-      
-      this.initial.map((item: { isIncrease: boolean , qty:number }) => {
+
+
+      this.initial.map((item: { isIncrease: boolean, qty: number }) => {
         item.isIncrease = false;
         item.qty = 0
       })
@@ -107,7 +105,7 @@ export class MenuComponent implements OnInit {
 
         }
       }
-   this.finalsearch = this.menu
+      this.finalsearch = this.menu
 
       console.log(this.finalsearch)
 
@@ -145,7 +143,7 @@ export class MenuComponent implements OnInit {
     });
 
 
-  
+
   }
 
   ngOnInit() {
@@ -191,6 +189,7 @@ export class MenuComponent implements OnInit {
         "description": m.description,
         "moreInfo": m.moreInfo,
         "optional": m.optional,
+        "isStatus": "prepare",
 
 
       };
@@ -263,7 +262,7 @@ export class MenuComponent implements OnInit {
       "Ingredients": m.Ingredients,
       "total": this.total,
       "isIndex": m.isIndex,
-      
+
 
     };
     var flag = false;
@@ -324,10 +323,12 @@ export class MenuComponent implements OnInit {
 
   Minus(m: any) {
 
-    if(m.qty <= 0 ){
-      return 
+    if (m.qty <= 1) {
+      m.isIncrease = false;
     }
-    m.qty -= 1
+    else {
+      m.qty -= 1
+    }
 
     const cartItem = {
       "foodId": m.foodId,
@@ -430,7 +431,7 @@ export class MenuComponent implements OnInit {
     this.finalsearch = this.nVeg;
   }
 
-  
+
   item(m: any) {            // open particuler product 
     localStorage.removeItem("product");
     console.log(m)
@@ -445,20 +446,20 @@ export class MenuComponent implements OnInit {
     this.autosearch(this.inp);
   }
 
-  
+
 
   autosearch(input: any) {
-    
+
     this.finalsearch = [];
-    this.menu.forEach((item:any)=>{
-     if(item.foodName.toLowerCase().includes(input.toLowerCase(),0)){
-       this.finalsearch.push(item)
-     }
-})
-console.log(this.finalsearch);
+    this.menu.forEach((item: any) => {
+      if (item.foodName.toLowerCase().includes(input.toLowerCase(), 0)) {
+        this.finalsearch.push(item)
+      }
+    })
+    console.log(this.finalsearch);
 
 
-  
+
     // console.log(input);
     // console.log(this.search);
     // this.finalsearch.length = 0;
@@ -492,7 +493,7 @@ console.log(this.finalsearch);
     // console.log(this.finalSearch)
     // var length = this.finalSearch.length
     // console.log(length);
-    
+
     // this.menu = [];
     // for (var i = 0; i < this.finalsearch.length; i++) {
     //   this.menu[i] = this.finalSearch[i]
@@ -607,42 +608,42 @@ console.log(this.finalsearch);
 
 
 
-//   <div class="productlist" *ngIf="length > LENGTH">
+  //   <div class="productlist" *ngIf="length > LENGTH">
 
-//   <div class="product " *ngFor="let m of finalSearch ">
-//       <div class="productimg ">
-//           <img src="{{m.imageUrl}} " (click)="item(m)" alt=" ">
-//       </div>
-//       <div class="pro-detail ">
-//           <h3 (click)="item(m)">{{m.foodName}}</h3>
-//           <h4>{{m.description}}</h4>
-//           <h5> ₹ {{m.price}}</h5>
-//       </div>
-//       <!-- <div class="ADD " id="qty2" style="visibility: hidden;">
+  //   <div class="product " *ngFor="let m of finalSearch ">
+  //       <div class="productimg ">
+  //           <img src="{{m.imageUrl}} " (click)="item(m)" alt=" ">
+  //       </div>
+  //       <div class="pro-detail ">
+  //           <h3 (click)="item(m)">{{m.foodName}}</h3>
+  //           <h4>{{m.description}}</h4>
+  //           <h5> ₹ {{m.price}}</h5>
+  //       </div>
+  //       <!-- <div class="ADD " id="qty2" style="visibility: hidden;">
 
-//       <div class="add ">
-//           <h3>Add</h3>
-//       </div>
+  //       <div class="add ">
+  //           <h3>Add</h3>
+  //       </div>
 
-//   </div> -->
-//       <div class="cust" *ngIf="m.isCustomize == true">
-//           <div class="cust_name">Customizable </div>
-//           <!-- <div class="cust-Icon"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
-//           </div> -->
-//       </div>
-//       <div class="ADD">
-//           <button *ngIf="showMainContent" (click)="Add_Item(m) ">Add</button>
-//       </div>
-//       <div class="ADD">
-//           <div class="qty" *ngIf="!showMainContent">
-//               <h4 (click)="Minus(m)">-</h4>
-//               <h5>{{c.qty}}</h5>
-//               <h4 (click)="Plus(m)">+</h4>
-//           </div>
-//       </div>
+  //   </div> -->
+  //       <div class="cust" *ngIf="m.isCustomize == true">
+  //           <div class="cust_name">Customizable </div>
+  //           <!-- <div class="cust-Icon"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
+  //           </div> -->
+  //       </div>
+  //       <div class="ADD">
+  //           <button *ngIf="showMainContent" (click)="Add_Item(m) ">Add</button>
+  //       </div>
+  //       <div class="ADD">
+  //           <div class="qty" *ngIf="!showMainContent">
+  //               <h4 (click)="Minus(m)">-</h4>
+  //               <h5>{{c.qty}}</h5>
+  //               <h4 (click)="Plus(m)">+</h4>
+  //           </div>
+  //       </div>
 
-//   </div>
+  //   </div>
 
 
-// </div>
+  // </div>
 }

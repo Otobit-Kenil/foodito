@@ -47,17 +47,31 @@
             </div>
 
             <div class="service_req">
-                <h4>Customer Name</h4><br>
+                <h4>First Name</h4><br>
 
                 <div class="search">
-                    <input type="text" (keyup)=name($event.target.value) name="name" placeholder="Enter Your Name" value="">
+                    <input type="text" (keyup)=fname($event.target.value) name="fname" placeholder="Enter Your First Name" value="">
                 </div>
-                <h4>Mobile No.</h4><br>
+
+                <h4>Last Name</h4><br>
+
+                <div class="search">
+                    <input type="text" (keyup)=lname($event.target.value) name="lname" placeholder="Enter Your Last Name" value="">
+                </div>
+
+                <h4>Email</h4><br>
+
+                <div class="search">
+                    <input type="text" (keyup)=email($event.target.value) name="email" placeholder="Enter Your Email" value="">
+                </div>
+
+                <!-- <h4>Mobile No.</h4><br>
                 <div class="search">
                     <input type="number" name="mobile" (keyup)=mobile($event.target.value) placeholder="Enter mobile number" oninput="if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" minlength="10" maxlength="10" value="" required>
                     <p *ngIf="showContent == false">Please Enter your Mobile</p>
                     <p *ngIf="showcontent == false">Please Enter valid Mobile</p>
-                </div>
+                </div> -->
+
                 <div class="ORDER ">
                     <button class="btn btn-lg btn-outline-primary " (click)="ConformOrder() ">ORDER NOW</button>
                 </div>

@@ -32,8 +32,10 @@ export class CartComponent implements OnInit {
   num: number = 0;
   sNote: string = '';
   closeResult = '';
-  Name: string = "";
-  Mobile: string = "";
+  fName: string = "";
+  lName: string = "";
+  Email: string = "";
+  // Mobile: string = "";
 
 
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef, private commonService: CommonService, private modalService: NgbModal) {
@@ -83,145 +85,101 @@ export class CartComponent implements OnInit {
 
   }
 
-  RAZORPAY_OPTIONS = {
-    "key": "rzp_test_LkGyvMQnSFDTBu",
-    // "keySecret": "plReqYFenjeSYL2waLPPwKmy",
-    "amount": this.num,
-    "name": "Foodito",
-    "currency": "INR",
-    "order_id": "",
-    "description": "Load Wallet",
-    "image": "https://strathmorehotels-theroyaloban.com/wp-content/uploads/2019/05/Dinning-Discount.png",
-    "prefill": {
-      "name": "Foodito",
-      "email": "test@test.com",
-      "contact": "9999999990",
-      "method": ""
-    },
-    "handler": function (response: any) {
-      alert(response.razorpay_payment_id);
-    },
-    "modal": {},
-    "theme": {
-      "color": "#1B2845"
-    }
-  };
+  // RAZORPAY_OPTIONS = {
+  //   "key": "rzp_test_LkGyvMQnSFDTBu",
+  //   // "keySecret": "plReqYFenjeSYL2waLPPwKmy",
+  //   "amount": this.num,
+  //   "name": "Foodito",
+  //   "currency": "INR",
+  //   "order_id": "",
+  //   "description": "Load Wallet",
+  //   "image": "https://strathmorehotels-theroyaloban.com/wp-content/uploads/2019/05/Dinning-Discount.png",
+  //   "prefill": {
+  //     "name": "Foodito",
+  //     "email": "test@test.com",
+  //     "contact": "9999999990",
+  //     "method": ""
+  //   },
+  //   "handler": function (response: any) {
+  //     alert(response.razorpay_payment_id);
+  //   },
+  //   "modal": {},
+  //   "theme": {
+  //     "color": "#1B2845"
+  //   }
+  // };
 
 
-  public razorPaySuccessHandler(response: any) {
-    console.log(response);
+  // public razorPaySuccessHandler(response: any) {
+  //   console.log(response);
 
 
-    if (response.razorpay_payment_id != "") {
+  //   if (response.razorpay_payment_id != "") {
 
-      this.cart.forEach((element: { isAprove: boolean}) => {        // for highlight border around cate icon 
-        element.isAprove = false
-    
-      });
-      
-      console.log(this.cart);
 
-      var time = moment().format('h:mm a');
-      var date = moment().format('DD/MM/YY');
-
-      var id;
-      if (this.cart.length > 0 && this.Mobile != "") {
-
-        var orderId = Date.now()
-        var sendorder = this.dbnew.collection('Orders')
-        var call = this.commonService
-        sendorder.add({
-          orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt,
-          Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null,
-          Name: this.Name, Mobile: this.Mobile
-        }).then(function (docRef: any) {
-          let inter = setInterval(() => {
-
-            id = docRef.id
-
-            if (id != undefined) {
-              console.log(id)
-              sendorder.doc(id).update({ DocId: id })
-              clearInterval(inter);
-             
-            }
-          }, 10);
-
-        }).catch(function (error: any) {
-          console.error("Error adding document: ", error);
-        });
-        call.storeid(this.Mobile)
-      }
-      else {
-        alert("your cart is empty")
-      }
-      console.log("added")
-
-      localStorage.removeItem('cart');
-      localStorage.removeItem('product');
-      var tQty = 0;
-      this.commonService.changeCount(tQty)
-
-      this.router.navigateByUrl('/order')
-
-    }
-    this.razorpayResponse = `Razorpay Response`;
-    this.showModal = true;
-    this.cd.detectChanges()
-    // document.getElementById('razorpay-response').style.display = 'block';
-  }
+  //   }
+  //   this.razorpayResponse = `Razorpay Response`;
+  //   this.showModal = true;
+  //   this.cd.detectChanges()
+  // }
 
   Place(item: string) {
     this.sNote = item;
 
   }
 
-  name(name: string) {
-    this.Name = name
-    console.log(this.Name);
+  fname(fname: string) {
+    this.fName = fname
+    console.log(this.fName);
   }
 
-  mobile(mobile: string) {
-    this.Mobile = mobile
-
-
-    this.showContent = true;
-    this.showcontent = true;
+  lname(lname: string) {
+    this.lName = lname
+    console.log(this.lName);
   }
+
+  email(email: string) {
+    this.Email = email
+    console.log(this.Email);
+  }
+
+  // mobile(mobile: string) {
+  //   this.Mobile = mobile
+
+
+  //   this.showContent = true;
+  //   this.showcontent = true;
+  // }
 
 
   ConformOrder() {
 
 
-    if(this.Mobile.length == 0){
-      this.showContent = false;
-      this.showcontent = true;
-    }
+    // if(this.Mobile.length == 0){
+    //   this.showContent = false;
+    //   this.showcontent = true;
+    // }
 
-    if(this.Mobile.length > 0 && this.Mobile.length < 10){
-      this.showContent = true;
-      this.showcontent = false;
-    }
+    // if(this.Mobile.length > 0 && this.Mobile.length < 10){
+    //   this.showContent = true;
+    //   this.showcontent = false;
+    // }
 
-    if(this.Mobile.length == 10) {
+    // if(this.Mobile.length == 10) {
 
-      this.showContent = true;
-      this.showcontent = true;
+    //   this.showContent = true;
+    //   this.showcontent = true;
 
-      this.RAZORPAY_OPTIONS.amount = this.totalAmt * 100;
+    // }
 
-      this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
+      // this.RAZORPAY_OPTIONS.amount = this.totalAmt * 100;
 
-      let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
-      razorpay.open();
+      // this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
 
+      // let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
+      // razorpay.open();
 
-      
-
-    }
- 
-
-
+     
 
   }
 
@@ -380,4 +338,59 @@ export class CartComponent implements OnInit {
     localStorage.setItem("cart", JSON.stringify(this.cart));
   }
 
+
+
+  backup(){
+    
+    this.cart.forEach((element: { isAprove: boolean}) => {        // for highlight border around cate icon 
+      element.isAprove = false
+  
+    });
+    
+    console.log(this.cart);
+
+    var time = moment().format('h:mm a');
+    var date = moment().format('DD/MM/YY');
+
+    var id;
+    if (this.cart.length > 0 ) {
+
+      var orderId = Date.now()
+      var sendorder = this.dbnew.collection('Orders')
+      var call = this.commonService
+      sendorder.add({
+        orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt,
+        Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null,
+        fName: this.fName,  lName: this.lName,  email: this.Email, 
+      }).then(function (docRef: any) {
+        let inter = setInterval(() => {
+
+          id = docRef.id
+
+          if (id != undefined) {
+            console.log(id)
+            sendorder.doc(id).update({ DocId: id })
+            clearInterval(inter);
+           
+          }
+        }, 10);
+
+      }).catch(function (error: any) {
+        console.error("Error adding document: ", error);
+      });
+      // call.storeid(this.Mobile)
+    }
+    else {
+      alert("your cart is empty")
+    }
+    console.log("added")
+
+    localStorage.removeItem('cart');
+    localStorage.removeItem('product');
+    var tQty = 0;
+    this.commonService.changeCount(tQty)
+
+    this.router.navigateByUrl('/order')
+
+  }
 }

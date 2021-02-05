@@ -23,7 +23,13 @@
                 <div class="qty">
                     <h4>{{i.qty}}</h4>
 
-                    <div class="ADD">
+                    <div class="ADD center" *ngIf="i.isStatus == 'prepare'">
+                        <h5>{{i.isStatus}}</h5>
+                    </div>
+                    <div class="ADD2 center" *ngIf="i.isStatus == 'preparing'">
+                        <h5>{{i.isStatus}}</h5>
+                    </div>
+                    <div class="ADD3 center" *ngIf="i.isStatus == 'prepared'">
                         <h5>{{i.isStatus}}</h5>
                     </div>
                 </div>
@@ -72,3 +78,18 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+<!-- 
+<div class="ADD" *ngIf="{{i.isStatus}} == prepare">
+    <h5>Ordered</h5>
+</div>
+<div class="ADD2" *ngIf="{{i.isStatus}} == Preparing">
+    <h5>{{i.isStatus}}</h5>
+</div>
+<div class="ADD3" *ngIf="{{i.isStatus}} == Prepared">
+    <h5>{{i.isStatus}}</h5>
+</div> -->

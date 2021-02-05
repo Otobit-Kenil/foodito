@@ -133,7 +133,7 @@ export class CartComponent implements OnInit {
         sendorder.add({
           orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt,
           Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null,
-          Name: this.Name, Mobile: this.Mobile
+          Name: this.Name, Mobile: this.Mobile, isCompleted: false,
         }).then(function (docRef: any) {
           let inter = setInterval(() => {
 

@@ -43,9 +43,8 @@
 
 .pro-detail {
     text-align: left;
-    padding-top: 6%;
-    margin-left: 3%;
-    margin-right: 3%;
+    padding-top: 15px;
+    padding-left: 8px;
     width: 100%;
     height: 93px;
     background-color: #F5F5F5;
@@ -83,9 +82,9 @@
 
 .ADD {
     height: 93px;
-    width: 90%;
+    width: 80px;
     border-radius: 10px;
-    background-color: #194CF4;
+    background-color: #1B2845;
     box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
     color: #f5f5f5;
     font-weight: 500;
@@ -93,35 +92,11 @@
     outline: none;
 }
 
-.ADD h5 {
-    font-size: 17px;
-    font-weight: 500;
-    color: #1B2845;
-    margin: 15px;
-    margin-top: 36% !important;
-}
-
-.ADD2 h5 {
-    font-size: 17px;
-    font-weight: 500;
-    color: #1B2845;
-    margin: 15px;
-    margin-top: 36% !important;
-}
-
-.ADD3 h5 {
-    font-size: 17px;
-    font-weight: 500;
-    color: #1B2845;
-    margin: 15px;
-    margin-top: 36% !important;
-}
-
 .ADD2 {
     height: 93px;
-    width: 100%;
+    width: 80px;
     border-radius: 10px;
-    background-color: #19F4B1;
+    background-color: #F4C114;
     box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
     color: #f5f5f5;
     font-weight: 500;
@@ -131,14 +106,28 @@
 
 .ADD3 {
     height: 93px;
-    width: 100%;
+    width: 80px;
     border-radius: 10px;
-    background-color: #F4C119;
+    background-color: #21AD62;
     box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
     color: #f5f5f5;
     font-weight: 500;
     border: none;
     outline: none;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ADD3 h5,
+.ADD2 h5,
+.ADD h5 {
+    font-size: 17px;
+    font-weight: 500;
+    color: #f5f5f5;
 }
 
 .total {

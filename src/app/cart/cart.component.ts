@@ -69,12 +69,17 @@ export class CartComponent implements OnInit {
     this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
     console.log(this.tableNo);
 
-    for (let i = 0; i < this.cart.length; i++) {
-      // this.price.push(this.cart[i].qty*this.cart[i].price)
-      this.cart[i].isIndex = i;
-      this.totalAmt += this.cart[i].total
-      console.log(this.cart[i].total)
-    }
+    this.cart.forEach((item: any) => {
+        this.totalAmt += item.total
+    })
+    
+    // for (let i = 0; i < this.cart.length; i++) {
+    //   // this.price.push(this.cart[i].qty*this.cart[i].price)
+    //   this.cart[i].isIndex = i;
+    //   this.totalAmt += this.cart[i].total
+    //   console.log(this.cart[i].total)
+      
+    // }
     localStorage.setItem("cart", JSON.stringify(this.cart));
     console.log(this.cart)
     this.num = this.totalAmt * 100
@@ -267,9 +272,12 @@ export class CartComponent implements OnInit {
           for (i = 0; i < this.cart.length; i++) {
             tQty += this.cart[i].qty;
           }
-
+          
           this.commonService.changeCount(tQty)
-
+          this.totalAmt = 0;
+          this.cart.forEach((item: any) => {
+            this.totalAmt += item.total
+        })
 
           flag = true
           break
@@ -292,7 +300,7 @@ export class CartComponent implements OnInit {
 
       // window.location.reload();
 
-      this.commonService.changeCount(tQty)
+
 
 
       this.commonService.changeCount(tQty)
@@ -340,7 +348,10 @@ export class CartComponent implements OnInit {
           }
 
           // window.location.reload();
-
+          this.totalAmt = 0;
+          this.cart.forEach((item: any) => {
+            this.totalAmt += item.total
+        })
           this.commonService.changeCount(tQty)
 
           flag = true

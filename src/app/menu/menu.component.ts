@@ -31,13 +31,11 @@ export class MenuComponent implements OnInit {
   search: any[] = [];
   inp: string = ''
   finalsearch: any[] = [];
+  demo:any[] = [];
   constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router, private commonService: CommonService) {
 
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res           // get all item from food collection into initial array 
-
-
-
 
       this.initial.map((item: { isIncrease: boolean, qty: number }) => {
         item.isIncrease = false;
@@ -48,63 +46,57 @@ export class MenuComponent implements OnInit {
 
       var Hour = parseInt(moment().format('h'));
       var format = moment().format('a');      // format is time in AM or Pm
+      
 
       if (Hour > 6 && Hour < 12) {            // item for Morning
         this.menu = [];
-        for (var i = 0; i < this.initial.length; i++) {
-
-          if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Morning == true) {
-            this.menu.push(this.initial[i]);
-
+        this.initial.forEach((item: any) => {
+          if (item.isAvailable == true && item.timing.Morning == true) {
+            this.menu.push(item)
           }
-        }
+        })
       }
 
 
       if (Hour == 12 && format == 'pm' || Hour >= 1 && format == 'pm' || format == 'pm' && Hour < 6) {             // item for Afternoon
         this.menu = [];
 
-        for (var i = 0; i < this.initial.length; i++) {
-
-          if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Afternoon == true) {
-            this.menu.push(this.initial[i]);
-
+        this.initial.forEach((item: any) => {
+          if (item.isAvailable == true && item.timing.Afternoon == true) {
+            this.menu.push(item)
           }
-        }
-
-
+        })
       }
 
       if (Hour >= 6 && format == 'pm' || format == 'pm' && Hour < 12) {        // item for Evening 
         this.menu = [];
 
-        for (var i = 0; i < this.initial.length; i++) {
-          if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Evening == true) {
-            this.menu.push(this.initial[i]);
+        this.initial.forEach((item: any) => {
+          if (item.isAvailable == true && item.timing.Evening == true) {
+            this.menu.push(item)
           }
-        }
+        })
       }
 
       if (Hour == 12 && format == 'am' || Hour >= 1 && format == 'am' || format == 'am' && Hour < 6) {         // item for NIGHT
         this.menu = [];
-        for (var i = 0; i < this.initial.length; i++) {
-          if (this.initial[i]['isAvailable'] == true && this.initial[i].timing.Night == true) {
-            this.menu.push(this.initial[i]);
+        this.initial.forEach((item: any) => {
+          if (item.isAvailable == true && item.timing.Night == true) {
+            this.menu.push(item)
           }
-        }
+        })
       }
+
       this.veg = [];
       this.nVeg = [];
-      for (var i = 0; i < this.menu.length; i++) {
-        if (this.menu[i]['isVeg'] == false) {
-          this.nVeg.push(this.menu[i]);
-
+      this.menu.forEach((item: any) => {
+        if (item.isVeg == false) {
+          this.nVeg.push(item)
         }
         else {
-          this.veg.push(this.menu[i]);
-
+          this.veg.push(item)
         }
-      }
+      })
       this.finalsearch = this.menu
 
       console.log(this.finalsearch)
@@ -116,13 +108,13 @@ export class MenuComponent implements OnInit {
 
 
       this.detail = [];          // for specail item panel 
-      for (var i = 0; i < this.menu.length; i++) {
-        if (this.menu[i]['isSpecial'] == true) {
-          this.detail.push(this.menu[i]);
+      this.menu.forEach((item: any) => {
+        if (item.isSpecial == true) {
+          this.detail.push(item)
         }
-      }
+      })
+console.log(this.detail);
 
-      // console.log("particular pID",this.menu.filter())
     });
 
     const cate = db.collection('Categories').valueChanges().subscribe((res) => {
@@ -423,7 +415,7 @@ export class MenuComponent implements OnInit {
 
   }
 
-  Veg() {
+  Veg() {                         // filter item according Veg and nonVeg
     this.finalsearch = this.veg;
   }
 
@@ -440,7 +432,7 @@ export class MenuComponent implements OnInit {
     this.router.navigateByUrl('/food');
   }
 
-  Search(Search: string) {
+  Search(Search: string) {      // save string from search input 
     this.inp = Search
     console.log(this.inp);
     this.autosearch(this.inp);
@@ -448,7 +440,7 @@ export class MenuComponent implements OnInit {
 
 
 
-  autosearch(input: any) {
+  autosearch(input: any) {       // filter product from list according search 
 
     this.finalsearch = [];
     this.menu.forEach((item: any) => {

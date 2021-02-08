@@ -8,6 +8,7 @@ import { CommonService } from '../services/common.service';
 
 
 
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -27,13 +28,16 @@ export class MenuComponent implements OnInit {
   qty: number = 1;
   uniq: any = [];
   total: any = 0;
-  button: any
   search: any[] = [];
   inp: string = ''
   finalsearch: any[] = [];
-  demo:any[] = [];
-  constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router, private commonService: CommonService) {
+  tableNo: any;
+  dbnew: any;
 
+  // , public dialog: MatDialog
+
+  constructor(private route: ActivatedRoute, db: AngularFirestore, private router: Router, private commonService: CommonService) {
+    this.dbnew = db;
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res           // get all item from food collection into initial array 
 
@@ -46,7 +50,7 @@ export class MenuComponent implements OnInit {
 
       var Hour = parseInt(moment().format('h'));
       var format = moment().format('a');      // format is time in AM or Pm
-      
+
 
       if (Hour > 6 && Hour < 12) {            // item for Morning
         this.menu = [];
@@ -86,7 +90,6 @@ export class MenuComponent implements OnInit {
           }
         })
       }
-
       this.veg = [];
       this.nVeg = [];
       this.menu.forEach((item: any) => {
@@ -113,7 +116,7 @@ export class MenuComponent implements OnInit {
           this.detail.push(item)
         }
       })
-console.log(this.detail);
+      console.log(this.detail);
 
     });
 
@@ -383,7 +386,6 @@ console.log(this.detail);
     }
   }
 
-
   toggle = true;
   category(c: any) {
 
@@ -404,7 +406,6 @@ console.log(this.detail);
 
       for (var y = 0; y < this.initial[i]['category'].length; y++) {
 
-
         if (this.initial[i]['category'][y] == id) {
           this.finalsearch.push(this.initial[i]);
 
@@ -423,7 +424,28 @@ console.log(this.detail);
     this.finalsearch = this.nVeg;
   }
 
+  openDialog() {
 
+
+      // const dialogRef = this.dialog.open(DialogContentExampleDialog);
+  
+      // dialogRef.afterClosed().subscribe(result => {
+      //   console.log(`Dialog result: ${result}`);
+      // });
+    
+    var time = moment().format('h:mm a');
+    var date = moment().format('DD/MM/YY');
+    console.log("time", time);
+    console.log("date", date);
+    this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
+
+    this.dbnew.collection('Callwaiter').add({
+      TableNo: this.tableNo, Time: time,
+      Date: date, isCompleted: false,
+    })
+
+
+  }
   item(m: any) {            // open particuler product 
     localStorage.removeItem("product");
     console.log(m)
@@ -494,6 +516,8 @@ console.log(this.detail);
 
 
   }
+
+  
   // arr = this.search
 
 
@@ -639,3 +663,9 @@ console.log(this.detail);
 
   // </div>
 }
+
+// @Component({
+//   selector: 'dialog-content-example-dialog',
+//   templateUrl: 'dialog-content-example-dialog.html',
+// })
+// export class DialogContentExampleDialog {}

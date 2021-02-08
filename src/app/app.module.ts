@@ -16,6 +16,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { FoodComponent } from './food/food.component';
 import { CommonService } from './services/common.service';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,7 +34,9 @@ import { CommonService } from './services/common.service';
     AngularFireAuthModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+
+
   ],
   providers: [CommonService],
   bootstrap: [AppComponent]

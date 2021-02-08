@@ -31,7 +31,6 @@ export class CartComponent implements OnInit {
   msg: string = '';
   num: number = 0;
   sNote: string = '';
-  closeResult = '';
   Name: string = "";
   Mobile: string = "";
 
@@ -83,9 +82,7 @@ export class CartComponent implements OnInit {
     localStorage.setItem("cart", JSON.stringify(this.cart));
     console.log(this.cart)
     this.num = this.totalAmt * 100
-
     console.log(this.totalAmt)
-
   }
 
   RAZORPAY_OPTIONS = {
@@ -115,7 +112,6 @@ export class CartComponent implements OnInit {
 
   public razorPaySuccessHandler(response: any) {
     console.log(response);
-
 
     if (response.razorpay_payment_id != "") {
 
@@ -148,7 +144,6 @@ export class CartComponent implements OnInit {
               console.log(id)
               sendorder.doc(id).update({ DocId: id })
               clearInterval(inter);
-             
             }
           }, 10);
 
@@ -189,14 +184,12 @@ export class CartComponent implements OnInit {
   mobile(mobile: string) {
     this.Mobile = mobile
 
-
     this.showContent = true;
     this.showcontent = true;
   }
 
 
   ConformOrder() {
-
 
     if(this.Mobile.length == 0){
       this.showContent = false;
@@ -219,15 +212,7 @@ export class CartComponent implements OnInit {
 
       let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
       razorpay.open();
-
-
-      
-
     }
- 
-
-
-
   }
 
   Plus(c: any) {
@@ -390,5 +375,4 @@ export class CartComponent implements OnInit {
     this.cart.length = 0;
     localStorage.setItem("cart", JSON.stringify(this.cart));
   }
-
 }

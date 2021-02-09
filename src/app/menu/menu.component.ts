@@ -146,9 +146,10 @@ export class MenuComponent implements OnInit {
       this.tableno = res['userid'];
       console.log(this.tableno)
 
-      this.searchField = new FormControl();
+      // this.searchField = new FormControl();
 
-      localStorage.setItem("table", JSON.stringify("25"));
+      // localStorage.setItem("table", JSON.stringify(this.tableno));
+      this.commonService.getTableNum(this.tableno)
     })
 
 
@@ -424,33 +425,16 @@ export class MenuComponent implements OnInit {
     this.finalsearch = this.nVeg;
   }
 
-  openDialog() {
+  clickMethod() {
 
-
-      // const dialogRef = this.dialog.open(DialogContentExampleDialog);
-  
-      // dialogRef.afterClosed().subscribe(result => {
-      //   console.log(`Dialog result: ${result}`);
-      // });
-    
-    var time = moment().format('h:mm a');
-    var date = moment().format('DD/MM/YY');
-    console.log("time", time);
-    console.log("date", date);
-    this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
-
-    this.dbnew.collection('Callwaiter').add({
-      TableNo: this.tableNo, Time: time,
-      Date: date, isCompleted: false,
-    })
-
+   this.commonService.openconfirmDailog();
 
   }
   item(m: any) {            // open particuler product 
     localStorage.removeItem("product");
     console.log(m)
     localStorage.setItem("product", JSON.stringify(m));
-    JSON.parse(localStorage.getItem('product') || '[]');
+    // JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');
   }
 
@@ -513,6 +497,27 @@ export class MenuComponent implements OnInit {
     //   this.menu[i] = this.finalSearch[i]
     // }
 
+
+          // if(confirm("Are you sure to delete ")) {
+      //   console.log("Implement delete functionality here");
+      // }
+   
+      // const dialogRef = this.dialog.open(DialogContentExampleDialog);
+  
+      // dialogRef.afterClosed().subscribe(result => {
+      //   console.log(`Dialog result: ${result}`);
+      // });
+    
+    // var time = moment().format('h:mm a');
+    // var date = moment().format('DD/MM/YY');
+    // console.log("time", time);
+    // console.log("date", date);
+    // this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
+
+    // this.dbnew.collection('Callwaiter').add({
+    //   TableNo: this.tableNo, Time: time,
+    //   Date: date, isCompleted: false,
+    // })
 
 
   }

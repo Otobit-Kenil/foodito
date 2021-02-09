@@ -14,8 +14,24 @@ import { OrderComponent } from './order/order.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { FoodComponent } from './food/food.component';
-import { CommonService } from './services/common.service';
+import { CommonService } from './services/common.service';  
+import {  MatDialogModule} from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+// import {ConfirmationDialogComponent} from './menu/confirmation-dialog.component';
 
+
+// @NgModule({
+//   exports: [
+   
+    
+//     // Material
+//     MatAutocompleteModule,
+   
+//     MatDialogModule,
+   
+//   ]
+// })
+// export class MaterialModule {}
 
 @NgModule({
   declarations: [
@@ -24,7 +40,9 @@ import { CommonService } from './services/common.service';
     HeaderComponent,
     CartComponent,
     OrderComponent,
-    FoodComponent
+    FoodComponent,
+    ConfirmationDialogComponent
+
   ],
   imports: [
     BrowserModule,
@@ -35,10 +53,13 @@ import { CommonService } from './services/common.service';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatAutocompleteModule,
+    MatDialogModule,
+    // MaterialModule,
 
 
   ],
   providers: [CommonService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [ConfirmationDialogComponent]
 })
 export class AppModule { }

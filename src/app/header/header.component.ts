@@ -14,8 +14,6 @@ cart:any [] = [];
    
     this.commonService.changeCount(this.cart.length)
 
-    this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
-   console.log(this.tableNo)
    }
 
   ngOnInit() {
@@ -24,7 +22,10 @@ cart:any [] = [];
       this.badgeCount = res;
     })
 
-   
+    this.commonService.responsetable.subscribe((res)=> {
+      console.log(res);
+      this.tableNo = res;
+    })
   }
 
 }

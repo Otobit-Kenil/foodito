@@ -1,0 +1,36 @@
+.contact-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.text {
+    text-align: center;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-evenly;
+    padding: 5px;
+}
+
+.yes,
+.no {
+    background-color: #1B2845;
+    border: none;
+    color: #f5f5f5;
+    font-size: 15px;
+    border-radius: 7px;
+    width: 50px;
+    text-align: center;
+}
+
+.yes h2,
+.no h2 {
+    margin-bottom: 0px;
+}
+
+.container img {
+    height: auto;
+    width: 100%;
+    margin-top: 30px;
+}

@@ -20,7 +20,7 @@
                         <h5>{{c.qty}}</h5>
                         <h4 (click)="Plus(c)">+</h4>
                     </div>
-                    <div class="cust">
+                    <div class="cust" *ngIf="c.isCustomize == true">
                         <div class="cust_name" (click)="item(c)">Customize </div>
                         <div class="cust-Icon"> <img src="../../assets/Icon feather-edit.svg" alt="setting">
                         </div>

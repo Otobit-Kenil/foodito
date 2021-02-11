@@ -364,7 +364,9 @@ export class CartComponent implements OnInit {
   item(c: any) {
 
     localStorage.removeItem("product");
+
     console.log(c)
+
     localStorage.setItem("product", JSON.stringify(c));
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');

@@ -27,6 +27,8 @@ export class FoodComponent implements OnInit {
   extraIngredient: any[] = [];
   basic: any[] = [];
   sum: number = 0;
+  free:object;
+  paid:object;
 
   constructor(private router: Router, db: AngularFirestore, private commonService: CommonService) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
@@ -56,14 +58,37 @@ export class FoodComponent implements OnInit {
       this.ingridient.forEach((element: { isActive: boolean; }) => {      
         element.isActive = true
       });
+
+
   
       this.optingridient.forEach((element: { isActive: boolean; }) => {      
         element.isActive = false
       });
+   
+ 
+
+
+      for(let i of Object.keys(this.ingri)){
+           console.log(this.ingri[i]);
+           this.ingridient.map(item => {
+             if(item.ingredientId === i){
+                item.isActive = this.ingri[i]
+             }
+           })
+      }
+
+      for(let i of Object.keys(this.oingridient)){
+        console.log(this.oingridient[i]);
+        this.optional.map(item => {
+          if(item.ingredientId === i){
+             item.isActive = this.oingridient[i]
+          }
+        })
+   }
+
       console.log(this.ingridient)
       console.log(this.optingridient);
-
-
+      
     });
   }
 
@@ -88,8 +113,8 @@ export class FoodComponent implements OnInit {
       "qty": this.qty,
       "price": parseInt(f.price),
       "total": f.price,
-      "Ingredients": this.ingridient,
-      "optional": this.optingridient,
+      "Ingredients": this.free,
+      "optional": this.paid,
       "description": f.description,
       "moreInfo": f.moreInfo,
       "imageUrl": f.imageUrl,
@@ -104,7 +129,7 @@ export class FoodComponent implements OnInit {
       this.uniq = this.cart[i]
       console.log(this.uniq)
       if (this.uniq.foodId == f.foodId) {
-debugger
+
         if (JSON.stringify(this.ingridient) == JSON.stringify(this.uniq.Ingredients)) {
 
           if (JSON.stringify(this.optingridient) == JSON.stringify(this.uniq.optional)) {
@@ -122,6 +147,8 @@ debugger
             console.log("cart3", (this.qty * f.price));
             console.log("cart3", (this.cart));
 
+          
+            
             // this.uniq.qty = this.uniq.qty+1
             localStorage.setItem("cart", JSON.stringify(this.cart));
             var tQty = 0;
@@ -143,16 +170,41 @@ debugger
       }
     }
     if (!flag) {
+
+      const convertArrayToObject = (array, key = "ingredientId") => {
+        const initialValue = {};
+        return array.reduce((obj, item) => {
+          return {
+            ...obj,
+            [item[key]]: item.isActive,
+          };
+        }, initialValue);
+      };
+       this.free = convertArrayToObject(this.ingridient)
+      console.log("free" ,this.free);
+
+
+      const convertArrayToObjects = (array, key = "ingredientId") => {
+        const initialValue = {};
+        return array.reduce((obj, item) => {
+          return {
+            ...obj,
+            [item[key]]: item.isActive,
+          };
+        }, initialValue);
+      };
+       this.paid = convertArrayToObjects(this.optingridient)
+      console.log("paid" ,this.paid);
+
       this.cart.push(cartItem);
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
       this.commonService.changeCount(this.cart.length)
-      
     }
 
 
-    this.router.navigateByUrl('/menu');
-
+    // this.router.navigateByUrl('/menu');
+    
   }
 
   ingridients(input: HTMLInputElement, i: any) {
@@ -163,6 +215,19 @@ debugger
       : this.ingridient[this.ingridient.findIndex((x: { ingredientId: any; }) => x.ingredientId == i.ingredientId)].isActive = false
 
     console.log("basic", this.ingridient)
+
+
+    const convertArrayToObject = (array, key = "ingredientId") => {
+      const initialValue = {};
+      return array.reduce((obj, item) => {
+        return {
+          ...obj,
+          [item[key]]: item.isActive,
+        };
+      }, initialValue);
+    };
+     this.free = convertArrayToObject(this.ingridient)
+    console.log("free" ,this.free);
 
   }
   
@@ -179,6 +244,18 @@ debugger
       : this.sum -= parseInt(i.price)
 
     console.log(this.sum)
+
+    const convertArrayToObjects = (array, key = "ingredientId") => {
+      const initialValue = {};
+      return array.reduce((obj, item) => {
+        return {
+          ...obj,
+          [item[key]]: item.isActive,
+        };
+      }, initialValue);
+    };
+     this.paid = convertArrayToObjects(this.optingridient)
+    console.log("paid" ,this.paid);
 
   }
 }

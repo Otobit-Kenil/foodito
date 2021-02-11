@@ -27,6 +27,7 @@
                             "fsevents",
                             "@firebase/firestore"
                         ],
+                        "showCircularDependencies": false,
                         "outputPath": "dist/foodito",
                         "index": "src/index.html",
                         "main": "src/main.ts",

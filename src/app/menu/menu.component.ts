@@ -92,7 +92,7 @@ export class MenuComponent implements OnInit {
       }
       this.veg = [];
       this.nVeg = [];
-      this.menu.forEach((item: any) => {
+      this.menu.forEach((item: any) => {                    // for veg && non-veg item filter
         if (item.isVeg == false) {
           this.nVeg.push(item)
         }
@@ -186,7 +186,7 @@ export class MenuComponent implements OnInit {
         "moreInfo": m.moreInfo,
         "optional": m.optional,
         "isStatus": "prepare",
-        "isCustomize":m.isCustomize,
+
 
 
       };
@@ -241,9 +241,6 @@ export class MenuComponent implements OnInit {
       }
 
     }
-
-
-
   }
 
   Plus(m: any) {
@@ -428,7 +425,7 @@ export class MenuComponent implements OnInit {
 
   clickMethod() {
 
-   this.commonService.openconfirmDailog();
+    this.commonService.openconfirmDailog();
 
   }
   item(m: any) {            // open particuler product 
@@ -456,6 +453,10 @@ export class MenuComponent implements OnInit {
       }
     })
     console.log(this.finalsearch);
+
+  }
+}
+
 
 
 
@@ -502,13 +503,13 @@ export class MenuComponent implements OnInit {
           // if(confirm("Are you sure to delete ")) {
       //   console.log("Implement delete functionality here");
       // }
-   
+
       // const dialogRef = this.dialog.open(DialogContentExampleDialog);
-  
+
       // dialogRef.afterClosed().subscribe(result => {
       //   console.log(`Dialog result: ${result}`);
       // });
-    
+
     // var time = moment().format('h:mm a');
     // var date = moment().format('DD/MM/YY');
     // console.log("time", time);
@@ -521,9 +522,9 @@ export class MenuComponent implements OnInit {
     // })
 
 
-  }
 
-  
+
+
   // arr = this.search
 
 
@@ -668,7 +669,6 @@ export class MenuComponent implements OnInit {
 
 
   // </div>
-}
 
 // @Component({
 //   selector: 'dialog-content-example-dialog',

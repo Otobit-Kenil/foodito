@@ -175,6 +175,7 @@
 
 .qtycust {
     display: grid;
+    width: 50%;
 }
 
 .final-p h4 {

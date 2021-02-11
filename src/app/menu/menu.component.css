@@ -298,7 +298,7 @@ section {
 
 @media only screen and (max-width: 361px) {
     .productlist {
-        height: 220px !important;
+        height: 162px !important;
     }
 }
 
@@ -316,7 +316,13 @@ section {
 
 @media only screen and (max-width: 412px) {
     .productlist {
-        height: 300px;
+        height: 325px;
+    }
+}
+
+@media only screen and (min-width: 410px) {
+    .productlist {
+        height: 237px;
     }
 }
 
@@ -514,4 +520,5 @@ section {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-top: 20px;
 }

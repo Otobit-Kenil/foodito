@@ -120,6 +120,7 @@ export class FoodComponent implements OnInit {
       "imageUrl": f.imageUrl,
       "isIndex": this.cart.isIndex,
       "isStatus": "prepare",
+      "isCustomize":f.isCustomize,
 
     };
     var flag = false;
@@ -203,7 +204,7 @@ export class FoodComponent implements OnInit {
     }
 
 
-    // this.router.navigateByUrl('/menu');
+    this.router.navigateByUrl('/menu');
     
   }
 

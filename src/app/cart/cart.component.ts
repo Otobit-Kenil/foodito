@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { AngularFirestore} from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ExternalLibraryService } from './razorService';
@@ -65,19 +65,39 @@ export class CartComponent implements OnInit {
       this.msg = 'Your Cart is Empty'
       console.log(this.msg)
     }
+
+    // else {
+
+    //   for (var i = 0; i < this.cart.length; i++) {
+    //     for (var k = i + 1; k < this.cart.length; k++) {
+    //       if (JSON.stringify(this.cart[i]) === JSON.stringify(this.cart[k]) ) {
+    //         console.log("yes");
+
+    //         this.
+    //       }
+    //       else{
+    //         console.log("no");
+
+    //       }
+    //     }
+
+    //   }
+    // }
     this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
     console.log(this.tableNo);
 
+
+
     this.cart.forEach((item: any) => {
-        this.totalAmt += item.total
+      this.totalAmt += item.total
     })
-    
+
     // for (let i = 0; i < this.cart.length; i++) {
     //   // this.price.push(this.cart[i].qty*this.cart[i].price)
     //   this.cart[i].isIndex = i;
     //   this.totalAmt += this.cart[i].total
     //   console.log(this.cart[i].total)
-      
+
     // }
     localStorage.setItem("cart", JSON.stringify(this.cart));
     console.log(this.cart)
@@ -115,11 +135,11 @@ export class CartComponent implements OnInit {
 
     if (response.razorpay_payment_id != "") {
 
-      this.cart.forEach((element: { isAprove: boolean}) => {        // for highlight border around cate icon 
+      this.cart.forEach((element: { isAprove: boolean }) => {        // for highlight border around cate icon 
         element.isAprove = false
-    
+
       });
-      
+
       console.log(this.cart);
 
       var time = moment().format('h:mm a');
@@ -191,17 +211,17 @@ export class CartComponent implements OnInit {
 
   ConformOrder() {
 
-    if(this.Mobile.length == 0){
+    if (this.Mobile.length == 0) {
       this.showContent = false;
       this.showcontent = true;
     }
 
-    if(this.Mobile.length > 0 && this.Mobile.length < 10){
+    if (this.Mobile.length > 0 && this.Mobile.length < 10) {
       this.showContent = true;
       this.showcontent = false;
     }
 
-    if(this.Mobile.length == 10) {
+    if (this.Mobile.length == 10) {
 
       this.showContent = true;
       this.showcontent = true;
@@ -257,12 +277,12 @@ export class CartComponent implements OnInit {
           for (i = 0; i < this.cart.length; i++) {
             tQty += this.cart[i].qty;
           }
-          
+
           this.commonService.changeCount(tQty)
           this.totalAmt = 0;
           this.cart.forEach((item: any) => {
             this.totalAmt += item.total
-        })
+          })
 
           flag = true
           break
@@ -336,7 +356,7 @@ export class CartComponent implements OnInit {
           this.totalAmt = 0;
           this.cart.forEach((item: any) => {
             this.totalAmt += item.total
-        })
+          })
           this.commonService.changeCount(tQty)
 
           flag = true
@@ -368,13 +388,8 @@ export class CartComponent implements OnInit {
     console.log(c)
 
     localStorage.setItem("product", JSON.stringify(c));
+    localStorage.setItem("customize", JSON.stringify(c));
     JSON.parse(localStorage.getItem('product') || '[]');
     this.router.navigateByUrl('/food');
-  }
-
-
-  Clear() {
-    this.cart.length = 0;
-    localStorage.setItem("cart", JSON.stringify(this.cart));
   }
 }

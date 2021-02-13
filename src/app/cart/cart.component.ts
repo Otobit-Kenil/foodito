@@ -33,6 +33,7 @@ export class CartComponent implements OnInit {
   sNote: string = '';
   Name: string = "";
   Mobile: string = "";
+  status:boolean;
 
 
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef, private commonService: CommonService, private modalService: NgbModal) {
@@ -64,6 +65,10 @@ export class CartComponent implements OnInit {
     if (this.cart.length == 0) {
       this.msg = 'Your Cart is Empty'
       console.log(this.msg)
+      this.status = false;
+    }
+    else{
+      this.status = true;
     }
 
     // else {
@@ -176,13 +181,14 @@ export class CartComponent implements OnInit {
         alert("your cart is empty")
       }
       console.log("added")
-
+      
       localStorage.removeItem('cart');
       localStorage.removeItem('product');
       var tQty = 0;
       this.commonService.changeCount(tQty)
-
-      this.router.navigateByUrl('/order')
+ 
+      this.cart.length = 0;
+      this.router.navigateByUrl('/cart')
 
     }
     this.razorpayResponse = `Razorpay Response`;
@@ -315,6 +321,8 @@ export class CartComponent implements OnInit {
 
   Minus(c: any) {
 
+
+
     const cartItem = {
 
       "foodId": c.foodId,
@@ -345,6 +353,7 @@ export class CartComponent implements OnInit {
           if (this.qty == 0) {
             this.cart.splice(i, 1)
           }
+          
           localStorage.setItem("cart", JSON.stringify(this.cart));
 
           var tQty = 0;
@@ -358,7 +367,7 @@ export class CartComponent implements OnInit {
             this.totalAmt += item.total
           })
           this.commonService.changeCount(tQty)
-
+        
           flag = true
           break
         }
@@ -370,6 +379,7 @@ export class CartComponent implements OnInit {
     }
     if (!flag) {
       this.cart.push(cartItem);
+    
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
       var tQty = 0;

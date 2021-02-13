@@ -5,6 +5,7 @@
 .heading {
     display: flex;
     justify-content: space-between;
+    margin-top: 10px;
 }
 
 .order h6,
@@ -82,7 +83,8 @@
 
 .ADD {
     height: 93px;
-    width: 80px;
+    width: 100%;
+    padding: 10px;
     border-radius: 10px;
     background-color: #1B2845;
     box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
@@ -94,7 +96,8 @@
 
 .ADD2 {
     height: 93px;
-    width: 80px;
+    width: 100%;
+    padding: 10px;
     border-radius: 10px;
     background-color: #F4C114;
     box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
@@ -106,7 +109,8 @@
 
 .ADD3 {
     height: 93px;
-    width: 80px;
+    width: 100%;
+    padding: 10px;
     border-radius: 10px;
     background-color: #21AD62;
     box-shadow: 0 2px 3px #DDDDDD, -6px -6px 6px #ffffff;
@@ -145,4 +149,11 @@
     font-size: 24px;
     color: #1B2845;
     margin-bottom: 0px;
+}
+
+.orderheading h4 {
+    font-size: 17px;
+    color: #1B2845;
+    position: absolute;
+    font-weight: 500;
 }

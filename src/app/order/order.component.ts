@@ -11,10 +11,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class OrderComponent implements OnInit {
   orders: any;
-  orderHistory: any[] = [];
+  public orderHistory: any[] = [];
   order: any
+  dbnew:any
   constructor(public commonService: CommonService, private route: ActivatedRoute, db: AngularFirestore, private router: Router) {
-
     db.collection('Orders').valueChanges().subscribe((res) => {
       this.orderHistory.length = 0;
       res.forEach((orders: any) => {
@@ -26,14 +26,22 @@ export class OrderComponent implements OnInit {
           });
         }
       })
-      console.log(this.orderHistory);
+      console.log(" OOrdersss", this.orderHistory);
+    localStorage.setItem("orders", JSON.stringify(this.orderHistory));
     })
-  }
+   
+    
+  } 
 
   ngOnInit() {
+
+    this.orderHistory = JSON.parse(localStorage.getItem('orders') || '[]');
+
     this.commonService.responseorderid.subscribe((res) => {
       this.orders = res;
       console.log(this.orders);
     })
+ 
+    
   }
 }

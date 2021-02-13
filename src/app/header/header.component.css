@@ -45,6 +45,7 @@
 
 .table {
     display: grid;
+    margin-bottom: -1rem !important;
 }
 
 .table h4 {
@@ -53,7 +54,7 @@
     color: #1B2845;
     left: 22%;
     font-weight: 500;
-    bottom: 2%;
+    margin-bottom: 2px;
 }
 
 .table img {

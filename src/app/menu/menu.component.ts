@@ -187,8 +187,6 @@ export class MenuComponent implements OnInit {
         "optional": m.optional,
         "isStatus": "prepare",
 
-
-
       };
       var flag = false;
       this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -226,8 +224,6 @@ export class MenuComponent implements OnInit {
         }
 
       }
-
-
       if (!flag) {
         this.cart.push(cartItem);
         localStorage.setItem("cart", JSON.stringify(this.cart));

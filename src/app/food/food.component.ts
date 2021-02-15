@@ -54,11 +54,11 @@ export class FoodComponent implements OnInit {
         }
       }
 
-      if(this.optingridient.length == 0){
-        this.status = false;
+      if(this.food[0].isCustomize == true){
+        this.status = true;
       }
       else{
-        this.status = true;
+        this.status = false;
       }
       this.basic = this.ingri
       this.extraIngredient = this.oingridient

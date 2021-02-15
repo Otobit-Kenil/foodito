@@ -41,9 +41,10 @@ export class MenuComponent implements OnInit {
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res           // get all item from food collection into initial array 
 
-      this.initial.map((item: { isIncrease: boolean, qty: number }) => {
+      this.initial.map((item: { isIncrease: boolean, qty: number, showcustomization :boolean }) => {
         item.isIncrease = false;
         item.qty = 0
+        item.showcustomization = false
       })
 
 
@@ -102,13 +103,27 @@ export class MenuComponent implements OnInit {
       })
       this.finalsearch = this.menu
 
+      this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      this.finalsearch.forEach((item) => {
+        this.cart.forEach((items) => {
+          if(item.foodId === items.foodId) {
+             item.isIncrease = true;
+             item.qty += items.qty
+          }
+        })
+      })
+
+
       console.log(this.finalsearch)
 
-      // for (var i = 0; i < this.menu.length; i++) {
-      //   this.search[i] = this.menu[i].foodName;
-      // }
-      // console.log(this.search);
+      console.log(this.cart)
 
+      var tQty = 0;
+      this.cart.forEach(element => {
+        tQty += element.qty
+      });
+      
+      this.commonService.changeCount(tQty)
 
       this.detail = [];          // for specail item panel 
       this.menu.forEach((item: any) => {
@@ -136,9 +151,6 @@ export class MenuComponent implements OnInit {
 
       // console.log("particular pID",this.menu.filter())
     });
-
-
-
   }
 
   ngOnInit() {
@@ -146,13 +158,8 @@ export class MenuComponent implements OnInit {
       this.tableno = res['userid'];
       console.log(this.tableno)
 
-      // this.searchField = new FormControl();
-
-      // localStorage.setItem("table", JSON.stringify(this.tableno));
       this.commonService.getTableNum(this.tableno)
-    })
-
-
+    }) 
   }
 
   Add_Item(m: any) {
@@ -160,19 +167,22 @@ export class MenuComponent implements OnInit {
     // this.showMainContent = this.showMainContent ? false : true;
 
     m.isIncrease = true;
+    m.showcustomization = m.isIncrease && m.isCustomize
+    if(m.showcustomization == true){
+      m.isIncrease = false
+    }
+    console.log(m.showcustomization);
+    
     console.log(m.isCustomize)
     if (m.isCustomize == true) {
       localStorage.removeItem("product");
-      console.log(m)
+      console.log(m);
       localStorage.setItem("product", JSON.stringify(m));
       JSON.parse(localStorage.getItem('product') || '[]');
-      this.router.navigateByUrl('/food');
+      // this.router.navigateByUrl('/food');
     }
 
     else {
-
-
-
       const cartItem = {
 
         "foodId": m.foodId,
@@ -216,14 +226,12 @@ export class MenuComponent implements OnInit {
 
           flag = true
           break
-
         }
         else {
           console.log("not same")
-
         }
-
       }
+
       if (!flag) {
         this.cart.push(cartItem);
         localStorage.setItem("cart", JSON.stringify(this.cart));
@@ -233,13 +241,16 @@ export class MenuComponent implements OnInit {
           tQty += this.cart[i].qty;
         }
         this.commonService.changeCount(tQty)
-
       }
-
     }
+  }
+  Minuss(m:any){
+    console.log("hey");
+    
   }
 
   Plus(m: any) {
+console.log(this.finalsearch);
 
     m.qty += 1
 
@@ -252,7 +263,6 @@ export class MenuComponent implements OnInit {
       "Ingredients": m.Ingredients,
       "total": this.total,
       "isIndex": m.isIndex,
-
 
     };
     var flag = false;
@@ -315,6 +325,7 @@ export class MenuComponent implements OnInit {
 
     if (m.qty <= 1) {
       m.isIncrease = false;
+
     }
     else {
       m.qty -= 1
@@ -397,7 +408,7 @@ export class MenuComponent implements OnInit {
 
     var id = c.categoryId
     this.finalsearch = [];
-    for (var i = 0; i < this.initial.length; i++) {
+    for (var i = 0; i < this.initial.length; i++) {             // category wise sort in menu
 
       for (var y = 0; y < this.initial[i]['category'].length; y++) {
 

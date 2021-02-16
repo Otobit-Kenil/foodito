@@ -110,6 +110,8 @@ export class FoodComponent implements OnInit {
 
     this.food.push(this.fooditem)
     console.log(this.food)
+
+
   }
 
   Add_Item(f: any) {

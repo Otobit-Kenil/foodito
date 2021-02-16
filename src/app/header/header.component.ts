@@ -17,6 +17,9 @@ export class HeaderComponent implements OnInit {
       console.log(res);
       this.tableNo = res;
     })
+
+    this.tableNo =  JSON.parse(localStorage.getItem('tableno')|| '[]');
+    this.commonService.getTableNum(this.tableNo)
   }
 
   ngOnInit() {

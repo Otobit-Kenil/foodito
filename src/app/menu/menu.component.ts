@@ -41,7 +41,7 @@ export class MenuComponent implements OnInit {
     db.collection('FoodsCollection').valueChanges().subscribe((res) => {
       this.initial = res           // get all item from food collection into initial array 
 
-      this.initial.map((item: { isIncrease: boolean, qty: number, showcustomization :boolean }) => {
+      this.initial.map((item: { isIncrease: boolean, qty: number, showcustomization: boolean }) => {
         item.isIncrease = false;
         item.qty = 0
         item.showcustomization = false
@@ -106,10 +106,10 @@ export class MenuComponent implements OnInit {
       this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
       this.finalsearch.forEach((item) => {
         this.cart.forEach((items) => {
-          if(item.foodId === items.foodId) {
-             item.isIncrease = true;
-             item.qty += items.qty
-             item.showcustomization = items.showcustomization
+          if (item.foodId === items.foodId) {
+            item.isIncrease = true;
+            item.qty += items.qty
+            item.showcustomization = items.showcustomization
           }
         })
       })
@@ -123,7 +123,7 @@ export class MenuComponent implements OnInit {
       this.cart.forEach(element => {
         tQty += element.qty
       });
-      
+
       this.commonService.changeCount(tQty)
 
       this.detail = [];          // for specail item panel 
@@ -161,7 +161,10 @@ export class MenuComponent implements OnInit {
       console.log(this.tableno)
 
       this.commonService.getTableNum(this.tableno)
-    }) 
+    })
+
+    localStorage.setItem("tableno", this.tableno);
+    this.tableNo =  JSON.parse(localStorage.getItem('tableno')|| '[]');
   }
 
   Add_Item(m: any) {
@@ -174,18 +177,18 @@ export class MenuComponent implements OnInit {
     //   m.isIncrease = false
     // }
     // console.log(m.showcustomization);
-    
+
     console.log(m.isCustomize)
     if (m.isCustomize == true) {
       localStorage.removeItem("product");
       console.log(m);
       this.finalsearch.forEach(item => {
-        if(m.foodId == item.foodId){
+        if (m.foodId == item.foodId) {
           item.showcustomization = true;
         }
       })
       console.log(this.finalsearch);
-      
+
 
       // m.showcustomization = true
       localStorage.setItem("product", JSON.stringify(m));
@@ -228,7 +231,7 @@ export class MenuComponent implements OnInit {
           console.log("cart3", (this.qty * m.price));
           console.log("cart3", (this.cart));
           // this.uniq.qty = this.uniq.qty+1
-          
+
           localStorage.setItem("cart", JSON.stringify(this.cart));
 
           var tQty = 0;
@@ -259,17 +262,15 @@ export class MenuComponent implements OnInit {
       }
     }
   }
-  Minuss(m:any){
+  Minuss(m: any) {
     this.router.navigateByUrl('/cart');
-    
   }
 
-  Pluss(m:any){
+  Pluss(m: any) {
     this.router.navigateByUrl('/food');
-    
   }
   Plus(m: any) {
-console.log(this.finalsearch);
+    console.log(this.finalsearch);
 
     m.qty += 1
 

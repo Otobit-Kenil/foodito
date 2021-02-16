@@ -13,7 +13,10 @@ export class HeaderComponent implements OnInit {
   constructor(public commonService: CommonService) {
 
     this.commonService.changeCount(this.cart.length)
-
+    this.commonService.responsetable.subscribe((res) => {
+      console.log(res);
+      this.tableNo = res;
+    })
   }
 
   ngOnInit() {
@@ -22,10 +25,7 @@ export class HeaderComponent implements OnInit {
       this.badgeCount = res;
     })
 
-    this.commonService.responsetable.subscribe((res) => {
-      console.log(res);
-      this.tableNo = res;
-    })
+
   }
 
 }

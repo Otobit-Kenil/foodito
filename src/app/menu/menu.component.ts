@@ -152,6 +152,7 @@ export class MenuComponent implements OnInit {
 
       // console.log("particular pID",this.menu.filter())
     });
+    this.commonService.getTableNum(this.tableno)
   }
 
   ngOnInit() {
@@ -227,6 +228,7 @@ export class MenuComponent implements OnInit {
           console.log("cart3", (this.qty * m.price));
           console.log("cart3", (this.cart));
           // this.uniq.qty = this.uniq.qty+1
+          
           localStorage.setItem("cart", JSON.stringify(this.cart));
 
           var tQty = 0;

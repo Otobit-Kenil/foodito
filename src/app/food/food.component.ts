@@ -31,6 +31,7 @@ export class FoodComponent implements OnInit {
   paid: object;
   customize: any = [];
   status:boolean;
+  tableNo:any;
 
   constructor(private router: Router, db: AngularFirestore, private commonService: CommonService) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
@@ -231,7 +232,12 @@ export class FoodComponent implements OnInit {
       this.commonService.changeCount(this.cart.length)
 
     }
-    this.router.navigateByUrl('/menu');
+    this.commonService.responsetable.subscribe((res) => {
+      this.tableNo = res;
+      console.log(this.tableNo);
+
+    })
+    this.router.navigateByUrl(`/menu/${this.tableNo}`);
 
   }
 

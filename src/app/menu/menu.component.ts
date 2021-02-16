@@ -109,6 +109,7 @@ export class MenuComponent implements OnInit {
           if(item.foodId === items.foodId) {
              item.isIncrease = true;
              item.qty += items.qty
+             item.showcustomization = items.showcustomization
           }
         })
       })
@@ -167,19 +168,28 @@ export class MenuComponent implements OnInit {
     // this.showMainContent = this.showMainContent ? false : true;
 
     m.isIncrease = true;
-    m.showcustomization = m.isIncrease && m.isCustomize
-    if(m.showcustomization == true){
-      m.isIncrease = false
-    }
-    console.log(m.showcustomization);
+    // m.showcustomization = m.isIncrease && m.isCustomize
+    // if(m.showcustomization == true){
+    //   m.isIncrease = false
+    // }
+    // console.log(m.showcustomization);
     
     console.log(m.isCustomize)
     if (m.isCustomize == true) {
       localStorage.removeItem("product");
       console.log(m);
+      this.finalsearch.forEach(item => {
+        if(m.foodId == item.foodId){
+          item.showcustomization = true;
+        }
+      })
+      console.log(this.finalsearch);
+      
+
+      // m.showcustomization = true
       localStorage.setItem("product", JSON.stringify(m));
-      JSON.parse(localStorage.getItem('product') || '[]');
-      // this.router.navigateByUrl('/food');
+      this.router.navigateByUrl('/food');
+
     }
 
     else {
@@ -196,6 +206,9 @@ export class MenuComponent implements OnInit {
         "moreInfo": m.moreInfo,
         "optional": m.optional,
         "isStatus": "prepare",
+        "showcustomization": m.showcustomization,
+
+
 
       };
       var flag = false;
@@ -245,10 +258,14 @@ export class MenuComponent implements OnInit {
     }
   }
   Minuss(m:any){
-    console.log("hey");
+    this.router.navigateByUrl('/cart');
     
   }
 
+  Pluss(m:any){
+    this.router.navigateByUrl('/food');
+    
+  }
   Plus(m: any) {
 console.log(this.finalsearch);
 

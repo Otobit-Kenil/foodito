@@ -179,6 +179,7 @@ export class FoodComponent implements OnInit {
       "isIndex": this.cart.isIndex,
       "isStatus": "prepare",
       "isCustomize": f.isCustomize,
+      "showcustomization": f.showcustomization,
 
     };
     var flag = false;

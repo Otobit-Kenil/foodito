@@ -54,9 +54,11 @@
                             </div>
                             <div class=" Specail">
                                 <div class="QTY" *ngIf="m.isIncrease == true">
-                                    <h4 (click)="Minus(m)">-</h4>
+                                    <h4 *ngIf="m.showcustomization == false" (click)="Minus(m)">-</h4>
+                                    <h4 *ngIf="m.showcustomization == true" (click)="Minuss(m)">-</h4>
                                     <h5>{{m.qty}}</h5>
-                                    <h4 (click)="Plus(m)">+</h4>
+                                    <h4 *ngIf="m.showcustomization == false" (click)="Plus(m)">+</h4>
+                                    <h4 *ngIf="m.showcustomization == true" (click)="Pluss(m)">+</h4>
                                 </div>
                             </div>
 

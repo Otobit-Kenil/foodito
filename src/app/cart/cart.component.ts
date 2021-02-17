@@ -39,6 +39,8 @@ export class CartComponent implements OnInit {
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef, private commonService: CommonService, private modalService: NgbModal) {
     this.dbnew = db;
 
+    
+
     this.razorpayService
       .lazyLoadLibrary('https://checkout.razorpay.com/v1/checkout.js')
       .subscribe();
@@ -56,7 +58,10 @@ export class CartComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+
   }
+
+  
   ngOnInit() {
 
 
@@ -68,6 +73,12 @@ export class CartComponent implements OnInit {
       this.status = false;
     }
     else{
+         
+    this.cart.forEach(e => {
+      if(e.qty < 1 ){
+        this.cart.splice(this.cart.indexOf(e),1)
+      }
+    });
       this.status = true;
     }
 
@@ -88,7 +99,7 @@ export class CartComponent implements OnInit {
 
     //   }
     // }
-    this.tableNo = JSON.parse(localStorage.getItem('table') || '[]');
+    this.tableNo = JSON.parse(localStorage.getItem('tableno') || '[]');
     console.log(this.tableNo);
 
 

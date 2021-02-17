@@ -197,12 +197,12 @@ export class MenuComponent implements OnInit {
     }
 
     else {
-      m.qty += 1
+      m.qty = 1
       const cartItem = {
 
         "foodId": m.foodId,
         "foodName": m.foodName,
-        "qty": this.qty,
+        "qty": m.qty,
         "imageUrl": m.imageUrl,
         "price": parseInt(m.price),
         "Ingredients": m.Ingredients,
@@ -342,7 +342,7 @@ export class MenuComponent implements OnInit {
 
     if (m.qty <= 1) {
       m.isIncrease = false;
-
+      m.qty = 0;
     }
     else {
       m.qty -= 1
@@ -373,13 +373,17 @@ export class MenuComponent implements OnInit {
           console.log(this.cart.total)
 
           // this.uniq.qty = this.uniq.qty+1
-          if (this.qty == 0) {
+          if (this.qty <= 0) {
             this.cart.splice(i, 1)
             this.showMainContent = this.showMainContent ? false : true;
           }
           localStorage.setItem("cart", JSON.stringify(this.cart));
 
-
+          this.cart.forEach(e => {
+            if(e.qty < 1 ){
+              this.cart.splice(this.cart.indexOf(e),1)
+            }
+          });
           var tQty = 0;
           for (i = 0; i < this.cart.length; i++) {
             tQty += this.cart[i].qty;

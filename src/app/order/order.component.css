@@ -82,7 +82,7 @@
 }
 
 .ADD {
-    height: 93px;
+    height: auto;
     width: 100%;
     padding: 10px;
     border-radius: 10px;
@@ -95,7 +95,7 @@
 }
 
 .ADD2 {
-    height: 93px;
+    height: auto;
     width: 100%;
     padding: 10px;
     border-radius: 10px;
@@ -108,7 +108,7 @@
 }
 
 .ADD3 {
-    height: 93px;
+    height: auto;
     width: 100%;
     padding: 10px;
     border-radius: 10px;

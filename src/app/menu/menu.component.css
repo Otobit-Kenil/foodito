@@ -195,7 +195,7 @@ section {
 .Sproducts {
     display: flex;
     margin-bottom: 7px;
-    box-shadow: 2px 18px 3px #DDDDDD, -6px -6px 6px #ffffff;
+    box-shadow: -4px 3px 3px #DDDDDD, -6px -6px 6px #ffffff;
     border-radius: 10px;
     margin-top: 10px;
     margin-right: 10px;
@@ -348,6 +348,7 @@ section {
     -ms-overflow-style: none;
     scrollbar-width: none;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .menudetail {
@@ -356,7 +357,6 @@ section {
 
 .back-sho {
     display: flex;
-    box-shadow: 0 1px 3px #DDDDDD, 6px 6px 4px #DDDDDD;
     border-radius: 10px;
 }
 

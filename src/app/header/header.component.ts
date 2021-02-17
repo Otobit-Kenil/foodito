@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../services/common.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
@@ -10,7 +12,7 @@ export class HeaderComponent implements OnInit {
   badgeCount: number = 0;
   cart: any[] = [];
   tableNo: any;
-  constructor(public commonService: CommonService) {
+  constructor(private router: Router, public commonService: CommonService) {
 
     this.commonService.changeCount(this.cart.length)
     this.commonService.responsetable.subscribe((res) => {
@@ -28,7 +30,11 @@ export class HeaderComponent implements OnInit {
       this.badgeCount = res;
     })
 
-
   }
+
+menu(){
+  this.router.navigateByUrl(`/menu/${this.tableNo}`);
+
+}
 
 }

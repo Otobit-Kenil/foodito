@@ -164,11 +164,11 @@ export class MenuComponent implements OnInit {
     })
 
     localStorage.setItem("tableno", this.tableno);
-    this.tableNo =  JSON.parse(localStorage.getItem('tableno')|| '[]');
+    this.tableNo = JSON.parse(localStorage.getItem('tableno') || '[]');
   }
 
   Add_Item(m: any) {
-    m.qty += 1
+
     // this.showMainContent = this.showMainContent ? false : true;
 
     m.isIncrease = true;
@@ -197,6 +197,7 @@ export class MenuComponent implements OnInit {
     }
 
     else {
+      m.qty += 1
       const cartItem = {
 
         "foodId": m.foodId,
@@ -211,8 +212,6 @@ export class MenuComponent implements OnInit {
         "optional": m.optional,
         "isStatus": "prepare",
         "showcustomization": m.showcustomization,
-
-
 
       };
       var flag = false;
@@ -269,8 +268,8 @@ export class MenuComponent implements OnInit {
   Pluss(m: any) {
     this.router.navigateByUrl('/food');
   }
+
   Plus(m: any) {
-    console.log(this.finalsearch);
 
     m.qty += 1
 
@@ -282,20 +281,18 @@ export class MenuComponent implements OnInit {
       "price": parseInt(m.price),
       "Ingredients": m.Ingredients,
       "total": this.total,
-      "isIndex": m.isIndex,
 
     };
     var flag = false;
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     for (var i = 0; i < this.cart.length; i++) {
       this.uniq = this.cart[i]
+      this.cart[i].isIndex = i;
 
       console.log(this.uniq.isIndex)
       console.log(m.isIndex)
 
       if (this.uniq.foodId == m.foodId) {
-
-        if (this.uniq.isIndex == m.isIndex) {
 
           localStorage.removeItem('cart');
           console.log(this.uniq.isIndex)
@@ -319,7 +316,7 @@ export class MenuComponent implements OnInit {
 
           flag = true
           break
-        }
+        
       }
       else {
         console.log("not same")
@@ -357,7 +354,7 @@ export class MenuComponent implements OnInit {
       "qty": m.qty,
       "price": parseInt(m.price),
       "Ingredients": m.Ingredients,
-      "isIndex": m.isIndex,
+
 
     };
     var flag = false;
@@ -366,7 +363,6 @@ export class MenuComponent implements OnInit {
       this.uniq = this.cart[i]
       if (this.uniq.foodId == m.foodId) {
 
-        if (this.uniq.isIndex == m.isIndex) {
           localStorage.removeItem('cart');
 
           console.log(this.uniq)
@@ -392,7 +388,7 @@ export class MenuComponent implements OnInit {
 
           flag = true
           break
-        }
+        
       }
       else {
         console.log("not same")

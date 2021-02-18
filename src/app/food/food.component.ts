@@ -30,8 +30,8 @@ export class FoodComponent implements OnInit {
   free: object;
   paid: object;
   customize: any = [];
-  status:boolean;
-  tableNo:any;
+  status: boolean;
+  tableNo: any;
 
   constructor(private router: Router, db: AngularFirestore, private commonService: CommonService) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
@@ -55,10 +55,10 @@ export class FoodComponent implements OnInit {
         }
       }
 
-      if(this.food[0].isCustomize == true){
+      if (this.food[0].isCustomize == true) {
         this.status = true;
       }
-      else{
+      else {
         this.status = false;
       }
       this.basic = this.ingri

@@ -204,3 +204,8 @@
     box-shadow: 0 1px 3px #DDDDDD, 6px 7px 4px #DDDDDD, 1px 2px 1px #ffffff, -5px -5px 4px #ffffff;
     outline: none;
 }
+
+.red,
+.green {
+    border: 2px solid red !important
+}

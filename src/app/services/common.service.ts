@@ -42,9 +42,6 @@ export class CommonService {
 
   getTableNum(data: any) {
     this.table.next(data)
-    console.log(data);
-
-
   }
 
 }

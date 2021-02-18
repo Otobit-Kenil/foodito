@@ -114,11 +114,7 @@ export class MenuComponent implements OnInit {
         })
       })
 
-
       console.log(this.finalsearch)
-
-      console.log(this.cart)
-
       var tQty = 0;
       this.cart.forEach(element => {
         tQty += element.qty
@@ -139,7 +135,6 @@ export class MenuComponent implements OnInit {
     const cate = db.collection('Categories').valueChanges().subscribe((res) => {
       this.cate = res;
 
-
       this.cate.map((item: { isActive: boolean; }) => {
         item.isActive = false;
       })
@@ -149,7 +144,6 @@ export class MenuComponent implements OnInit {
           this.detail.push(this.menu[i]);
         }
       }
-
       // console.log("particular pID",this.menu.filter())
     });
     this.commonService.getTableNum(this.tableno)
@@ -254,9 +248,9 @@ export class MenuComponent implements OnInit {
         localStorage.setItem("cart", JSON.stringify(this.cart));
         console.log("cart", this.cart);
         var tQty = 0;
-        for (i = 0; i < this.cart.length; i++) {
-          tQty += this.cart[i].qty;
-        }
+        this.cart.forEach(e => {
+          tQty += e.qty
+        });
         this.commonService.changeCount(tQty)
       }
     }
@@ -296,29 +290,29 @@ export class MenuComponent implements OnInit {
 
       if (this.uniq.foodId == m.foodId) {
 
-          localStorage.removeItem('cart');
-          console.log(this.uniq.isIndex)
-          console.log(m.isIndex);
+        localStorage.removeItem('cart');
+        console.log(this.uniq.isIndex)
+        console.log(m.isIndex);
 
-          this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
-          console.log(typeof (this.cart[this.cart.indexOf(this.uniq)].price))
-          this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
-          console.log(this.cart.total)
-          console.log(this.cart)
-          console.log(cartItem)
-          // this.uniq.qty = this.uniq.qty+1
-          localStorage.setItem("cart", JSON.stringify(this.cart));
-          // window.location.reload();
-          var tQty = 0;
-          for (i = 0; i < this.cart.length; i++) {
-            tQty += this.cart[i].qty;
-          }
-          this.commonService.changeCount(tQty)
+        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
+        console.log(typeof (this.cart[this.cart.indexOf(this.uniq)].price))
+        this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        console.log(this.cart.total)
+        console.log(this.cart)
+        console.log(cartItem)
+        // this.uniq.qty = this.uniq.qty+1
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+        // window.location.reload();
+        var tQty = 0;
+        this.cart.forEach(e => {
+          tQty += e.qty
+        });
+        this.commonService.changeCount(tQty)
 
 
-          flag = true
-          break
-        
+        flag = true
+        break
+
       }
       else {
         console.log("not same")
@@ -365,36 +359,36 @@ export class MenuComponent implements OnInit {
       this.uniq = this.cart[i]
       if (this.uniq.foodId == m.foodId) {
 
-          localStorage.removeItem('cart');
+        localStorage.removeItem('cart');
 
-          console.log(this.uniq)
-          console.log("cart2", (this.cart));
-          this.qty = this.cart[this.cart.indexOf(this.uniq)].qty -= 1
+        console.log(this.uniq)
+        console.log("cart2", (this.cart));
+        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty -= 1
 
-          this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
-          console.log(this.cart.total)
+        this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        console.log(this.cart.total)
 
-          // this.uniq.qty = this.uniq.qty+1
-          if (this.qty <= 0) {
-            this.cart.splice(i, 1)
-            this.showMainContent = this.showMainContent ? false : true;
+        // this.uniq.qty = this.uniq.qty+1
+        if (this.qty <= 0) {
+          this.cart.splice(i, 1)
+          this.showMainContent = this.showMainContent ? false : true;
+        }
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+
+        this.cart.forEach(e => {
+          if (e.qty < 1) {
+            this.cart.splice(this.cart.indexOf(e), 1)
           }
-          localStorage.setItem("cart", JSON.stringify(this.cart));
+        });
+        var tQty = 0;
+        this.cart.forEach(e => {
+          tQty += e.qty
+        });
+        this.commonService.changeCount(tQty)
 
-          this.cart.forEach(e => {
-            if(e.qty < 1 ){
-              this.cart.splice(this.cart.indexOf(e),1)
-            }
-          });
-          var tQty = 0;
-          for (i = 0; i < this.cart.length; i++) {
-            tQty += this.cart[i].qty;
-          }
-          this.commonService.changeCount(tQty)
+        flag = true
+        break
 
-          flag = true
-          break
-        
       }
       else {
         console.log("not same")

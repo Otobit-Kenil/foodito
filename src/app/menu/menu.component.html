@@ -1,4 +1,3 @@
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script> -->
 <section>
     <div class="container">
         <div class="menudetail">
@@ -32,7 +31,6 @@
             <div class="specail">
                 <h4> <b>Our Speciality</b></h4>
                 <div class="Sproduct">
-
                     <div class="Sproducts set" *ngFor="let m of detail">
                         <div class="back-sho">
                             <div class="productimg">
@@ -67,16 +65,12 @@
                 </div>
             </div>
 
-
-
             <div class="cate ">
                 <div class="cat_slide">
                     <div class="cate_icon ">
-
                         <div class="cate_icon_title " *ngFor="let c of cate ">
 
                             <img id="myDIV" [ngClass]="{'red': c.isActive === true, 'green': c.isActive === false }" class="cat_slide_img" src="{{c.imgUrl}}" (click)="category(c)" alt=" ">
-
                             <h2>{{c.categoryName}}</h2>
 
                         </div>
@@ -115,6 +109,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="waiter">
                 <div class="waiterIcone">
                     <h2>Call Waiter</h2>

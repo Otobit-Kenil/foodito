@@ -4,7 +4,6 @@ import * as moment from 'moment';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { CommonService } from '../services/common.service';
 
-
 @Component({
   selector: 'app-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
@@ -16,8 +15,6 @@ export class ConfirmationDialogComponent implements OnInit {
 
   constructor(public dailogRef: MatDialogRef<ConfirmationDialogComponent>, db: AngularFirestore, public commonService: CommonService ) { 
     this.dbnew = db;
-
-
   }
 
   ngOnInit() {
@@ -25,7 +22,6 @@ export class ConfirmationDialogComponent implements OnInit {
       console.log(res);
       this.tableNo = res;
     });
-
   }
 
   close(){
@@ -45,6 +41,5 @@ export class ConfirmationDialogComponent implements OnInit {
     })
 
     this.dailogRef.close();
-
   }
 }

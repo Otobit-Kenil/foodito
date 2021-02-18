@@ -33,13 +33,11 @@ export class CartComponent implements OnInit {
   sNote: string = '';
   Name: string = "";
   Mobile: string = "";
-  status:boolean;
+  status: boolean;
 
 
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef, private commonService: CommonService, private modalService: NgbModal) {
     this.dbnew = db;
-
-    
 
     this.razorpayService
       .lazyLoadLibrary('https://checkout.razorpay.com/v1/checkout.js')
@@ -61,9 +59,8 @@ export class CartComponent implements OnInit {
 
   }
 
-  
-  ngOnInit() {
 
+  ngOnInit() {
 
     this.cart = JSON.parse(localStorage.getItem('cart') || '[]');
     console.log(this.cart);
@@ -72,13 +69,13 @@ export class CartComponent implements OnInit {
       console.log(this.msg)
       this.status = false;
     }
-    else{
-         
-    this.cart.forEach(e => {
-      if(e.qty < 1 ){
-        this.cart.splice(this.cart.indexOf(e),1)
-      }
-    });
+    else {
+
+      this.cart.forEach(e => {
+        if (e.qty < 1) {
+          this.cart.splice(this.cart.indexOf(e), 1)
+        }
+      });
       this.status = true;
     }
 
@@ -101,9 +98,6 @@ export class CartComponent implements OnInit {
     // }
     this.tableNo = JSON.parse(localStorage.getItem('tableno') || '[]');
     console.log(this.tableNo);
-
-
-
     this.cart.forEach((item: any) => {
       this.totalAmt += item.total
     })
@@ -192,12 +186,11 @@ export class CartComponent implements OnInit {
         alert("your cart is empty")
       }
       console.log("added")
-      
+
       localStorage.removeItem('cart');
       localStorage.removeItem('product');
       var tQty = 0;
       this.commonService.changeCount(tQty)
- 
       this.cart.length = 0;
       this.router.navigateByUrl('/cart')
 
@@ -210,7 +203,6 @@ export class CartComponent implements OnInit {
 
   Place(item: string) {
     this.sNote = item;
-
   }
 
   name(name: string) {
@@ -220,7 +212,6 @@ export class CartComponent implements OnInit {
 
   mobile(mobile: string) {
     this.Mobile = mobile
-
     this.showContent = true;
     this.showcontent = true;
   }
@@ -244,7 +235,6 @@ export class CartComponent implements OnInit {
       this.showcontent = true;
 
       this.RAZORPAY_OPTIONS.amount = this.totalAmt * 100;
-
       this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
 
       let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
@@ -275,35 +265,31 @@ export class CartComponent implements OnInit {
 
       if (this.uniq.foodId == c.foodId) {
 
-        if (this.uniq.isIndex == c.isIndex) {
+        localStorage.removeItem('cart');
+        console.log(this.uniq.isIndex)
+        console.log(c.isIndex);
 
-          localStorage.removeItem('cart');
-          console.log(this.uniq.isIndex)
-          console.log(c.isIndex);
+        this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
+        console.log(typeof (this.cart[this.cart.indexOf(this.uniq)].price))
+        this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
+        console.log(this.cart.total)
+        console.log(this.cart)
+        console.log(cartItem)
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+        
+        var tQty = 0;
+        this.cart.forEach(e => {
+          tQty += e.qty
+        });
+        this.commonService.changeCount(tQty)
+        this.totalAmt = 0;
+        this.cart.forEach((item: any) => {
+          this.totalAmt += item.total
+        })
 
-          this.qty = this.cart[this.cart.indexOf(this.uniq)].qty += 1
-          console.log(typeof (this.cart[this.cart.indexOf(this.uniq)].price))
-          this.cart[this.cart.indexOf(this.uniq)].total = this.qty * this.cart[this.cart.indexOf(this.uniq)].price
-          console.log(this.cart.total)
-          console.log(this.cart)
-          console.log(cartItem)
-          // this.uniq.qty = this.uniq.qty+1
-          localStorage.setItem("cart", JSON.stringify(this.cart));
-          // window.location.reload();
-          var tQty = 0;
-          for (i = 0; i < this.cart.length; i++) {
-            tQty += this.cart[i].qty;
-          }
+        flag = true
+        break
 
-          this.commonService.changeCount(tQty)
-          this.totalAmt = 0;
-          this.cart.forEach((item: any) => {
-            this.totalAmt += item.total
-          })
-
-          flag = true
-          break
-        }
       }
       else {
         console.log("not same")
@@ -364,7 +350,7 @@ export class CartComponent implements OnInit {
           if (this.qty == 0) {
             this.cart.splice(i, 1)
           }
-          
+
           localStorage.setItem("cart", JSON.stringify(this.cart));
 
           var tQty = 0;
@@ -378,7 +364,7 @@ export class CartComponent implements OnInit {
             this.totalAmt += item.total
           })
           this.commonService.changeCount(tQty)
-        
+
           flag = true
           break
         }
@@ -390,7 +376,7 @@ export class CartComponent implements OnInit {
     }
     if (!flag) {
       this.cart.push(cartItem);
-    
+
       localStorage.setItem("cart", JSON.stringify(this.cart));
       console.log("cart", this.cart);
       var tQty = 0;
@@ -403,11 +389,7 @@ export class CartComponent implements OnInit {
   }
 
   item(c: any) {
-
     localStorage.removeItem("product");
-
-    console.log(c)
-
     localStorage.setItem("product", JSON.stringify(c));
     localStorage.setItem("customize", JSON.stringify(c));
     JSON.parse(localStorage.getItem('product') || '[]');

@@ -29,19 +29,14 @@ export class OrderComponent implements OnInit {
       console.log(" OOrdersss", this.orderHistory);
     localStorage.setItem("orders", JSON.stringify(this.orderHistory));
     })
-   
-    
   } 
 
   ngOnInit() {
 
     this.orderHistory = JSON.parse(localStorage.getItem('orders') || '[]');
-
     this.commonService.responseorderid.subscribe((res) => {
       this.orders = res;
       console.log(this.orders);
     })
- 
-    
   }
 }

@@ -16,11 +16,10 @@ export class HeaderComponent implements OnInit {
 
     this.commonService.changeCount(this.cart.length)
     this.commonService.responsetable.subscribe((res) => {
-      console.log(res);
       this.tableNo = res;
     })
 
-    this.tableNo =  JSON.parse(localStorage.getItem('tableno')|| '[]');
+    this.tableNo = JSON.parse(localStorage.getItem('tableno') || '[]');
     this.commonService.getTableNum(this.tableNo)
   }
 
@@ -29,12 +28,10 @@ export class HeaderComponent implements OnInit {
       console.log(res);
       this.badgeCount = res;
     })
-
   }
 
-menu(){
-  this.router.navigateByUrl(`/menu/${this.tableNo}`);
-
-}
+  menu() {
+    this.router.navigateByUrl(`/menu/${this.tableNo}`);
+  }
 
 }

@@ -127,7 +127,7 @@ export class MenuComponent implements OnInit {
       this.commonService.changeCount(tQty)
 
       this.detail = [];          // for specail item panel 
-      this.menu.forEach((item: any) => {
+      this.finalsearch.forEach((item: any) => {
         if (item.isSpecial == true) {
           this.detail.push(item)
         }
@@ -266,6 +266,8 @@ export class MenuComponent implements OnInit {
   }
 
   Pluss(m: any) {
+    localStorage.removeItem("product");
+    localStorage.setItem("product", JSON.stringify(m));
     this.router.navigateByUrl('/food');
   }
 

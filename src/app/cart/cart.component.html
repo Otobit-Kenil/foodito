@@ -8,7 +8,17 @@
                     <div class="productimg">
                         <img src="{{c.imageUrl}}" alt="">
                     </div>
-                    <div class="pro-detail">
+                    <div class="pro-detail" *ngIf="c.showcustomization">
+                        <h3>{{c.foodName}}</h3>
+                        <div style="display: flex;">
+                            <div *ngFor="let n of c.name | slice:0:2">
+                                <h4>{{n}} &nbsp;</h4>
+                            </div>
+                        </div>
+                        <h3> ₹ {{c.total}} </h3>
+                        <!-- <h5>{{c.qty}}</h5> -->
+                    </div>
+                    <div class="pro-detail" *ngIf="c.showcustomization == false">
                         <h3>{{c.foodName}}</h3>
                         <h4>{{c.description}}</h4>
                         <h3> ₹ {{c.total}} </h3>
@@ -36,7 +46,7 @@
 
                 <div class="Request">
                     <div class="service_req_note">
-                        <textarea (keyup)=Place($event.target.value) rows="5" cols="43" name="notes" placeholder="Enter Your Specail Request" value=""></textarea>
+                        <textarea (keyup)=Place($event.target.value) rows="5" cols="43" name="notes" placeholder="Enter Your Special Request" value=""></textarea>
                     </div>
                 </div>
 

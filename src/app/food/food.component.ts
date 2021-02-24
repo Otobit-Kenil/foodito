@@ -32,6 +32,7 @@ export class FoodComponent implements OnInit {
   customize: any = [];
   status: boolean;
   tableNo: any;
+  extraingrideintName: any[]=[];
 
   constructor(private router: Router, db: AngularFirestore, private commonService: CommonService) {
     db.collection('Ingredients').valueChanges().subscribe((res) => {
@@ -183,6 +184,7 @@ export class FoodComponent implements OnInit {
       "isStatus": "prepare",
       "isCustomize": f.isCustomize,
       "showcustomization": f.showcustomization,
+      "name":this.extraingrideintName,
 
     };
     var flag = false;
@@ -272,6 +274,12 @@ export class FoodComponent implements OnInit {
     input.checked == true
       ? this.optingridient[this.optingridient.findIndex((x: { ingredientId: any; }) => x.ingredientId == i.ingredientId)].isActive = true
       : this.optingridient[this.optingridient.findIndex((x: { ingredientId: any; }) => x.ingredientId == i.ingredientId)].isActive = false
+
+      input.checked == true
+      ? this.extraingrideintName.push(this.optingridient[this.optingridient.findIndex((x: { ingredientId: any; }) => x.ingredientId == i.ingredientId)].ingredient)
+      : this.extraingrideintName.splice(this.extraingrideintName.findIndex((x: { ingredientId: any; }) => x == i.ingredient),1)
+      console.log(this.extraingrideintName);
+      
 
 
     console.log("Extra", this.optingridient)

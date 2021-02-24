@@ -181,17 +181,21 @@ export class CartComponent implements OnInit {
           console.error("Error adding document: ", error);
         });
         call.storeid(this.Mobile)
+        this.cart.length = 0;
+        this.status = false;
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+
+        localStorage.removeItem('product');
       }
       else {
         alert("your cart is empty")
       }
       console.log("added")
 
-      localStorage.removeItem('cart');
-      localStorage.removeItem('product');
       var tQty = 0;
       this.commonService.changeCount(tQty)
       this.cart.length = 0;
+      this.msg = 'Your Cart is Empty'
       this.router.navigateByUrl('/cart')
 
     }

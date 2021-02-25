@@ -4,7 +4,7 @@ import { environment } from '../../environments/environment'
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
-import { type } from 'os';
+
 
 
 

@@ -1,0 +1,53 @@
+<div class="container">
+
+    <div class="card_title">
+        <h3>Credit/Debit Card Payment</h3>
+    </div>
+    <div class="cardimg">
+        <img src="../../assets/card.png">
+    </div>
+
+    <div class="service_req">
+        <h4>Card Number</h4><br>
+        <div class="search">
+            <input type="text" (keyup)=cardnum($event.target.value) maxlength="19" type="tel" name="name" placeholder="Card Number" value="{{this.cardNum}}">
+        </div>
+    </div>
+
+    <div class="detail">
+
+        <div class="row">
+            <div class="col-6">
+                <div class="service_req">
+                    <h4>Expiry Date</h4><br>
+                    <div class="monthsearch">
+                        <input type="text" (keyup)=Month($event.target.value) pattern="\d[01-12]" maxlength="2" size="2" name="name" placeholder="MM" value="">
+                        <span>/</span>
+                        <input type="text" (keyup)=Year($event.target.value) name="name" maxlength="2" size="2" placeholder="YY" value="">
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="service_req">
+                    <h4>Card CVV</h4><br>
+                    <div class="cvvsearch">
+                        <input type="text" (keyup)=Cvv($event.target.value) name="name" maxlength="3" placeholder="CVV" value="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="service_req">
+            <h4>Card Holder Name</h4><br>
+            <div class="search">
+                <input type="text" (keyup)=Placeholder($event.target.value) maxlength="16" type="tel" name="name" placeholder="Card Holder Name" value="">
+            </div>
+        </div>
+
+
+        <div class="ADD">
+            <button (click)="Makepayment()">Pay ($ {{totalAmt}})</button>
+        </div>
+    </div>

@@ -14,7 +14,9 @@ export const environment = {
   messagingSenderId: "761093230137",
   appId: "1:761093230137:web:a54903bc6d48000b9307e8",
   measurementId: "G-TBCBPDD71P"
-  }
+  },
+
+  baseUrl: 'https://stripenodefoodito.herokuapp.com/'
 };
 
 /*

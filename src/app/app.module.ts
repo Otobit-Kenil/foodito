@@ -17,6 +17,9 @@ import { FoodComponent } from './food/food.component';
 import { CommonService } from './services/common.service';  
 import {  MatDialogModule} from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { CardComponent } from './card/card.component';
+import { HttpClientModule } from '@angular/common/http';
+
 // import {ConfirmationDialogComponent} from './menu/confirmation-dialog.component';
 
 
@@ -41,7 +44,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     CartComponent,
     OrderComponent,
     FoodComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CardComponent
 
   ],
   imports: [
@@ -54,6 +58,7 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     BrowserAnimationsModule,
     MatAutocompleteModule,
     MatDialogModule,
+    HttpClientModule,
     // MaterialModule,
 
 

@@ -18,7 +18,7 @@ export class OrderComponent implements OnInit {
     db.collection('Orders').valueChanges().subscribe((res) => {
       this.orderHistory.length = 0;
       res.forEach((orders: any) => {
-        if (orders.Mobile == this.orders && orders.DocId != null && orders.isCompleted == false) {
+        if (orders.Email == this.orders && orders.DocId != null && orders.isCompleted == false) {
 
           this.orderHistory.push(orders)
           this.orderHistory.sort(function (a, b) {

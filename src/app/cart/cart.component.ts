@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { ExternalLibraryService } from './razorService';
 import { CommonService } from '../services/common.service';
+import { environment } from '../../environments/environment'
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -31,32 +32,23 @@ export class CartComponent implements OnInit {
   msg: string = '';
   num: number = 0;
   sNote: string = '';
-  Name: string = "";
-  Mobile: string = "";
+  fName: string = "";
+  lName: string = "";
+  Email: string = "";
+  id: any;
+  resp: any;
+  baseUrl = environment.baseUrl;
+  data: object = {};
   status: boolean;
 
 
   constructor(db: AngularFirestore, private router: Router, private razorpayService: ExternalLibraryService, private cd: ChangeDetectorRef, private commonService: CommonService, private modalService: NgbModal) {
     this.dbnew = db;
 
-    this.razorpayService
-      .lazyLoadLibrary('https://checkout.razorpay.com/v1/checkout.js')
-      .subscribe();
-  }
+    this.cart.forEach((element: { isAprove: boolean }) => {        // for highlight border around cate icon 
+      element.isAprove = false
 
-  openVerticallyCentered(content: any) {
-    this.modalService.open(content, { centered: true });
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-
+    });
   }
 
 
@@ -91,132 +83,93 @@ export class CartComponent implements OnInit {
     console.log(this.totalAmt)
   }
 
-  RAZORPAY_OPTIONS = {
-    "key": "rzp_test_LkGyvMQnSFDTBu",
-    "amount": this.num,
-    "name": "Foodito",
-    "currency": "INR",
-    "order_id": "",
-    "description": "Load Wallet",
-    "image": "https://strathmorehotels-theroyaloban.com/wp-content/uploads/2019/05/Dinning-Discount.png",
-    "prefill": {
-      "name": "Foodito",
-      "email": "test@test.com",
-      "contact": "9999999990",
-      "method": ""
-    },
-    "handler": function (response: any) {
-      alert(response.razorpay_payment_id);
-    },
-    "modal": {},
-    "theme": {
-      "color": "#1B2845"
-    }
-  };
+
+  backup() {
 
 
-  public razorPaySuccessHandler(response: any) {
-    console.log(response);
+    var time = moment().format('h:mm a');
+    var date = moment().format('DD/MM/YY');
 
-    if (response.razorpay_payment_id != "") {
+    var id;
+    if (this.cart.length > 0) {
 
-      this.cart.forEach((element: { isAprove: boolean }) => {        // for highlight border around cate icon 
-        element.isAprove = false
+      var orderId = Date.now()
+      var sendorder = this.dbnew.collection('Orders')
+      var call = this.commonService
+      sendorder.add({
+        orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt,
+        Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null,
+        isCompleted: false,
+      }).then(function (docRef: any) {
+        let inter = setInterval(() => {
 
+          id = docRef.id
+
+          if (id != undefined) {
+            console.log(id)
+            sendorder.doc(id).update({ DocId: id })
+            clearInterval(inter);
+          }
+        }, 10);
+
+      }).catch(function (error: any) {
+        console.error("Error adding document: ", error);
       });
-
-      console.log(this.cart);
-
-      var time = moment().format('h:mm a');
-      var date = moment().format('DD/MM/YY');
-
-      var id;
-      if (this.cart.length > 0 && this.Mobile != "") {
-
-        var orderId = Date.now()
-        var sendorder = this.dbnew.collection('Orders')
-        var call = this.commonService
-        sendorder.add({
-          orderId: orderId, order: this.cart, table: this.tableNo, Total: this.totalAmt,
-          Time: time, Date: date, isApprove: false, specialNote: this.sNote, DocId: null,
-          Name: this.Name, Mobile: this.Mobile, isCompleted: false,
-        }).then(function (docRef: any) {
-          let inter = setInterval(() => {
-
-            id = docRef.id
-
-            if (id != undefined) {
-              console.log(id)
-              sendorder.doc(id).update({ DocId: id })
-              clearInterval(inter);
-            }
-          }, 10);
-
-        }).catch(function (error: any) {
-          console.error("Error adding document: ", error);
-        });
-        call.storeid(this.Mobile)
-        this.cart.length = 0;
-        this.status = false;
-        localStorage.setItem("cart", JSON.stringify(this.cart));
-
-        localStorage.removeItem('product');
-      }
-      else {
-        alert("your cart is empty")
-      }
-      console.log("added")
-
-      var tQty = 0;
-      this.commonService.changeCount(tQty)
+      // call.storeid(this.Mobile)
       this.cart.length = 0;
-      this.msg = 'Your Cart is Empty'
-      this.router.navigateByUrl('/cart')
+      this.status = false;
+      localStorage.setItem("cart", JSON.stringify(this.cart));
 
+      localStorage.removeItem('product');
     }
-    this.razorpayResponse = `Razorpay Response`;
-    this.showModal = true;
-    this.cd.detectChanges()
+    else {
+      alert("your cart is empty")
+    }
+    console.log("added")
+
+    var tQty = 0;
+    this.commonService.changeCount(tQty)
+    this.cart.length = 0;
+    this.msg = 'Your Cart is Empty'
+    this.router.navigateByUrl('/cart')
+
+
   }
 
+  
   Place(item: string) {
     this.sNote = item;
+  } 
+
+  fname(fname: string) {
+    this.fName = fname
   }
 
-  name(name: string) {
-    this.Name = name
-    console.log(this.Name);
+  lname(lname: string) {
+    this.lName = lname
   }
 
-  mobile(mobile: string) {
-    this.Mobile = mobile
-    this.showContent = true;
-    this.showcontent = true;
+  email(email: string) {
+    this.Email = email
   }
+
 
   ConformOrder() {
-
-    if (this.Mobile.length == 0) {
-      this.showContent = false;
-      this.showcontent = true;
+    this.data = {
+      "email": this.Email,
+      "first_name": this.fName,
+      "last_name": this.lName
     }
 
-    if (this.Mobile.length > 0 && this.Mobile.length < 10) {
-      this.showContent = true;
-      this.showcontent = false;
-    }
+    localStorage.removeItem("Email");
+    console.log(this.data);
+    this.commonService.getConfig(this.data).subscribe((resp: any) => {
+      this.id = resp.id
+      this.commonService.getuserid(this.id)
+      console.log("response-1", resp);
+      this.router.navigateByUrl('/card');
+    })
 
-    if (this.Mobile.length == 10) {
-
-      this.showContent = true;
-      this.showcontent = true;
-
-      this.RAZORPAY_OPTIONS.amount = this.totalAmt * 100;
-      this.RAZORPAY_OPTIONS['handler'] = this.razorPaySuccessHandler.bind(this);
-
-      let razorpay = new Razorpay(this.RAZORPAY_OPTIONS)
-      razorpay.open();
-    }
   }
 
   Plus(c: any) {
@@ -253,7 +206,7 @@ export class CartComponent implements OnInit {
         console.log(this.cart)
         console.log(cartItem)
         localStorage.setItem("cart", JSON.stringify(this.cart));
-        
+
         var tQty = 0;
         this.cart.forEach(e => {
           tQty += e.qty

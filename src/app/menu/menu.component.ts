@@ -200,7 +200,7 @@ export class MenuComponent implements OnInit {
         "imageUrl": m.imageUrl,
         "price": parseInt(m.price),
         "Ingredients": m.Ingredients,
-        "total": this.qty * parseInt(m.price),
+        "total": m.qty * parseInt(m.price),
         "description": m.description,
         "moreInfo": m.moreInfo,
         "optional": m.optional,
@@ -336,9 +336,9 @@ export class MenuComponent implements OnInit {
 
   Minus(m: any) {
 
-    if (m.qty <= 1) {
+    if (m.qty == 1) {
       m.isIncrease = false;
-      m.qty = 0;
+      m.qty -= 1
     }
     else {
       m.qty -= 1

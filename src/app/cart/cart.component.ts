@@ -79,36 +79,12 @@ export class CartComponent implements OnInit {
       this.status = true;
     }
 
-    // else {
-
-    //   for (var i = 0; i < this.cart.length; i++) {
-    //     for (var k = i + 1; k < this.cart.length; k++) {
-    //       if (JSON.stringify(this.cart[i]) === JSON.stringify(this.cart[k]) ) {
-    //         console.log("yes");
-
-    //         this.
-    //       }
-    //       else{
-    //         console.log("no");
-
-    //       }
-    //     }
-
-    //   }
-    // }
     this.tableNo = JSON.parse(localStorage.getItem('tableno') || '[]');
     console.log(this.tableNo);
     this.cart.forEach((item: any) => {
       this.totalAmt += item.total
     })
 
-    // for (let i = 0; i < this.cart.length; i++) {
-    //   // this.price.push(this.cart[i].qty*this.cart[i].price)
-    //   this.cart[i].isIndex = i;
-    //   this.totalAmt += this.cart[i].total
-    //   console.log(this.cart[i].total)
-
-    // }
     localStorage.setItem("cart", JSON.stringify(this.cart));
     console.log(this.cart)
     this.num = this.totalAmt * 100
@@ -117,7 +93,6 @@ export class CartComponent implements OnInit {
 
   RAZORPAY_OPTIONS = {
     "key": "rzp_test_LkGyvMQnSFDTBu",
-    // "keySecret": "plReqYFenjeSYL2waLPPwKmy",
     "amount": this.num,
     "name": "Foodito",
     "currency": "INR",
@@ -202,7 +177,6 @@ export class CartComponent implements OnInit {
     this.razorpayResponse = `Razorpay Response`;
     this.showModal = true;
     this.cd.detectChanges()
-    // document.getElementById('razorpay-response').style.display = 'block';
   }
 
   Place(item: string) {
@@ -219,7 +193,6 @@ export class CartComponent implements OnInit {
     this.showContent = true;
     this.showcontent = true;
   }
-
 
   ConformOrder() {
 
@@ -322,8 +295,6 @@ export class CartComponent implements OnInit {
 
   Minus(c: any) {
 
-
-
     const cartItem = {
 
       "foodId": c.foodId,
@@ -354,7 +325,6 @@ export class CartComponent implements OnInit {
           if (this.qty == 0) {
             this.cart.splice(i, 1)
           }
-
           localStorage.setItem("cart", JSON.stringify(this.cart));
 
           var tQty = 0;
@@ -388,7 +358,6 @@ export class CartComponent implements OnInit {
         tQty += this.cart[i].qty;
       }
       this.commonService.changeCount(tQty)
-
     }
   }
 

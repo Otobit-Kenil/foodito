@@ -181,7 +181,7 @@ export class FoodComponent implements OnInit {
       "moreInfo": f.moreInfo,
       "imageUrl": f.imageUrl,
       "isIndex": this.cart.isIndex,
-      "isStatus": "prepare",
+      "isStatus": "Prepare",
       "isCustomize": f.isCustomize,
       "showcustomization": f.showcustomization,
       "name":this.extraingrideintName,

@@ -204,7 +204,7 @@ export class MenuComponent implements OnInit {
         "description": m.description,
         "moreInfo": m.moreInfo,
         "optional": m.optional,
-        "isStatus": "prepare",
+        "isStatus": "Prepare",
         "showcustomization": m.showcustomization,
 
       };

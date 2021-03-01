@@ -10,15 +10,14 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./order.component.css']
 })
 export class OrderComponent implements OnInit {
-  orders: any;
+  order: any;
   public orderHistory: any[] = [];
-  order: any
   dbnew:any
   constructor(public commonService: CommonService, private route: ActivatedRoute, db: AngularFirestore, private router: Router) {
     db.collection('Orders').valueChanges().subscribe((res) => {
-      this.orderHistory.length = 0;
+      this.orderHistory = [];
       res.forEach((orders: any) => {
-        if (orders.Email == this.orders && orders.DocId != null && orders.isCompleted == false) {
+        if (orders.Email == this.order && orders.DocId != null && orders.isCompleted == false) {
 
           this.orderHistory.push(orders)
           this.orderHistory.sort(function (a, b) {
@@ -35,8 +34,9 @@ export class OrderComponent implements OnInit {
 
     this.orderHistory = JSON.parse(localStorage.getItem('orders') || '[]');
     this.commonService.responseorderid.subscribe((res) => {
-      this.orders = res;
-      console.log(this.orders);
+      this.order = res;
+      console.log(this.order);
     })
+
   }
 }

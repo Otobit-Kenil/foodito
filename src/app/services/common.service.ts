@@ -12,7 +12,7 @@ import { retry, catchError } from 'rxjs/internal/operators';
   providedIn: 'root'
 })
 export class CommonService {
-  public orders: any[] = [];
+  public orders: string = "";
   public count: any = 0;
   public ID: any;
   public tablenum: number = 0;
@@ -69,6 +69,7 @@ export class CommonService {
   storeid(data: any) {
 
     this.orderid.next(data)
+    console.log(data)
   }
 
 

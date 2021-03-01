@@ -54,6 +54,7 @@ export class CardComponent implements OnInit {
     console.log(this.cart);
 
     this.tableNo = JSON.parse(localStorage.getItem('tableno') || '[]');
+    this.sNote = JSON.parse(localStorage.getItem('specail_req') || '[]');
 
     this.cart.forEach((item: any) => {
       this.totalAmt += item.total
@@ -178,7 +179,7 @@ export class CardComponent implements OnInit {
          }).catch(function (error: any) {
            console.error("Error adding document: ", error);
          });
-         call.storeid(this.Email)
+         call.storeid(this.email)
          this.cart.length = 0;
          this.status = false;
          localStorage.setItem("cart", JSON.stringify(this.cart));
@@ -198,6 +199,8 @@ export class CardComponent implements OnInit {
    
       }
     })
+
+
   }
 }
 
